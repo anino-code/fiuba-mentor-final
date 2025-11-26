@@ -14,7 +14,7 @@ El diferencial del proyecto es su sistema de **Reputacion (Aura)**:
 * Un perfil con "Aura Alta" destaca en el listado, validando su capacidad académica ante la comunidad.
 
 ### Requisitos Cumplidos
-* **Persistencia:** Base de datos relacional (PostgreSQL) con 3 entidades y relaciones.
+* **Persistencia:** Base de datos relacional (PostgreSQL) con 4 entidades y relaciones.
 * **Arquitectura:** Backend (API REST) y Frontend (Sitio Estático) separados.
 * **Infraestructura:** Despliegue containerizado con Docker Compose.
 * **Metodología:** Uso de Git Flow y Code Reviews.
@@ -25,10 +25,10 @@ El diferencial del proyecto es su sistema de **Reputacion (Aura)**:
 
 | Nombre y Apellido | Legajo | Rol Principal |
 |-------------------|--------|---------------|
-| **Nicolas Gaitan** | 113347 | Dev front- back
-| **Tomas Correa** | 113878 | Dev front- back- Db
-| **Esteban Ordoñez** | 112981 | Dev front- back-Db 
-| **Arleys Camaño** | 114432 | Dev front- back
+| **Nicolas Gaitan** | 113347 Dev front- back
+| **Tomas Correa** | 113878 | Dev front- back
+| **Esteban Ordoñez** | 112981 | Dev front- back 
+| **Arleys Camaño** | 114432 | Dev front- back- Db
 
 
 
@@ -53,10 +53,11 @@ El proyecto utiliza una arquitectura moderna y escalable:
 
 ##  Modelo de Datos
 
-El sistema cuenta con **3 entidades principales** diseñadas para cubrir el ciclo completo de aprendizaje:
+El sistema cuenta con **4 entidades principales** diseñadas para cubrir el ciclo completo de aprendizaje:
 
 1.  **Estudiantes:** Usuarios del sistema con sus datos académicos y puntaje de *Aura*.
 2.  **Publicaciones:** Ofertas ("Enseño") o Demandas ("Busco") de materias específicas.
+3.  **Solicitudes:** Gestión del contacto (Match) entre Mentor y Alumno. Permite aceptar o rechazar la interacción.
 4.  **Reseñas:** Calificación final de la experiencia. Esta entidad cierra el ciclo y dispara la actualización de los puntos de *Aura*.
 
 ##  Instrucciones de Instalación
@@ -94,3 +95,8 @@ Para el desarrollo se utiliza una estrategia de ramas basada en funcionalidades 
 2.  Cada nueva funcionalidad se desarrolla en una rama propia: `feature/nombre-funcionalidad`.
 3.  Se utilizan **Pull Requests (PR)** para integrar cambios.
 4.  Todo PR debe ser revisado y aprobado por al menos un compañero antes del merge.
+
+
+##  Capturas de Pantalla
+
+> Proyecto realizado para la materia **Introducción al Desarrollo de Software** - FIUBA, 2025.
