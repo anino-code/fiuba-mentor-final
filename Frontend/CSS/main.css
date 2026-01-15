@@ -1,4 +1,12 @@
 
-body {
-            background-color: #fcfcfc; 
-        }
+.body {
+        background-color: #fcfcfc; 
+    }
+
+.navbar-fiu{
+        background: transparent;
+    }
+.navbar-bis{
+        flex-grow: 1;
+        justify-content: center;
+    }
