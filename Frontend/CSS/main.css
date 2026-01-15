@@ -10,3 +10,10 @@
         flex-grow: 1;
         justify-content: center;
     }
+.subtitulo-sec{
+            line-height: 1.6;
+        }
+.imagen-port {
+            border-radius: 20px;
+            overflow: hidden;
+        }
