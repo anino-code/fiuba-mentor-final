@@ -46,7 +46,16 @@
 .footer-card{
             border-top: 1px solid #eee;
     }
+.footer-inicio{
+    padding: 30px;
+    display: flex;
+    width: 100%;
 
+}
+.texto-footer{
+    width: 100%;
+    text-align: center;
+}
         
         @media (max-width: 1024px) { .masonry-wrapper { column-count: 3; } }
         @media (max-width: 768px) { .masonry-wrapper { column-count: 2; } }
