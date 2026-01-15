@@ -53,7 +53,7 @@ El proyecto utiliza una arquitectura moderna y escalable:
 
 ##  Modelo de Datos
 
-El sistema cuenta con **4 entidades principales** diseñadas para cubrir el ciclo completo de aprendizaje:
+El sistema cuenta con **3 entidades principales** diseñadas para cubrir el ciclo completo de aprendizaje:
 
 1.  **Estudiantes:** Usuarios del sistema con sus datos académicos y puntaje de *Aura*.
 2.  **Publicaciones:** Ofertas ("Enseño") o Demandas ("Busco") de materias específicas.
