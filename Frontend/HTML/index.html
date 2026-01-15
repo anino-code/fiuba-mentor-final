@@ -2,13 +2,72 @@
 <html>
     
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="CSS/main.css"/>
-        <title>FIUBA Mentor</title>
-
-    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIUBA Mentor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/main.css">
+</head>
     <body>
-        
+        <nav class="navbar is-spaced navbar-fiu" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="#">
+                    FIUBA Mentor
+                </a>
+            </div>
+            <div class="navbar-menu">
+                <div class="navbar-start navbar-bis" >
+                    <a class="navbar-item has-text-weight-medium">Inicio</a>
+                    <a class="navbar-item has-text-weight-medium">Solicitud</a>
+                    <a class="navbar-item has-text-weight-medium">Perfil</a>
+                </div>
+            </div>
+            <button class="button is-link is-medium is-rounded mt-4 px-6">
+                        Crear Perfil
+            </button>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-vcentered">
+                <div class="column is-5">
+                    <p class="has-text-info has-text-weight-bold mb-2 is-size-7 is-uppercase">Educación Colaborativa</p>
+                    <h1 class="title is-size-1 has-text-weight-bold has-text-grey-darker">
+                        Donde el conocimiento genera Aura.
+                    </h1>
+                    <p class="subtitle is-size-5 has-text-grey mt-4 subtitulo-sec" >
+                        Encontrá mentores en la FIUBA, resolvé tus dudas y ganá reputación ayudando a otros compañeros. Crea tu perfil para hacer tu solicitud.
+                    </p>
+                    <button class="button is-link is-medium is-rounded mt-4 px-6">
+                        Crear nueva solicitud
+                    </button>
+                </div>
+                <div class="column is-7">
+                    <figure class="image is-2by1 imagen-port">
+                        <img src="https://cms.fi.uba.ar/uploads/medium_ingenieria_008_9470679a57.jpg" alt="Hero Image">
+                    </figure>
+                </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="masonry-wrapper" id="grid-tarjetas">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inicio">
+            <p class="texto-footer">
+                <strong>FIUBA Mentor</strong> copywriting 2026.
+            </p>
+        </div>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/main.js"></script>
     </body>
 </html>
