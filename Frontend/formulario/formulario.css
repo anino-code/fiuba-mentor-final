@@ -1,10 +1,18 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 40px;
   background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee, #84fab0, #8fd3f4);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes gradientBG {
@@ -15,7 +23,7 @@ body {
 
 .card-form {
   max-width: 450px;
-  margin: auto;
+  width: 90%;
   padding: 25px;
   background: white;
   border-radius: 16px;
@@ -24,7 +32,6 @@ body {
   flex-direction: column;
   gap: 15px;
 }
-
 
 .titulo-form {
   text-align: center;
@@ -55,7 +62,6 @@ input:focus, textarea:focus {
   box-shadow: 0 0 5px rgba(50,115,220,0.3);
 }
 
-
 button {
   padding: 12px;
   background: linear-gradient(to right, #ff512f, #dd2476);
@@ -76,8 +82,8 @@ button:hover {
   padding: 12px;
   border-radius: 8px;
   text-align: center;
-  background: #d4edda; 
-  color: #155724;        
+  background: #d4edda;
+  color: #155724;
   border: 1px solid #c3e6cb;
   display: none;
 }

@@ -59,20 +59,4 @@ function renderizarSugerencias(lista) {
   lista.forEach(usuario => {
     html += `
       <a class="custom-dropdown-item" 
-         onclick="seleccionarUsuario('${usuario.id}', '${usuario.nombre}')">
-         <strong>${usuario.nombre}</strong> <br>
-         <small class="has-text-grey">${usuario.email}</small>
-      </a>
-    `;
-  });
-
-  listaSugerencias.innerHTML = html;
-  listaSugerencias.style.display = 'block';
-}
-
-function seleccionarUsuario(id, nombre) {
-  inputBuscador.value = nombre;
-  inputOcultoId.value = id;
-  listaSugerencias.style.display = 'none';
-}
-
+         onclick="seleccionarUsuario('${usuario.id}', '${usuario.nombre
