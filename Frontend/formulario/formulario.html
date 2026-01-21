@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Solicitud</title>
+  <link rel="stylesheet" href="formulario.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="card-form">
+    <h1 class="titulo-form">Formulario de Solicitud</h1>
+    <form id="solicitudForm">
+      
+      <div class="field position-relative">
+        <label class="label-gradient">Remitente (Seleccionar Perfil)</label>
+        <div class="control has-icons-left has-icons-right">
+          <input 
+            class="input" 
+            type="text" 
+            id="input-buscador-remitente" 
+            placeholder="Escribe para buscar (ej: Juan, Tomas...)" 
+            autocomplete="off"
+          >
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+          <span class="icon is-small is-right" id="icono-loading" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i>
+          </span>
+        </div>
+        <div id="lista-sugerencias" class="dropdown-content custom-dropdown-list"></div>
+        <input type="hidden" id="input-remitente-id" name="remitente_id">
+      </div>
+
+      <label for="materia" class="label-gradient">Nombre de la materia</label>
+      <input type="text" id="materia" name="materia" required>
+
+      <label for="tema" class="label-gradient">Tema</label>
+      <input type="text" id="tema" name="tema" required>
+
+      <label for="descripcion" class="label-gradient">Descripción</label>
+      <textarea id="descripcion" name="descripcion" required></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+
+    <div id="mensajeExito">¡Solicitud enviada correctamente!</div>
+  </div>
+
+  <script src="formulario.js"></script>
+</body>
+</html>
+
