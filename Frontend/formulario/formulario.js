@@ -12,7 +12,7 @@ const inputBuscador = document.getElementById('input-buscador-remitente');
 const listaSugerencias = document.getElementById('lista-sugerencias');
 const inputOcultoId = document.getElementById('input-remitente-id');
 
-form.addEventListener('submit', function(event) {
+form.addEventListener('submit', async function(event) {
   event.preventDefault();
 
   const materia = form.materia.value.trim();
@@ -25,11 +25,35 @@ form.addEventListener('submit', function(event) {
     return;
   }
 
-  mensajeExito.style.display = "block";
+  const datos = {
+    remitente_id: remitenteId,
+    materia: materia,
+    tema: tema,
+    descripcion: descripcion
+  };
 
-  form.reset();
-  inputBuscador.value = "";
-  inputOcultoId.value = "";
+  try {
+    const respuesta = await fetch('http://localhost:3000/api/solicitudes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos)
+    });
+
+    const resultado = await respuesta.json();
+
+    if (resultado.success) {
+      mensajeExito.style.display = "block";
+      mensajeExito.textContent = resultado.message;
+      form.reset();
+      inputBuscador.value = "";
+      inputOcultoId.value = "";
+    } else {
+      alert("Hubo un problema al enviar la solicitud.");
+    }
+  } catch (error) {
+    console.error("Error al enviar:", error);
+    alert("Error de conexión con el servidor.");
+  }
 });
 
 inputBuscador.addEventListener('input', function() {
@@ -59,4 +83,20 @@ function renderizarSugerencias(lista) {
   lista.forEach(usuario => {
     html += `
       <a class="custom-dropdown-item" 
-         onclick="seleccionarUsuario('${usuario.id}', '${usuario.nombre
+         onclick="seleccionarUsuario('${usuario.id}', '${usuario.nombre}')">
+         <strong>${usuario.nombre}</strong> <br>
+         <small class="has-text-grey">${usuario.email}</small>
+      </a>
+    `;
+  });
+
+  listaSugerencias.innerHTML = html;
+  listaSugerencias.style.display = 'block';
+}
+
+function seleccionarUsuario(id, nombre) {
+  inputBuscador.value = nombre;
+  inputOcultoId.value = id;
+  listaSugerencias.style.display = 'none';
+}
+
