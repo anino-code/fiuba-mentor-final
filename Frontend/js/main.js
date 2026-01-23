@@ -1,4 +1,4 @@
-const grid = document.getElementById('grid-tarjetas');
+const cardContainer = document.getElementById('grid-tarjetas');
 
 
 async function cargarCard() {
@@ -6,24 +6,28 @@ async function cargarCard() {
     try{
     cardContainer.innerHTML = '<p>Cargando datos del servidor simulado...</p>';
 
-    const response = await fetch('Frontend/js/data/data.json');
+    const response = await fetch('../js/data/data.json');
 
     if(!response.ok){
         throw new Error('No se pudo conectar con el servidor');
     }
     const datos = await response.json();
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     renderizarCards(datos);
 
     } catch (error){
         console.error("Error critico: ", error);
-        cardContainer.innerHTML = `<p style = "color:red"> Error al cargar los datos: ${error.messege}</p>`;
+        cardContainer.innerHTML = `<p style = "color:red"> Error al cargar los datos: ${error.message}</p>`;
 
     }
 }
 
-        publicaciones.forEach(pub => {
+
+function renderizarCards(publicaciones){
+    cardContainer.innerHTML = ' ';
+
+    publicaciones.forEach(pub => {
             const cardHTML = `
                 <div class="masonry-item">
                     <div class="card">
@@ -57,5 +61,8 @@ async function cargarCard() {
                     </div>
                 </div>
             `;
-            grid.innerHTML += cardHTML;
+                cardContainer.innerHTML += cardHTML;
         });
+}
+
+cargarCard();
