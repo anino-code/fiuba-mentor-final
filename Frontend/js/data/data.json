@@ -42,5 +42,32 @@
                 "desc": "Preparación intensiva para final. Resúmenes propios.",
                 "img": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&auto=format&fit=crop&q=60", 
                 "avatar": "https://randomuser.me/api/portraits/men/11.jpg"
+            },
+            {
+                "id":6,
+                "materia": "Química",
+                "mentor": "Pedro A.",
+                "titulo": "Termodinámica",
+                "desc": "Preparación intensiva para final. Resúmenes propios.",
+                "img": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&auto=format&fit=crop&q=60", 
+                "avatar": "https://randomuser.me/api/portraits/men/11.jpg"
+            },
+            {
+                "id":7,
+                "materia": "Química",
+                "mentor": "Pedro A.",
+                "titulo": "Termodinámica",
+                "desc": "Preparación intensiva para final. Resúmenes propios.",
+                "img": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&auto=format&fit=crop&q=60", 
+                "avatar": "https://randomuser.me/api/portraits/men/11.jpg"
+            },
+            {
+                "id":8,
+                "materia": "Química",
+                "mentor": "Pedro A.",
+                "titulo": "Termodinámica",
+                "desc": "Preparación intensiva para final. Resúmenes propios.",
+                "img": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&auto=format&fit=crop&q=60", 
+                "avatar": "https://randomuser.me/api/portraits/men/11.jpg"
             }
         ]
