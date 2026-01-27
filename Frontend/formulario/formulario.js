@@ -12,6 +12,11 @@ const inputBuscador = document.getElementById('input-buscador-remitente');
 const listaSugerencias = document.getElementById('lista-sugerencias');
 const inputOcultoId = document.getElementById('input-remitente-id');
 
+// Función que verifica que se escriba almenos una letra
+function contieneLetra(texto) {
+  return /[a-zA-Z]/.test(texto);
+}
+
 form.addEventListener('submit', async function(event) {
   event.preventDefault();
 
@@ -19,9 +24,15 @@ form.addEventListener('submit', async function(event) {
   const tema = form.tema.value.trim();
   const descripcion = form.descripcion.value.trim();
   const remitenteId = inputOcultoId.value;
+  const tipoPost = form.tipo_post.value;
 
-  if (!materia || !tema || !descripcion || !remitenteId) {
-    alert("Por favor completa todos los campos y selecciona un remitente.");
+  if (!materia || !tema || !descripcion || !remitenteId || !tipoPost) {
+    alert("Por favor completa todos los campos, selecciona remitente y tipo de post.");
+    return;
+  }
+
+  if (!contieneLetra(materia) || !contieneLetra(tema) || !contieneLetra(descripcion)) {
+    alert("Cada campo debe contener al menos una letra (no solo números).");
     return;
   }
 
@@ -29,7 +40,8 @@ form.addEventListener('submit', async function(event) {
     remitente_id: remitenteId,
     materia: materia,
     tema: tema,
-    descripcion: descripcion
+    descripcion: descripcion,
+    tipo_post: tipoPost
   };
 
   try {
@@ -43,7 +55,7 @@ form.addEventListener('submit', async function(event) {
 
     if (resultado.success) {
       mensajeExito.style.display = "block";
-      mensajeExito.textContent = resultado.message;
+      mensajeExito.textContent = resultado.message || "¡Solicitud enviada correctamente!";
       form.reset();
       inputBuscador.value = "";
       inputOcultoId.value = "";
@@ -99,4 +111,3 @@ function seleccionarUsuario(id, nombre) {
   inputOcultoId.value = id;
   listaSugerencias.style.display = 'none';
 }
-
