@@ -31,47 +31,67 @@
   </nav>
 
   <section class="section">
-    <div class="container">
-      <div class="card-form">
-        <h1 class="titulo-form">Formulario de Solicitud</h1>
-        <form id="solicitudForm">
-          <div class="field position-relative">
-            <label class="label-gradient">Remitente (Seleccionar Perfil)</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input" type="text" id="input-buscador-remitente"
-                     placeholder="Escribe para buscar (ej: Juan, Tomas...)" autocomplete="off">
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-              <span class="icon is-small is-right" id="icono-loading" style="display: none;">
-                <i class="fas fa-spinner fa-spin"></i>
-              </span>
+    <div class="container columns">
+      <div class="column is-half">
+        <div class="card-form">
+          <h1 class="titulo-form">Formulario de Solicitud</h1>
+          <form id="solicitudForm">
+            <div class="field position-relative">
+              <label class="label-gradient">Remitente (Seleccionar Perfil)</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="text" id="input-buscador-remitente"
+                       placeholder="Escribe para buscar (ej: Juan, Tomas...)" autocomplete="off">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+                <span class="icon is-small is-right" id="icono-loading" style="display: none;">
+                  <i class="fas fa-spinner fa-spin"></i>
+                </span>
+              </div>
+              <div id="lista-sugerencias" class="dropdown-content custom-dropdown-list"></div>
+              <input type="hidden" id="input-remitente-id" name="remitente_id">
             </div>
-            <div id="lista-sugerencias" class="dropdown-content custom-dropdown-list"></div>
-            <input type="hidden" id="input-remitente-id" name="remitente_id">
-          </div>
 
-          <div class="field">
-            <label for="materia" class="label-gradient">Nombre de la materia</label>
-            <input class="input" type="text" id="materia" name="materia" required>
-          </div>
+            <div class="field">
+              <label for="materia" class="label-gradient">Nombre de la materia</label>
+              <input class="input" type="text" id="materia" name="materia" required>
+            </div>
 
-          <div class="field">
-            <label for="tema" class="label-gradient">Tema</label>
-            <input class="input" type="text" id="tema" name="tema" required>
-          </div>
+            <div class="field">
+              <label for="tema" class="label-gradient">Tema</label>
+              <input class="input" type="text" id="tema" name="tema" required>
+            </div>
 
-          <div class="field">
-            <label for="descripcion" class="label-gradient">Descripción</label>
-            <textarea class="textarea" id="descripcion" name="descripcion" required></textarea>
-          </div>
+            <div class="field">
+              <label for="descripcion" class="label-gradient">Descripción</label>
+              <textarea class="textarea" id="descripcion" name="descripcion" required></textarea>
+            </div>
 
-          <div class="field">
-            <button type="submit" class="button is-link is-fullwidth is-rounded">Enviar</button>
-          </div>
-        </form>
+            <div class="field">
+              <label for="tipo_post" class="label-gradient">Tipo de post</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="tipo_post" name="tipo_post" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="mentor">Mentor</option>
+                    <option value="solicitante">Solicitante</option>
+                  </select>
+                </div>
+              </div>
+            </div>
 
-        <div id="mensajeExito">¡Solicitud enviada correctamente!</div>
+            <div class="field">
+              <button type="submit" class="button is-link is-fullwidth is-rounded">Enviar</button>
+            </div>
+          </form>
+
+          <div id="mensajeExito">¡Solicitud enviada correctamente!</div>
+        </div>
+      </div>
+
+      <div class="column is-half has-text-centered">
+        <img src="https://cms.fi.uba.ar/uploads/large_Galeria_PC_06_931d95ba80.jpg" alt="Imagen ilustrativa"
+             class="imagen-lateral">
       </div>
     </div>
   </section>

@@ -20,9 +20,9 @@
 
 .titulo-form {
   text-align: center;
-  font-size: 1.6em;
+  font-size: 2.2em;
   font-weight: bold;
-  color: #363636;
+  color: #3273dc;
   margin-bottom: 1rem;
 }
 
@@ -33,7 +33,7 @@
   display: block;
 }
 
-input, textarea {
+input, textarea, select {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
@@ -44,7 +44,7 @@ input, textarea {
   font-size: 1rem;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
   border-color: #3273dc;
   background-color: #ffffff;
   box-shadow: 0 0 5px rgba(50,115,220,0.3);
@@ -109,3 +109,21 @@ input:focus, textarea:focus {
   background-color: #f5f5f5;
   color: #3273dc;
 }
+
+.navbar-fiu {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.imagen-lateral {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagen-lateral:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.45);
+}
+
