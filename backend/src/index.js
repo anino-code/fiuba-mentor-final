@@ -64,6 +64,32 @@ app.put("/users/:id_user", (req, res) => {
 
 });
 
+//GET. /REVIEWS
+app.get("/reviews", (req, res) => {
+
+});
+
+//GET. /REVIEWS/<NOMBRE>
+app.get("/reviews/:id_review", (req, res) => {
+
+});
+
+//POST. /REVIEWS
+app.post("/reviews", (req, res) => {
+
+});
+
+
+//DELETE. /REVIEWS/<NOMBRE>
+app.delete("/reviews/:id_review", (req, res) => {
+
+});
+
+//si uso pathch no necesito mandarle todo para actualizar, con put si
+//PUT. /REVIEWS/<NOMBRE>
+app.put("/reviews/:id_review", (req, res) => {
+
+});
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
