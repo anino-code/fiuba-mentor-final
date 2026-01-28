@@ -24,11 +24,98 @@ async function cargarCard() {
 }
 
 
+cardContainer.addEventListener('click', (e) => {
+
+    const btnAura = e.target.closest('.btn-aura');
+    if (btnAura) {
+        const id = btnAura.dataset.id;
+        manejarAura(id, btnAura);
+    }
+
+        
+    
+    const btnContactar = e.target.closest('.btn-contactar');
+    if (btnContactar) {
+        const id = btnContactar.dataset.id;
+        manejarContacto(id);
+    }
+
+    
+});
+
+async function manejarContacto(id) {
+    try {
+        console.log(` Conectando con base de datos para buscar ID: ${id}...`);
+
+        const response = await fetch('../js/data/data.json'); 
+        
+        if (!response.ok) throw new Error("No se pudo leer el archivo de datos");
+
+        const listaMentores = await response.json();
+
+        const contacto = listaMentores.find(item => item.id === Number(id));
+
+        if (!contacto) {
+            throw new Error(`No se encontró información para el ID ${id}`);
+        }
+
+        const mensaje = `
+        CONTACTO RECIBIDO DE DATA.JSON:
+        -------------------------------
+        Mentor: ${contacto.mentor}
+        Materia: ${contacto.materia}
+        Email: ${contacto.email || "No especificado"}
+        
+        `;
+
+        alert(mensaje);
+
+    } catch (error) {
+        console.error("Error de lógica:", error);
+        alert("Hubo un error al intentar contactar al mentor.");
+    }
+}
+
+async function manejarAura(id, boton) {
+    
+    boton.classList.add('is-loading');
+    boton.disabled = true;
+
+    try {
+        
+        await new Promise(r => setTimeout(r, 800)); 
+        
+        
+        const tagAura = document.getElementById(`aura-tag-${id}`);
+        
+        let valorActual = parseInt(tagAura.innerText.split('+')[1]);
+        let nuevoValor = valorActual + 10;
+
+
+        tagAura.innerText = `Aura +${nuevoValor}`;
+        tagAura.classList.remove('is-light'); 
+        tagAura.classList.add('is-warning');
+
+    } catch (error) {
+        console.error("Error al dar aura", error);
+    } finally {
+        
+        boton.classList.remove('is-loading');
+        boton.disabled = false;
+    }
+}
+
+
+
+
 function renderizarCards(publicaciones){
     cardContainer.innerHTML = ' ';
 
+    let htmlAcomulado ='';
+
     publicaciones.forEach(pub => {
-            const cardHTML = `
+
+            htmlAcomulado += `
                 <div class="masonry-item">
                     <div class="card">
                         <div class="card-image">
@@ -43,6 +130,13 @@ function renderizarCards(publicaciones){
                             <p class="content is-size-6 has-text-grey mb-4">
                                 ${pub.desc}
                             </p>
+                            
+                        <div class="buttons are-small mt-3">
+                            <button class="button is-link is-outlined btn-contactar " data-id="${pub.id}">
+                                Contactar
+                            </button>
+                            
+                        </div>
 
                             <div class="media is-vcentered border-top pt-3 footer-card">
                                 <div class="media-left">
@@ -54,14 +148,19 @@ function renderizarCards(publicaciones){
                                     <p class="is-size-7 has-text-weight-semibold has-text-dark">${pub.mentor}</p>
                                 </div>
                                 <div class="media-right">
-                                    <span class="tag is-light is-rounded is-small">Aura +10</span>
+                                    <span 
+                                        class="tag is-light is-rounded is-small aura-interactiva btn-aura" 
+                                        data-id="${pub.id}"
+                                        id="aura-tag-${pub.id}">
+                                        Aura +${pub.aura || 10}
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
-                cardContainer.innerHTML += cardHTML;
+                cardContainer.innerHTML = htmlAcomulado;
         });
 }
 

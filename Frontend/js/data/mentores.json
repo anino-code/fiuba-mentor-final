@@ -1,0 +1,18 @@
+[
+    {
+    "id": 1,
+    "nombre": "Arleys 'Arleinstein'",
+    "email": "arleys@fi.uba.ar",
+    "whatsapp": "+54 9 11 1234 5678",
+    "horario": "Lun - Mie 14:00hs",
+    "mensaje": "Experto en C y lógica pura."
+    },
+    {
+    "id": 2,
+    "nombre": "Ana Lovelace",
+    "email": "ana@fi.uba.ar",
+    "whatsapp": "+54 9 11 8765 4321",
+    "horario": "Vie 10:00hs",
+    "mensaje": "Ayudo con Algoritmos 1."
+    }
+]
