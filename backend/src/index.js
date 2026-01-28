@@ -12,55 +12,55 @@ app.get("/", (req, res) => {
 });
 
 //GET. /FORMULARIOS
-app.get("/formularios", (req, res) => {
+app.get("/forms", (req, res) => {
 
 });
 
 //GET. /FORMULARIOS/<NOMBRE>
-app.get("/formularios/:id_formulario", (req, res) => {
+app.get("/forms/:id_form", (req, res) => {
 
 });
 
 //POST. /FORMULARIOS
-app.post("/formularios", (req, res) => {
+app.post("/forms", (req, res) => {
 
 });
 
 //DELETE. /FORMULARIOS/<NOMBRE>
-app.delete("/formularios/:id_formulario", (req, res) => {
+app.delete("/forms/:id_form", (req, res) => {
 
 });
 
 //si uso pathch no necesito mandarle todo para actualizar, con put si
 //PUT. /FORMULARIOS/<NOMBRE>
-app.put("/formularios/:id_formulario", (req, res) => {
+app.put("/forms/:id_form", (req, res) => {
 
 });
 
 //GET. /USUARIOS
-app.get("/usuarios", (req, res) => {
+app.get("/users", (req, res) => {
 
 });
 
 //GET. /USUARIOS/<NOMBRE>
-app.get("/usuarios/:id_usuario", (req, res) => {
+app.get("/users/:id_user", (req, res) => {
 
 });
 
 //POST. /USUARIOS
-app.post("/usuarios", (req, res) => {
+app.post("/users", (req, res) => {
 
 });
 
 
 //DELETE. /USUARIOS/<NOMBRE>
-app.delete("/usuarios/:id_usuario", (req, res) => {
+app.delete("/users/:id_user", (req, res) => {
 
 });
 
 //si uso pathch no necesito mandarle todo para actualizar, con put si
 //PUT. /USUARIOS/<NOMBRE>
-app.put("/usuarios/:id_usuario", (req, res) => {
+app.put("/users/:id_user", (req, res) => {
 
 });
 
