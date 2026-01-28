@@ -21,8 +21,20 @@
         color: #eee;
     }
 
-.botn-contactar{
-    border-radius: 10px;
+    
+.aura-interactiva {
+    cursor: pointer;            
+    user-select: none;          
+    transition: all 0.2s ease;  
+}
+
+.aura-interactiva:hover {
+    transform: scale(1.05);     
+    background-color: #ffe08a;  
+}
+
+.aura-interactiva:active {
+    transform: scale(0.95);     
 }
 .masonry-wrapper {
         column-count: 4; 
