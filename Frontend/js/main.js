@@ -31,7 +31,50 @@ cardContainer.addEventListener('click', (e) => {
         const id = btnAura.dataset.id;
         manejarAura(id, btnAura);
     }
+
+        
+    
+    const btnContactar = e.target.closest('.btn-contactar');
+    if (btnContactar) {
+        const id = btnContactar.dataset.id;
+        manejarContacto(id);
+    }
+
+    
 });
+
+async function manejarContacto(id) {
+    try {
+        console.log(` Conectando con base de datos para buscar ID: ${id}...`);
+
+        const response = await fetch('../js/data/data.json'); 
+        
+        if (!response.ok) throw new Error("No se pudo leer el archivo de datos");
+
+        const listaMentores = await response.json();
+
+        const contacto = listaMentores.find(item => item.id === Number(id));
+
+        if (!contacto) {
+            throw new Error(`No se encontró información para el ID ${id}`);
+        }
+
+        const mensaje = `
+        CONTACTO RECIBIDO DE DATA.JSON:
+        -------------------------------
+        Mentor: ${contacto.mentor}
+        Materia: ${contacto.materia}
+        Email: ${contacto.email || "No especificado"}
+        
+        `;
+
+        alert(mensaje);
+
+    } catch (error) {
+        console.error("Error de lógica:", error);
+        alert("Hubo un error al intentar contactar al mentor.");
+    }
+}
 
 async function manejarAura(id, boton) {
     
