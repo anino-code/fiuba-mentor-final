@@ -24,6 +24,47 @@ async function cargarCard() {
 }
 
 
+cardContainer.addEventListener('click', (e) => {
+
+    const btnAura = e.target.closest('.btn-aura');
+    if (btnAura) {
+        const id = btnAura.dataset.id;
+        manejarAura(id, btnAura);
+    }
+});
+
+async function manejarAura(id, boton) {
+    
+    boton.classList.add('is-loading');
+    boton.disabled = true;
+
+    try {
+        
+        await new Promise(r => setTimeout(r, 800)); 
+        
+        
+        const tagAura = document.getElementById(`aura-tag-${id}`);
+        
+        let valorActual = parseInt(tagAura.innerText.split('+')[1]);
+        let nuevoValor = valorActual + 10;
+
+
+        tagAura.innerText = `Aura +${nuevoValor}`;
+        tagAura.classList.remove('is-light'); 
+        tagAura.classList.add('is-warning');
+
+    } catch (error) {
+        console.error("Error al dar aura", error);
+    } finally {
+        
+        boton.classList.remove('is-loading');
+        boton.disabled = false;
+    }
+}
+
+
+
+
 function renderizarCards(publicaciones){
     cardContainer.innerHTML = ' ';
 
@@ -64,7 +105,12 @@ function renderizarCards(publicaciones){
                                     <p class="is-size-7 has-text-weight-semibold has-text-dark">${pub.mentor}</p>
                                 </div>
                                 <div class="media-right">
-                                    <span class="tag is-light is-rounded is-small">Aura +10</span>
+                                    <span 
+                                        class="tag is-light is-rounded is-small aura-interactiva btn-aura" 
+                                        data-id="${pub.id}"
+                                        id="aura-tag-${pub.id}">
+                                        Aura +${pub.aura || 10}
+                                    </span>
                                 </div>
                             </div>
                         </div>
