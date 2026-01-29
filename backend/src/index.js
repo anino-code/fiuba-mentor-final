@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { pool } from "./db.js";
+import { pool, getAllUsers } from "./db.js";
 
 const app = express();
 app.use(express.json());
@@ -12,8 +12,14 @@ app.get("/api", (req, res) => {
 });
 
 //GET. /USUARIOS
-app.get("/api/users", (req, res) => {
-  res.json({ status: 'OK'});
+app.get("/api/users", async (req, res) => {
+  try {
+    const users = await getAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("Error en GET /api/users:", error);
+    res.status(500).json({ error: "Error al obtener usuarios" });
+  }
 });
 
 //GET. /USUARIOS/<NOMBRE>
@@ -39,7 +45,7 @@ app.put("/api/users/:id_user", (req, res) => {
 });
 
 //GET. /FORMULARIOS
-app.get("/api/forms", async (req, res) => {
+app.get("/api/forms", (req, res) => {
   res.json({ status: 'OK'});
 });
 
