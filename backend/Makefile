@@ -9,7 +9,7 @@ run:
 start: db run
 
 stop:
-	docker compose down
+	docker compose down && fuser -k 3000/tcp || true
 
 deps:
 	npm install
