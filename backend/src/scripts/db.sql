@@ -4,7 +4,7 @@ create table users (
     apellido varchar(20) not null,
     carrera varchar(100) not null,
     email varchar(100) not null,
-    foto_perfil text
+    foto_user text
 );
 
 create table forms (
@@ -14,6 +14,7 @@ create table forms (
     tema varchar(100) not null,
     descripcion varchar(255) not null,
     tipo varchar(12) not null
+    foto_form text
 );
 
 create table reviews (
