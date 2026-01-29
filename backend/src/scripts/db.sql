@@ -21,6 +21,6 @@ create table reviews (
     id_form int not null references forms(id_form) on delete cascade,
     id_puntuado int not null references users(id_user),
     id_puntuador int not null references users(id_user),
-    puntaje int not null,
+    aura int not null,
     descripcion varchar(255) not null
 );
