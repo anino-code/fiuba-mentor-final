@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { pool, getAllUsers, getOneUser, createUser, deleteUser} from "./db.js";
+import { pool, getAllUsers, getOneUser, createUser, deleteUser, getAllForms, getOneForm, createForm, deleteForm } from "./db.js";
 
 const app = express();
 app.use(express.json());
@@ -100,23 +100,79 @@ app.put("/api/users/:id_user", (req, res) => {
 });
 
 //GET. /FORMULARIOS
-app.get("/api/forms", (req, res) => {
-  res.json({ status: 'OK'});
+app.get("/api/forms", async (req, res) => {
+  try {
+    const forms = await getAllForms();
+    res.status(200).json(forms);
+  } catch (error) {
+    console.error("Error en GET /api/forms:", error);
+    res.status(500).json({ error: "DB forms error" });
+  }
 });
 
 //GET. /FORMULARIOS/<NOMBRE>
-app.get("/api/forms/:id_form", (req, res) => {
-  res.json({ status: 'OK'});
+app.get("/api/forms/:id_form", async (req, res) => {
+  try {
+    const idForm = Number(req.params.id_form);
+    if (!Number.isInteger(idForm)) {
+      return res.status(400).json({ error: "Form invalido" });
+    }
+    const form = await getOneForm(idForm);
+    if(!form) {
+      return res.status(404).json({ error: 'Form no encontrado'});
+    }
+    res.status(200).json(form);
+  } catch (error) {
+    console.error("Error en GET /api/users/id_form/:", error);
+    res.status(500).json({ error: "DB form error" });
+  }
 });
 
 //POST. /FORMULARIOS
-app.post("/api/forms", (req, res) => {
-  res.json({ status: 'OK'});
+/*
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"id_user":7,"materia":"Intro","tema":"el back","descripcion":"hard","tipo":"mentor","foto_form":""}' \
+  http://localhost:3000/api/forms
+*/
+app.post("/api/forms", async (req, res) => {
+  try {
+    if (req.body === undefined) {
+      return res.status(400).json({ error: 'Por favor completa el body.'});
+    }
+    const id_user = req.body.id_user;
+    const materia = req.body.materia;
+    const tema = req.body.tema;
+    const descripcion = req.body.descripcion;
+    const tipo = req.body.tipo;
+    const foto_form = req.body.foto_form;
+    if (!id_user || !materia || !tema || !descripcion || !tipo) {
+      return res.status(400).json({ error: 'Por favor completa todos los campos obligatorios.'});
+    }
+    const form = await createForm(id_user, materia, tema, descripcion, tipo, foto_form)
+    res.status(201).json(form);
+  } catch (error) {
+    console.error("Error en POST /api/forms/:", error);
+    res.status(500).json({ error: 'Fallo al crear form' });
+  }
 });
 
 //DELETE. /FORMULARIOS/<NOMBRE>
-app.delete("/api/forms/:id_form", (req, res) => {
-  res.json({ status: 'OK'});
+app.delete("/api/forms/:id_form", async (req, res) => {
+  try {
+    const idForm = Number(req.params.id_form);
+    if (!Number.isInteger(idForm)) {
+      return res.status(400).json({ error: "Form invalido" });
+    }
+    const form = await deleteForm(idForm);
+    if(!form) {
+      return res.status(404).json({ error: 'Form no encontrado'});
+    }
+    res.status(200).json(form);
+  } catch (error) {
+    console.error("Error en DELETE /api/forms/id_form/:", error);
+    res.status(500).json({ error: "DB forms error" });
+  }
 });
 
 //si uso pathch no necesito mandarle todo para actualizar, con put si

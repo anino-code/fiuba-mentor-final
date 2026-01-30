@@ -37,3 +37,33 @@ export async function deleteUser(id_user) {
   }
   return result.rows[0];
 }
+
+export async function getAllForms() {
+  const result = await pool.query('SELECT * FROM forms');
+  return result.rows;
+}
+
+export async function getOneForm(id_form) {
+  const result = await pool.query('SELECT * FROM forms WHERE id_form = $1 LIMIT 1', [id_form]);
+  if (result.rowCount === 0) {
+    return undefined;
+  }
+  return result.rows[0];
+}
+
+export async function createForm(id_user, materia, tema, descripcion, tipo, foto_form) {
+  const result = await pool.query('INSERT INTO forms(id_user, materia, tema, descripcion, tipo, foto_form) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [id_user, materia, tema, descripcion, tipo, foto_form]);
+  console.log("result", result.rows[0]);
+  if (result.rowCount === 0) {
+    return undefined;
+  }
+  return result.rows[0];
+}
+
+export async function deleteForm(id_form) {
+  const result = await pool.query('DELETE FROM forms WHERE id_form = $1 RETURNING *', [id_form]);
+  if (result.rowCount === 0) {
+    return undefined;
+  }
+  return result.rows[0];
+}
