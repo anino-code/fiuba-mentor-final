@@ -26,3 +26,11 @@ export async function createUser(nombre, apellido, carrera, email, foto_user) {
   }
   return result.rows[0];
 }
+
+export async function deleteUser(id_user) {
+  const result = await pool.query('DELETE FROM users WHERE id_user = $1 RETURNING *', [id_user]);
+  if (result.rowCount === 0) {
+    return undefined;
+  }
+  return result.rows[0];
+}

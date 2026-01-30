@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { pool, getAllUsers, getOneUser, createUser} from "./db.js";
+import { pool, getAllUsers, getOneUser, createUser, deleteUser} from "./db.js";
 
 const app = express();
 app.use(express.json());
@@ -73,8 +73,24 @@ app.post("/api/users", async (req, res) => {
 });
 
 //DELETE. /USUARIOS/<NOMBRE>
-app.delete("/api/users/:id_user", (req, res) => {
-  res.json({ status: 'OK'});
+/*
+curl --request DELETE http://localhost:3000/api/users/:id_user
+*/
+app.delete("/api/users/:id_user", async (req, res) => {
+  try {
+    const idUser = Number(req.params.id_user);
+    if (!Number.isInteger(idUser)) {
+      return res.status(400).json({ error: "User invalido" });
+    }
+    const user = await deleteUser(idUser);
+    if(!user) {
+      return res.status(404).json({ error: 'User no encontrado'});
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error en DELETE /api/users/id_user/:", error);
+    res.status(500).json({ error: "DB users error" });
+  }
 });
 
 //si uso pathch no necesito mandarle todo para actualizar, con put si

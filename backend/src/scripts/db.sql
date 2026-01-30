@@ -20,8 +20,8 @@ create table forms (
 create table reviews (
     id_reviews serial primary key,
     id_form int not null references forms(id_form) on delete cascade,
-    id_puntuado int not null references users(id_user),
-    id_puntuador int not null references users(id_user),
+    id_puntuado int not null references users(id_user) on delete cascade,
+    id_puntuador int not null references users(id_user) on delete cascade,
     aura int not null,
     descripcion varchar(255) not null
 );
