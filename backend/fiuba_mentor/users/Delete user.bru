@@ -5,9 +5,13 @@ meta {
 }
 
 delete {
-  url: http://localhost:4000/users/id_user
+  url: http://localhost:3000/api/users/:id_user
   body: none
   auth: inherit
+}
+
+params:path {
+  id_user: 
 }
 
 settings {

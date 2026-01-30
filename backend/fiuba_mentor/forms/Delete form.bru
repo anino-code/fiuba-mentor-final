@@ -5,9 +5,13 @@ meta {
 }
 
 delete {
-  url: http://localhost:4000/forms/id_form
+  url: http://localhost:3000/api/forms/:id_form
   body: none
   auth: inherit
+}
+
+params:path {
+  id_form: 
 }
 
 settings {
