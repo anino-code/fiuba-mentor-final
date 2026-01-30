@@ -25,14 +25,18 @@ app.get("/api/users", async (req, res) => {
 //GET. /USUARIOS/<NOMBRE>
 app.get("/api/users/:id_user", async (req, res) => {
   try {
-    const user = await getOneUser(req.params.id_user);
+    const idUser = Number(req.params.id_user);
+    if (!Number.isInteger(idUser)) {
+      return res.status(400).json({ error: "User invalido" });
+    }
+    const user = await getOneUser(idUser);
     if(!user) {
       return res.status(404).json({ error: 'User no encontrado'});
     }
     res.status(200).json(user);
   } catch (error) {
     console.error("Error en GET /api/users/id_user/:", error);
-    res.status(500).json({ error: "Error al obtener usuario deceado" });
+    res.status(500).json({ error: "Error al obtener usuario deseado" });
   }
 });
 
