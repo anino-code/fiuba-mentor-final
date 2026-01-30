@@ -1,0 +1,20 @@
+meta {
+  name: Specific review
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3000/api/reviews/:id_review
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id_review: 
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

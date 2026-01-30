@@ -93,13 +93,9 @@ Para el desarrollo se utiliza una estrategia de ramas basada en funcionalidades 
 1.  La rama `main` contiene solo código estable.
 2.  Cada nueva funcionalidad se desarrolla en una rama propia: `feature/nombre-funcionalidad`.
 3.  Se utilizan **Pull Requests (PR)** para integrar cambios.
-<<<<<<< HEAD
-4.  Todo PR debe ser revisado y aprobado por al menos un compañero antes del merge.
-=======
 4.  Todo PR debe ser revisado y aprobado por al menos un compañero antes del merge.
 
 
 ##  Capturas de Pantalla
 
 > Proyecto realizado para la materia **Introducción al Desarrollo de Software** - FIUBA, 2025.
->>>>>>> 02034f93e71b3a025b917822d808e55881bc89b3

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "fiuba_mentor",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

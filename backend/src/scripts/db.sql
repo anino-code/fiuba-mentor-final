@@ -1,0 +1,36 @@
+create table users (
+    id_user serial primary key,
+    nombre varchar(20) not null,
+    apellido varchar(20) not null,
+    carrera varchar(100) not null,
+    email varchar(100) not null,
+    foto_user text
+);
+
+create table forms (
+    id_form serial primary key,
+    id_user int not null references users(id_user) on delete cascade,
+    materia varchar(100) not null,
+    tema varchar(100) not null,
+    descripcion varchar(255) not null,
+    tipo varchar(12) not null,
+    estado varchar(10) not null default 'visible',
+    foto_form text,
+    fecha_creado timestamp default now()
+);
+
+create table reviews (
+    id_reviews serial primary key,
+    id_form int not null references forms(id_form) on delete cascade,
+    id_puntuador int not null references users(id_user) on delete cascade,
+    aura int not null default 0,
+    descripcion varchar(255) not null,
+    fecha_creado timestamp default now()
+);
+
+/*Crear user*/
+insert into users (nombre, apellido, carrera, email) values ('esteban', 'ordoñez', 'ing informatica', 'eordonez@fi.uba.ar'),
+/*Crear form*/
+insert into forms (id_user, materia, tema, descripcion, tipo) values (7, 'introCamejo', 'el backend', 'mil vueltas', 'mentor')
+/*Crear review*/
+insert into reviews (id_form, id_puntuador, aura, descripcion) values (1, 8, 10, 'gran tipazo')
