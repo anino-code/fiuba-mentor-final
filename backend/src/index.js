@@ -57,9 +57,20 @@ app.post("/api/users", async (req, res) => {
     const carrera = req.body.carrera;
     const email = req.body.email;
     const foto_user = req.body.foto_user;
-
     if (!nombre || !apellido || !carrera || !email) {
       return res.status(400).json({ error: 'Por favor completa todos los campos obligatorios.'});
+    }
+    if (nombre.length > 20) {
+      return res.status(400).json({ error: "Maximo nombre son 20 caracteres" });
+    }
+    if (apellido.length > 20) {
+      return res.status(400).json({ error: "Maximo apellido son 20 caracteres" });
+    }
+    if (carrera.length > 100) {
+      return res.status(400).json({ error: "Maximo carrera son 100 caracteres" });
+    }
+    if (email.length > 100) {
+      return res.status(400).json({ error: "Maximo email son 100 caracteres" });
     }
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
       return res.status(400).json({ error: "Email inválido" });
@@ -149,6 +160,21 @@ app.post("/api/forms", async (req, res) => {
     if (!id_user || !materia || !tema || !descripcion || !tipo) {
       return res.status(400).json({ error: 'Por favor completa todos los campos obligatorios.'});
     }
+    if (!Number.isInteger(id_user)) {
+      return res.status(400).json({ error: "ID User invalido" });
+    }
+    if (materia.length > 100) {
+      return res.status(400).json({ error: "Maximo materia son 100 caracteres" });
+    }
+    if (tema.length > 100) {
+      return res.status(400).json({ error: "Maximo tema son 100 caracteres" });
+    }
+    if (descripcion.length > 255) {
+      return res.status(400).json({ error: "Maximo descripcion son 255 caracteres" });
+    }
+    if (tipo.length > 12) {
+      return res.status(400).json({ error: "Maximo tipo son 12 caracteres" });
+    }
     const form = await createForm(id_user, materia, tema, descripcion, tipo, foto_form)
     res.status(201).json(form);
   } catch (error) {
@@ -165,7 +191,7 @@ app.delete("/api/forms/:id_form", async (req, res) => {
   try {
     const idForm = Number(req.params.id_form);
     if (!Number.isInteger(idForm)) {
-      return res.status(400).json({ error: "Form invalido" });
+      return res.status(400).json({ error: "ID Form invalido" });
     }
     const form = await deleteForm(idForm);
     if(!form) {
@@ -217,7 +243,7 @@ app.get("/api/reviews/:id_review", async (req, res) => {
 /*
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"id_form":18,"id_puntuador":9,"aura":10,"descripcion":"descripcion"}' \
+  --data '{"id_puntuado":1,"id_puntuador":9,"aura":10,"descripcion":"descripcion"}' \
   http://localhost:3000/api/reviews
 */
 app.post("/api/reviews", async (req, res) => {
@@ -225,14 +251,26 @@ app.post("/api/reviews", async (req, res) => {
     if (req.body === undefined) {
       return res.status(400).json({ error: 'Por favor completa el body.'});
     }
-    const id_form = req.body.id_form;
+    const id_puntuado = req.body.id_puntuado;
     const id_puntuador = req.body.id_puntuador;
     const aura = req.body.aura;
     const descripcion = req.body.descripcion;
-    if (!id_form || !id_puntuador || !aura || !descripcion) {
+    if (!Number.isInteger(id_puntuado)) {
+      return res.status(400).json({ error: "ID Puntuado invalido" });
+    }
+    if (!Number.isInteger(id_puntuador)) {
+      return res.status(400).json({ error: "ID Puntuador invalido" });
+    }
+    if (!Number.isInteger(aura)) {
+      return res.status(400).json({ error: "Aura invalido" });
+    }
+    if (descripcion.length > 255) {
+      return res.status(400).json({ error: "Maximo descripcion son 255 caracteres" });
+    }
+    if (!id_puntuado || !id_puntuador || !aura || !descripcion) {
       return res.status(400).json({ error: 'Por favor completa todos los campos obligatorios.'});
     }
-    const review = await createReview(id_form, id_puntuador, aura, descripcion)
+    const review = await createReview(id_puntuado, id_puntuador, aura, descripcion)
     res.status(201).json(review);
   } catch (error) {
     console.error("Error en POST /api/reviews/:", error);

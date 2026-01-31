@@ -20,8 +20,8 @@ create table forms (
 );
 
 create table reviews (
-    id_reviews serial primary key,
-    id_form int not null references forms(id_form) on delete cascade,
+    id_review serial primary key,
+    id_puntuado int not null references users(id_user) on delete cascade,
     id_puntuador int not null references users(id_user) on delete cascade,
     aura int not null default 0,
     descripcion varchar(255) not null,
@@ -33,4 +33,4 @@ insert into users (nombre, apellido, carrera, email) values ('esteban', 'ordoñe
 /*Crear form*/
 insert into forms (id_user, materia, tema, descripcion, tipo) values (7, 'introCamejo', 'el backend', 'mil vueltas', 'mentor')
 /*Crear review*/
-insert into reviews (id_form, id_puntuador, aura, descripcion) values (1, 8, 10, 'gran tipazo')
+insert into reviews (id_puntuado, id_puntuador, aura, descripcion) values (1, 8, 10, 'gran tipazo')
