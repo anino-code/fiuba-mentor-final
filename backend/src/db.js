@@ -9,12 +9,12 @@ export const pool = new Pool({
 });
 
 export async function getAllUsers() {
-  const result = await pool.query('SELECT * FROM users');
+  const result = await pool.query('SELECT u.*, COALESCE(SUM(r.aura), 0) AS aura FROM users u LEFT JOIN reviews r ON r.id_puntuado = u.id_user GROUP BY u.id_user');
   return result.rows;
 }
 
 export async function getOneUser(id_user) {
-  const result = await pool.query('SELECT * FROM users WHERE id_user = $1 LIMIT 1', [id_user]);
+  const result = await pool.query('SELECT u.*, COALESCE(SUM(r.aura), 0) AS aura FROM users u LEFT JOIN reviews r ON r.id_puntuado = u.id_user WHERE id_user = $1 GROUP BY u.id_user LIMIT 1', [id_user]);
   if (result.rowCount === 0) {
     return undefined;
   }
