@@ -81,8 +81,8 @@ export async function getOneReview(id_review) {
   return result.rows[0];
 }
 
-export async function createReview(id_form, id_puntuador, aura, descripcion) {
-  const result = await pool.query('INSERT INTO  reviews(id_form, id_puntuador, aura, descripcion) VALUES ($1, $2, $3, $4) RETURNING *', [id_form, id_puntuador, aura, descripcion]);
+export async function createReview(id_puntuado, id_puntuador, aura, descripcion) {
+  const result = await pool.query('INSERT INTO  reviews(id_puntuado, id_puntuador, aura, descripcion) VALUES ($1, $2, $3, $4) RETURNING *', [id_puntuado, id_puntuador, aura, descripcion]);
   console.log("result", result.rows[0]);
   if (result.rowCount === 0) {
     return undefined;

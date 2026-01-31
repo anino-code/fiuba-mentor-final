@@ -217,7 +217,7 @@ app.get("/api/reviews/:id_review", async (req, res) => {
 /*
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"id_form":18,"id_puntuador":9,"aura":10,"descripcion":"descripcion"}' \
+  --data '{"id_puntuado":1,"id_puntuador":9,"aura":10,"descripcion":"descripcion"}' \
   http://localhost:3000/api/reviews
 */
 app.post("/api/reviews", async (req, res) => {
@@ -225,14 +225,14 @@ app.post("/api/reviews", async (req, res) => {
     if (req.body === undefined) {
       return res.status(400).json({ error: 'Por favor completa el body.'});
     }
-    const id_form = req.body.id_form;
+    const id_puntuado = req.body.id_form;
     const id_puntuador = req.body.id_puntuador;
     const aura = req.body.aura;
     const descripcion = req.body.descripcion;
-    if (!id_form || !id_puntuador || !aura || !descripcion) {
+    if (!id_puntuado || !id_puntuador || !aura || !descripcion) {
       return res.status(400).json({ error: 'Por favor completa todos los campos obligatorios.'});
     }
-    const review = await createReview(id_form, id_puntuador, aura, descripcion)
+    const review = await createReview(id_puntuado, id_puntuador, aura, descripcion)
     res.status(201).json(review);
   } catch (error) {
     console.error("Error en POST /api/reviews/:", error);
