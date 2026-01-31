@@ -9,7 +9,7 @@ export const pool = new Pool({
 });
 
 export async function getAllUsers() {
-  const result = await pool.query('SELECT u.*, COALESCE(SUM(r.aura), 0) AS aura FROM users u LEFT JOIN reviews r ON r.id_puntuado = u.id_user GROUP BY u.id_user');
+  const result = await pool.query('SELECT u.*, COALESCE(SUM(r.aura), 0) AS aura FROM users u LEFT JOIN reviews r ON r.id_puntuado = u.id_user GROUP BY u.id_user ORDER BY u.id_user');
   return result.rows;
 }
 
@@ -39,7 +39,7 @@ export async function deleteUser(id_user) {
 }
 
 export async function getAllForms() {
-  const result = await pool.query('SELECT f.*, u.*, COALESCE(SUM(r.aura), 0) AS aura FROM forms f INNER JOIN users u ON f.id_user = u.id_user LEFT JOIN reviews r ON r.id_puntuado = u.id_user GROUP BY f.id_form, u.id_user');
+  const result = await pool.query('SELECT f.*, u.*, COALESCE(SUM(r.aura), 0) AS aura FROM forms f INNER JOIN users u ON f.id_user = u.id_user LEFT JOIN reviews r ON r.id_puntuado = u.id_user GROUP BY f.id_form, u.id_user ORDER BY f.fecha_creado DESC');
   return result.rows.map(r => ({
     id_form: r.id_form,
     materia: r.materia,
@@ -106,7 +106,7 @@ export async function deleteForm(id_form) {
 }
 
 export async function getAllReviews() {
-  const result = await pool.query('SELECT r.*, pu.id_user AS puntuado_id, pu.nombre AS puntuado_nombre, pu.apellido AS puntuado_apellido, pu.carrera AS puntuado_carrera, pu.email AS puntuado_email, pu.foto_user AS puntuado_foto_user, pr.id_user AS puntuador_id, pr.nombre AS puntuador_nombre, pr.apellido AS puntuador_apellido, pr.carrera AS puntuador_carrera, pr.email AS puntuador_email, pr.foto_user AS puntuador_foto_user FROM reviews r JOIN users pu ON r.id_puntuado = pu.id_user JOIN users pr ON r.id_puntuador = pr.id_user');
+  const result = await pool.query('SELECT r.*, pu.id_user AS puntuado_id, pu.nombre AS puntuado_nombre, pu.apellido AS puntuado_apellido, pu.carrera AS puntuado_carrera, pu.email AS puntuado_email, pu.foto_user AS puntuado_foto_user, pr.id_user AS puntuador_id, pr.nombre AS puntuador_nombre, pr.apellido AS puntuador_apellido, pr.carrera AS puntuador_carrera, pr.email AS puntuador_email, pr.foto_user AS puntuador_foto_user FROM reviews r JOIN users pu ON r.id_puntuado = pu.id_user JOIN users pr ON r.id_puntuador = pr.id_user ORDER BY r.fecha_creado DESC');
   return result.rows.map(r => ({
     id_review: r.id_review,
     aura: r.aura,
