@@ -6,7 +6,7 @@ async function cargarCard() {
     try{
     cardContainer.innerHTML = '<p>Cargando datos del servidor simulado...</p>';
 
-    const response = await fetch('../js/data/data.json');
+    const response = await fetch('http://localhost:3000/api/forms');
 
     if(!response.ok){
         throw new Error('No se pudo conectar con el servidor');
@@ -120,19 +120,19 @@ function renderizarCards(publicaciones){
                     <div class="card">
                         <div class="card-image">
                             <figure class="image is-4by3">
-                                <img src="${pub.img}" alt="Imagen clase" style="object-fit: cover;">
+                                <img src="${pub.foto_form}" alt="Imagen clase" style="object-fit: cover;">
                             </figure>
                         </div>
                         
                         <div class="card-content">
                             <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase mb-1">${pub.materia}</p>
-                            <p class="title is-5 has-text-weight-bold mb-2">${pub.titulo}</p>
+                            <p class="title is-5 has-text-weight-bold mb-2">${pub.tema}</p>
                             <p class="content is-size-6 has-text-grey mb-4">
-                                ${pub.desc}
+                                ${pub.descripcion}
                             </p>
                             
                         <div class="buttons are-small mt-3">
-                            <button class="button is-link is-outlined btn-contactar " data-id="${pub.id}">
+                            <button class="button is-link is-outlined btn-contactar " data-id="${pub.id_form}">
                                 Contactar
                             </button>
                             
@@ -141,18 +141,18 @@ function renderizarCards(publicaciones){
                             <div class="media is-vcentered border-top pt-3 footer-card">
                                 <div class="media-left">
                                     <figure class="image is-32x32">
-                                        <img class="author-avatar" src="${pub.avatar}" alt="Avatar">
+                                        <img class="author-avatar" src="${pub.usuario.foto_user}" alt="Avatar">
                                     </figure>
                                 </div>
                                 <div class="media-content">
-                                    <p class="is-size-7 has-text-weight-semibold has-text-dark">${pub.mentor}</p>
+                                    <p class="is-size-7 has-text-weight-semibold has-text-dark">${pub.usuario.nombre} ${pub.usuario.apellido}</p>
                                 </div>
                                 <div class="media-right">
                                     <span 
                                         class="tag is-light is-rounded is-small aura-interactiva btn-aura" 
-                                        data-id="${pub.id}"
-                                        id="aura-tag-${pub.id}">
-                                        Aura +${pub.aura || 10}
+                                        data-id="${pub.id_form}"
+                                        id="aura-tag-${pub.id_form}">
+                                        Aura +${pub.usuario.aura || 10}
                                     </span>
                                 </div>
                             </div>
