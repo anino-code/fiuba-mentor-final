@@ -2,15 +2,11 @@ let usuariosDisponibles = [];
 
 const form = document.getElementById('solicitudForm');
 const mensajeExito = document.getElementById('mensajeExito');
+const mensajeError = document.getElementById('mensajeError');
 const inputBuscador = document.getElementById('input-buscador-remitente');
 const listaSugerencias = document.getElementById('lista-sugerencias');
 const inputOcultoId = document.getElementById('input-remitente-id');
-
-const errorRemitente = document.getElementById('errorRemitente');
-const errorMateria = document.getElementById('errorMateria');
-const errorTema = document.getElementById('errorTema');
-const errorDescripcion = document.getElementById('errorDescripcion');
-const errorTipo = document.getElementById('errorTipo');
+const fotoInput = document.getElementById('foto_form');
 
 function contieneLetra(texto) {
   return /[a-zA-Z]/.test(texto);
@@ -27,28 +23,6 @@ async function cargarUsuarios() {
 }
 cargarUsuarios();
 
-form.materia.addEventListener('input', () => validarCampo(form.materia, errorMateria));
-form.tema.addEventListener('input', () => validarCampo(form.tema, errorTema));
-form.descripcion.addEventListener('input', () => validarCampo(form.descripcion, errorDescripcion));
-form.tipo_post.addEventListener('change', () => validarCampo(form.tipo_post, errorTipo));
-
-function validarCampo(campo, errorElem) {
-  if (!campo.value.trim()) {
-    errorElem.textContent = "Este campo es obligatorio";
-    errorElem.style.display = "block";
-    campo.classList.add("is-danger");
-  } else if (!contieneLetra(campo.value)) {
-    errorElem.textContent = "Debe contener al menos una letra";
-    errorElem.style.display = "block";
-    campo.classList.add("is-danger");
-  } else {
-    errorElem.textContent = "";
-    errorElem.style.display = "none";
-    campo.classList.remove("is-danger");
-    campo.classList.add("is-success");
-  }
-}
-
 form.addEventListener('submit', async function(event) {
   event.preventDefault();
 
@@ -58,11 +32,20 @@ form.addEventListener('submit', async function(event) {
   const remitenteId = inputOcultoId.value;
   const tipoPost = form.tipo_post.value;
 
+  // convertir imagen a base64
+  let fotoBase64 = "";
+  if (fotoInput.files.length > 0) {
+    const file = fotoInput.files[0];
+    fotoBase64 = await toBase64(file);
+  }
+
   if (!materia || !tema || !descripcion || !remitenteId || !tipoPost) {
-    if (!remitenteId) {
-      errorRemitente.textContent = "Selecciona un remitente";
-      errorRemitente.style.display = "block";
-    }
+    mostrarError("Por favor completa todos los campos obligatorios.");
+    return;
+  }
+
+  if (!contieneLetra(materia) || !contieneLetra(tema) || !contieneLetra(descripcion)) {
+    mostrarError("Cada campo debe contener al menos una letra.");
     return;
   }
 
@@ -72,7 +55,7 @@ form.addEventListener('submit', async function(event) {
     tema,
     descripcion,
     tipo: tipoPost,
-    foto_form: ""
+    foto_form: fotoBase64
   };
 
   try {
@@ -85,22 +68,40 @@ form.addEventListener('submit', async function(event) {
     const resultado = await respuesta.json();
 
     if (respuesta.ok) {
-      mensajeExito.classList.add("show");
-      mensajeExito.textContent = resultado.message || "¡Solicitud enviada correctamente!";
+      mostrarExito(resultado.message || "¡Solicitud enviada correctamente!");
       form.reset();
       inputBuscador.value = "";
       inputOcultoId.value = "";
       setTimeout(cargarSolicitudes, 500);
     } else {
-      errorMateria.textContent = resultado.error || "Error desconocido";
-      errorMateria.style.display = "block";
+      mostrarError(resultado.error || "Error desconocido");
     }
   } catch (error) {
     console.error("Error al enviar:", error);
-    errorMateria.textContent = "Error de conexión con el servidor.";
-    errorMateria.style.display = "block";
+    mostrarError("Error de conexión con el servidor.");
   }
 });
+
+function mostrarError(msg) {
+  mensajeError.textContent = msg;
+  mensajeError.style.display = "block";
+  mensajeExito.classList.remove("show");
+}
+
+function mostrarExito(msg) {
+  mensajeExito.textContent = msg;
+  mensajeExito.classList.add("show");
+  mensajeError.style.display = "none";
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
 
 inputBuscador.addEventListener('input', function() {
   const textoEscrito = this.value.toLowerCase();
@@ -145,7 +146,6 @@ function seleccionarUsuario(id, nombre) {
   inputOcultoId.value = id;
   listaSugerencias.style.display = 'none';
 }
-
 
 const contenedorSolicitudes = document.getElementById("contenedorSolicitudes");
 
