@@ -1,95 +1,101 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FIUBA Mentor</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/reviews.css">
-    </head>
-    <body>
-        <nav class="navbar is-spaced navbar-fiu" role="navigation" aria-label="main navigation">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="#">
-                        FIUBA Mentor
-                    </a>
-                </div>
-                <div class="navbar-menu">
-                    <div class="navbar-start navbar-bis" >
-                        <a href="index.html" class="navbar-item has-text-weight-medium">Inicio</a>
-                        <a href="../formulario/formulario.html" class="navbar-item has-text-weight-medium">Solicitud</a>
-                        <a href="perfil.html" class="navbar-item has-text-weight-medium">Perfiles</a>
-                    </div>
-                </div>
-                <button id="botonCrearPerfil" class="button is-link is-normal is-rounded mt-4 px-6" onclick="abrirPopupCrearPerfil()">
-                            Crear Perfil
-                </button>
-            </div>
-        </nav>
-        <section class="section">
-            <div class="container">
-                <div class="masonry-wrapper" id="grid-tarjetas-perfil">
-                </div>
-            </div>
-        </section>
 
-        <footer>
-            <div class="footer-inicio">
-                <p class="texto-footer">
-                    <strong>FIUBA Mentor</strong> copywriting 2026.
-                </p>
-            </div>
-        </footer>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIUBA Mentor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/reviews.css">
+</head>
 
-        <div class="popup-overlay" id="popupOverlayCrearPerfil">
-            <div class="popup-content" id="popupContent">
-                <h2 class="tituloPopup">Crear Perfil</h2>
-                <form id="formCrearPerfil">
-                    <div class="field">
-                        <label class="label" for="Nombre">Nombre:</label>
-                        <div class="control">
-                            <input class="input" type="text" id="Nombre" placeholder="Nombre" name="Nombre" required>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="Apellido">Apellido:</label>
-                        <div class="control">
-                            <input class="input" type="text" id="Apellido" placeholder="Apellido" name="Apellido" required>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="Carrera">Carrera:</label>
-                        <div class="control">
-                            <input class="input" type="text" id="Carrera" placeholder="Carrera" name="Carrera" required>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="Email">Email:</label>
-                        <div class="control">
-                            <input class="input" type="email" id="Email" placeholder="Email" name="Email" required>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="Foto">Foto de Perfil:</label>
-                        <div class="control">
-                            <input class="input" type="url" id="Foto" placeholder="URL de la Foto" name="Foto" required>
-                        </div>
-                    </div>
-                </form>
-                <div class="botones-popup">
-                    <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearPerfil()">
-                        Cancelar
-                    </button>
-                    <button class="button botonPopup is-link is-normal" type="submit" id="botonCrear" form="formCrearPerfil">
-                        Crear
-                    </button>
+<body>
+    <nav class="navbar is-spaced navbar-fiu" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="#">
+                    FIUBA Mentor
+                </a>
+            </div>
+            <div class="navbar-menu">
+                <div class="navbar-start navbar-bis">
+                    <a href="index.html" class="navbar-item has-text-weight-medium">Inicio</a>
+                    <a href="../formulario/formulario.html" class="navbar-item has-text-weight-medium">Solicitud</a>
+                    <a href="perfil.html" class="navbar-item has-text-weight-medium">Perfiles</a>
                 </div>
+            </div>
+            <button id="botonCrearReview" class="button is-link is-normal is-rounded mt-4 px-6"
+                onclick="abrirPopupCrearReview()">
+                Crear Review
+            </button>
+        </div>
+    </nav>
+    <section class="section">
+        <div class="container">
+            <div class="masonry-wrapper" id="grid-tarjetas-review">
             </div>
         </div>
+    </section>
 
-        <script src="../js/reviews.js"></script>
-    </body>
+    <footer>
+        <div class="footer-inicio">
+            <p class="texto-footer">
+                <strong>FIUBA Mentor</strong> copywriting 2026.
+            </p>
+        </div>
+    </footer>
+
+    <div class="popup-overlay" id="popupOverlayCrearReview">
+        <div class="popup-content" id="popupContent">
+            <h2 class="tituloPopup">Crear Review</h2>
+            <form id="formCrearReview">
+                <div class="field">
+                    <label class="label" for="Nombre">Nombre:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="Nombre" placeholder="Nombre" name="Nombre" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="Apellido">Apellido:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="Apellido" placeholder="Apellido" name="Apellido" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="Carrera">Carrera:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="Carrera" placeholder="Carrera" name="Carrera" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="Email">Email:</label>
+                    <div class="control">
+                        <input class="input" type="email" id="Email" placeholder="Email" name="Email" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="Foto">Foto de Perfil:</label>
+                    <div class="control">
+                        <input class="input" type="url" id="Foto" placeholder="URL de la Foto" name="Foto" required>
+                    </div>
+                </div>
+            </form>
+            <div class="botones-popup">
+                <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearReview()">
+                    Cancelar
+                </button>
+                <button class="button botonPopup is-link is-normal" type="submit" id="botonCrear"
+                    form="formCrearReview">
+                    Crear
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/data/perfil.json"></script>
+    <script src="../js/reviews.js"></script>
+</body>
+
 </html>
