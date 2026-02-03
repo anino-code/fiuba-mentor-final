@@ -112,8 +112,8 @@ function renderizarSugerencias(lista) {
     html += `
       <a class="custom-dropdown-item" 
          onclick="seleccionarUsuario('${usuario.id_user}', '${usuario.nombre}')">
-         <strong>${usuario.nombre}</strong> <br>
-         <small class="has-text-grey">${usuario.email}</small>
+         <div class="sugerencia-nombre">${usuario.nombre}</div>
+         <div class="sugerencia-email">${usuario.email}</div>
       </a>
     `;
   });
