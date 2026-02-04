@@ -27,37 +27,32 @@ async function cargarCard() {
 function renderizarReviews(reviews){
     cardContainer.innerHTML = ' ';
 
+    let htmlAcomulado ='';
+
     reviews.forEach(review => {
             const cardHTML = `
                 <div class="masonry-item" data-id="${review.id}">
                     <div class="card">
-
                         <div class="card-content has-text-centered">
-
-                            <figure class="image is-128x128 is-inline-block mb-3">
-                                <img class="author-avatar"
-                                    src="${review.fotoPerfil}"
-                                    alt="Foto de ${review.nombre} ${review.apellido}">
-                            </figure>
-
-                            <p class="title is-5 mb-1">${review.nombre} ${review.apellido}</p>
-
-                            <p class="is-size-7 has-text-grey mb-2">${review.carrera}</p>
-
-                            <p class="is-size-7 mb-2">Aura: ${review.aura}</p>
-
-                            <p class="is-size-7">
-                                <a href="mailto:${review.email}">${review.email}</a>
+                            <p class="content is-size-6 has-text-black mb-4">
+                                ${review.descripcion}
                             </p>
-
+                            <p class="is-size-7 mb-2">Aura: ${review.aura}</p>
                         </div>
-
+                        <div class="media is-vcentered has-text-centered border-top pt-1 mb-2 footer-card">
+                            <div class="media-content">
+                                <figure class="image is-32x32 is-inline-block">
+                                    <img class="author-avatar" src="${review.puntuador.foto_user}" alt="Avatar">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <p class="is-size-6 has-text-weight-semibold mt-2 has-text-dark">${review.puntuador.nombre} ${review.puntuador.apellido}</p>
+                            </div>
+                        </div>
                         <footer class="card-footer">
                             <a class="card-footer-item button is-white is-small" onclick="confirmacionEliminarReview(${review.id})">Eliminar review</a>
                             <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarReview(${review.id})">Modificar review</a>
-                            <a class="card-footer-item button is-white is-small">Crear Review</a>
                         </footer>
-
                     </div>
                     
                     <div class="popup-overlay" id="popupOverlayModificarReview${review.id}">
