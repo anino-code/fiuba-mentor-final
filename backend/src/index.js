@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { pool, getAllUsers, getOneUser, createUser, deleteUser, updateUser, getAllForms, getOneForm, createForm, deleteForm, getAllReviews, getOneReview, createReview, deleteReview, getReviewsUser} from "./db.js";
+import { pool, getAllUsers, getOneUser, createUser, deleteUser, updateUser, getAllForms, getOneForm, createForm, deleteForm, updateForm, getAllReviews, getOneReview, createReview, deleteReview, getReviewsUser} from "./db.js";
 
 const app = express();
 app.use(express.json());
@@ -8,7 +8,7 @@ app.use(cors());
 
 // Ruta de prueba
 app.get("/api", (req, res) => {
-  res.json({ status: 'OK'});
+  res.json({ status: "OK" });
 });
 
 //GET. /USUARIOS
@@ -31,7 +31,7 @@ app.get("/api/users/:id_user", async (req, res) => {
     }
     const user = await getOneUser(idUser);
     if(!user) {
-      return res.status(404).json({ error: 'User no encontrado'});
+      return res.status(404).json({ error: "User no encontrado" });
     }
     res.status(200).json(user);
   } catch (error) {
@@ -50,7 +50,7 @@ curl --header "Content-Type: application/json" \
 app.post("/api/users", async (req, res) => {
   try {
     if (req.body === undefined) {
-      return res.status(400).json({ error: 'Por favor completa el body.'});
+      return res.status(400).json({ error: "Por favor completa el body." });
     }
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
@@ -58,7 +58,7 @@ app.post("/api/users", async (req, res) => {
     const email = req.body.email;
     const foto_user = req.body.foto_user;
     if (!nombre || !apellido || !carrera || !email) {
-      return res.status(400).json({ error: 'Por favor completa todos los campos obligatorios.'});
+      return res.status(400).json({ error: "Por favor completa todos los campos obligatorios." });
     }
     if (nombre.length > 20) {
       return res.status(400).json({ error: "Maximo nombre son 20 caracteres" });
@@ -79,7 +79,7 @@ app.post("/api/users", async (req, res) => {
     res.status(201).json(user);
   } catch (error) {
     console.error("Error en POST /api/users/:", error);
-    res.status(500).json({ error: 'Fallo al crear user' });
+    res.status(500).json({ error: "Fallo al crear user" });
   }
 });
 
@@ -95,7 +95,7 @@ app.delete("/api/users/:id_user", async (req, res) => {
     }
     const user = await deleteUser(idUser);
     if(!user) {
-      return res.status(404).json({ error: 'User no encontrado'});
+      return res.status(404).json({ error: "User no encontrado" });
     }
     res.status(200).json(user);
   } catch (error) {
@@ -113,7 +113,7 @@ app.put("/api/users/:id_user", async (req, res) => {
       return res.status(400).json({ error: "User invalido" });
     }
     if (req.body === undefined) {
-      return res.status(400).json({ error: 'Por favor completa el body.'});
+      return res.status(400).json({ error: "Por favor completa el body." });
     }
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
@@ -121,7 +121,7 @@ app.put("/api/users/:id_user", async (req, res) => {
     const email = req.body.email;
     const foto_user = req.body.foto_user;
     if (!nombre || !apellido || !carrera || !email) {
-      return res.status(400).json({ error: 'Por favor completa todos los campos obligatorios.'});
+      return res.status(400).json({ error: "Por favor completa todos los campos obligatorios." });
     }
     if (nombre.length > 20) {
       return res.status(400).json({ error: "Maximo nombre son 20 caracteres" });
@@ -145,7 +145,7 @@ app.put("/api/users/:id_user", async (req, res) => {
     res.status(201).json(user);
   } catch (error) {
     console.error("Error en POST /api/users/:", error);
-    res.status(500).json({ error: 'Fallo al crear user' });
+    res.status(500).json({ error: "Fallo al actualizar user" });
   }
 });
 
@@ -169,7 +169,7 @@ app.get("/api/forms/:id_form", async (req, res) => {
     }
     const form = await getOneForm(idForm);
     if(!form) {
-      return res.status(404).json({ error: 'Form no encontrado'});
+      return res.status(404).json({ error: "Form no encontrado" });
     }
     res.status(200).json(form);
   } catch (error) {
@@ -188,7 +188,7 @@ curl --header "Content-Type: application/json" \
 app.post("/api/forms", async (req, res) => {
   try {
     if (req.body === undefined) {
-      return res.status(400).json({ error: 'Por favor completa el body.'});
+      return res.status(400).json({ error: "Por favor completa el body." });
     }
     const id_user = req.body.id_user;
     const materia = req.body.materia;
@@ -197,7 +197,7 @@ app.post("/api/forms", async (req, res) => {
     const tipo = req.body.tipo;
     const foto_form = req.body.foto_form;
     if (!id_user || !materia || !tema || !descripcion || !tipo) {
-      return res.status(400).json({ error: 'Por favor completa todos los campos obligatorios.'});
+      return res.status(400).json({ error: "Por favor completa todos los campos obligatorios." });
     }
     if (!Number.isInteger(id_user)) {
       return res.status(400).json({ error: "ID User invalido" });
@@ -221,7 +221,7 @@ app.post("/api/forms", async (req, res) => {
     if (error.code === "23503") { 
       return res.status(400).json({ error: "id_user no existe" });
     }
-    res.status(500).json({ error: 'Fallo al crear form' });
+    res.status(500).json({ error: "Fallo al crear form" });
   }
 });
 
@@ -234,7 +234,7 @@ app.delete("/api/forms/:id_form", async (req, res) => {
     }
     const form = await deleteForm(idForm);
     if(!form) {
-      return res.status(404).json({ error: 'Form no encontrado'});
+      return res.status(404).json({ error: "Form no encontrado" });
     }
     res.status(200).json(form);
   } catch (error) {
@@ -245,8 +245,51 @@ app.delete("/api/forms/:id_form", async (req, res) => {
 
 //si uso pathch no necesito mandarle todo para actualizar, con put si
 //PUT. /FORMULARIOS/<NOMBRE>
-app.put("/api/forms/:id_form", (req, res) => {
-  res.json({ status: 'OK'});
+app.put("/api/forms/:id_form", async (req, res) => {
+  try {
+    const idForm = Number(req.params.id_form);
+    if (!Number.isInteger(idForm)) {
+      return res.status(400).json({ error: "ID Form invalido" });
+    }
+    if (req.body === undefined) {
+      return res.status(400).json({ error: "Por favor completa el body." });
+    }
+    const id_user = req.body.id_user;
+    const materia = req.body.materia;
+    const tema = req.body.tema;
+    const descripcion = req.body.descripcion;
+    const tipo = req.body.tipo;
+    const foto_form = req.body.foto_form;
+    if (!id_user || !materia || !tema || !descripcion || !tipo) {
+      return res.status(400).json({ error: "Por favor completa todos los campos obligatorios." });
+    }
+    if (!Number.isInteger(id_user)) {
+      return res.status(400).json({ error: "ID User invalido" });
+    }
+    if (materia.length > 100) {
+      return res.status(400).json({ error: "Maximo materia son 100 caracteres" });
+    }
+    if (tema.length > 100) {
+      return res.status(400).json({ error: "Maximo tema son 100 caracteres" });
+    }
+    if (descripcion.length > 255) {
+      return res.status(400).json({ error: "Maximo descripcion son 255 caracteres" });
+    }
+    if (tipo.length > 12) {
+      return res.status(400).json({ error: "Maximo tipo son 12 caracteres" });
+    }
+    const form = await updateForm(idForm, id_user, materia, tema, descripcion, tipo, foto_form)
+    if(!form) {
+      return res.status(404).json({ error: "Form no encontrado" });
+    }
+    res.status(201).json(form);
+  } catch (error) {
+    console.error("Error en POST /api/forms/:", error);
+    if (error.code === "23503") { 
+      return res.status(400).json({ error: "id_user no existe" });
+    }
+    res.status(500).json({ error: "Fallo al actualizar form" });
+  }
 });
 
 //GET. /REVIEWS
@@ -269,7 +312,7 @@ app.get("/api/reviews/:id_review", async (req, res) => {
     }
     const review = await getOneReview(idReview);
     if(!review) {
-      return res.status(404).json({ error: 'Review no encontrado'});
+      return res.status(404).json({ error: "Review no encontrado" });
     }
     res.status(200).json(review);
   } catch (error) {
@@ -287,7 +330,7 @@ app.get("/api/reviewsUser/:id_user", async (req, res) => {
     }
     const user = await getReviewsUser(idUser);
     if(!user) {
-      return res.status(404).json({ error: 'User no encontrado'});
+      return res.status(404).json({ error: "User no encontrado" });
     }
     res.status(200).json(user);
   } catch (error) {
@@ -306,7 +349,7 @@ curl --header "Content-Type: application/json" \
 app.post("/api/reviews", async (req, res) => {
   try {
     if (req.body === undefined) {
-      return res.status(400).json({ error: 'Por favor completa el body.'});
+      return res.status(400).json({ error: "Por favor completa el body."});
     }
     const id_puntuado = req.body.id_puntuado;
     const id_puntuador = req.body.id_puntuador;
@@ -325,7 +368,7 @@ app.post("/api/reviews", async (req, res) => {
       return res.status(400).json({ error: "Maximo descripcion son 255 caracteres" });
     }
     if (!id_puntuado || !id_puntuador || !aura || !descripcion) {
-      return res.status(400).json({ error: 'Por favor completa todos los campos obligatorios.'});
+      return res.status(400).json({ error: "Por favor completa todos los campos obligatorios." });
     }
     const review = await createReview(id_puntuado, id_puntuador, aura, descripcion)
     res.status(201).json(review);
@@ -334,7 +377,7 @@ app.post("/api/reviews", async (req, res) => {
     if (error.code === "23503") { 
       return res.status(400).json({ error: "Algun ID no existe" });
     }
-    res.status(500).json({ error: 'Fallo al crear review' });
+    res.status(500).json({ error: "Fallo al crear review" });
   }
 });
 
@@ -347,7 +390,7 @@ app.delete("/api/reviews/:id_review", async (req, res) => {
     }
     const review = await deleteReview(idReview);
     if(!review) {
-      return res.status(404).json({ error: 'Review no encontrado'});
+      return res.status(404).json({ error: "Review no encontrado" });
     }
     res.status(200).json(review);
   } catch (error) {
