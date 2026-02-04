@@ -1,21 +1,26 @@
-const usuariosDisponibles = [
-  { id: 1, nombre: "tomas", email: "tomas@fiuba.ar" },
-  { id: 2, nombre: "Arleys", email: "arleys@fiuba.ar" },
-  { id: 3, nombre: "esteban", email: "esteban@fiuba.ar" },
-  { id: 4, nombre: "nico", email: "nico@fiuba.ar" },
-  { id: 5, nombre: "Juan", email: "juan@fiuba.ar" }
-];
+let usuariosDisponibles = [];
 
 const form = document.getElementById('solicitudForm');
 const mensajeExito = document.getElementById('mensajeExito');
+const mensajeError = document.getElementById('mensajeError');
 const inputBuscador = document.getElementById('input-buscador-remitente');
 const listaSugerencias = document.getElementById('lista-sugerencias');
 const inputOcultoId = document.getElementById('input-remitente-id');
 
-// Función que verifica que se escriba almenos una letra
 function contieneLetra(texto) {
   return /[a-zA-Z]/.test(texto);
 }
+
+// Cargar usuarios desde el backend
+async function cargarUsuarios() {
+  try {
+    const respuesta = await fetch("http://localhost:3000/api/users");
+    usuariosDisponibles = await respuesta.json();
+  } catch (error) {
+    console.error("Error al cargar usuarios:", error);
+  }
+}
+cargarUsuarios();
 
 form.addEventListener('submit', async function(event) {
   event.preventDefault();
@@ -27,25 +32,25 @@ form.addEventListener('submit', async function(event) {
   const tipoPost = form.tipo_post.value;
 
   if (!materia || !tema || !descripcion || !remitenteId || !tipoPost) {
-    alert("Por favor completa todos los campos, selecciona remitente y tipo de post.");
+    mostrarError("Por favor completa todos los campos obligatorios.");
     return;
   }
 
   if (!contieneLetra(materia) || !contieneLetra(tema) || !contieneLetra(descripcion)) {
-    alert("Cada campo debe contener al menos una letra (no solo números).");
+    mostrarError("Cada campo debe contener al menos una letra.");
     return;
   }
 
   const datos = {
-    remitente_id: remitenteId,
-    materia: materia,
-    tema: tema,
-    descripcion: descripcion,
-    tipo_post: tipoPost
+    id_user: parseInt(remitenteId),
+    materia,
+    tema,
+    descripcion,
+    tipo: tipoPost
   };
 
   try {
-    const respuesta = await fetch('http://localhost:3000/api/solicitudes', {
+    const respuesta = await fetch('http://localhost:3000/api/forms', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(datos)
@@ -53,20 +58,31 @@ form.addEventListener('submit', async function(event) {
 
     const resultado = await respuesta.json();
 
-    if (resultado.success) {
-      mensajeExito.style.display = "block";
-      mensajeExito.textContent = resultado.message || "¡Solicitud enviada correctamente!";
+    if (respuesta.ok) {
+      mostrarExito(resultado.message || "¡Solicitud enviada correctamente!");
       form.reset();
       inputBuscador.value = "";
       inputOcultoId.value = "";
     } else {
-      alert("Hubo un problema al enviar la solicitud.");
+      mostrarError(resultado.error || "Error desconocido");
     }
   } catch (error) {
     console.error("Error al enviar:", error);
-    alert("Error de conexión con el servidor.");
+    mostrarError("Error de conexión con el servidor.");
   }
 });
+
+function mostrarError(msg) {
+  mensajeError.textContent = msg;
+  mensajeError.style.display = "block";
+  mensajeExito.classList.remove("show");
+}
+
+function mostrarExito(msg) {
+  mensajeExito.textContent = msg;
+  mensajeExito.classList.add("show");
+  mensajeError.style.display = "none";
+}
 
 inputBuscador.addEventListener('input', function() {
   const textoEscrito = this.value.toLowerCase();
@@ -95,7 +111,7 @@ function renderizarSugerencias(lista) {
   lista.forEach(usuario => {
     html += `
       <a class="custom-dropdown-item" 
-         onclick="seleccionarUsuario('${usuario.id}', '${usuario.nombre}')">
+         onclick="seleccionarUsuario('${usuario.id_user}', '${usuario.nombre}')">
          <strong>${usuario.nombre}</strong> <br>
          <small class="has-text-grey">${usuario.email}</small>
       </a>
@@ -111,3 +127,4 @@ function seleccionarUsuario(id, nombre) {
   inputOcultoId.value = id;
   listaSugerencias.style.display = 'none';
 }
+

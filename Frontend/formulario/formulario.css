@@ -67,6 +67,10 @@ input:focus, textarea:focus, select:focus {
   background: #2759a5;
 }
 
+#mensajeError {
+  margin-bottom: 1rem;
+}
+
 #mensajeExito {
   margin-top: 15px;
   padding: 12px;
@@ -76,38 +80,13 @@ input:focus, textarea:focus, select:focus {
   color: #155724;
   border: 1px solid #c3e6cb;
   display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-.position-relative { 
-  position: relative; 
-}
-
-.custom-dropdown-list {
-  position: absolute;
-  top: 100%; 
-  left: 0; 
-  right: 0;
-  z-index: 20;
-  border: 1px solid #ddd;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  max-height: 200px;
-  overflow-y: auto;
-  background: #fff;
-  display: none;
-  border-radius: 8px;
-}
-
-.custom-dropdown-item {
+#mensajeExito.show {
   display: block;
-  padding: 0.5rem 1rem;
-  color: #363636;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.custom-dropdown-item:hover {
-  background-color: #f5f5f5;
-  color: #3273dc;
+  opacity: 1;
 }
 
 .navbar-fiu {
@@ -115,16 +94,16 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
-.column .imagen-lateral {
+.imagen-lateral {
   width: 100%;
-  height: 100%;
+  height: 600px;
   object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.35);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.column .imagen-lateral:hover {
+.imagen-lateral:hover {
   transform: scale(1.02);
   box-shadow: 0 12px 20px rgba(0,0,0,0.45);
 }

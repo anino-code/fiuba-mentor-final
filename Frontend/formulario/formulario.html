@@ -36,6 +36,8 @@
         <div class="card-form">
           <h1 class="titulo-form">Formulario de Solicitud</h1>
           <form id="solicitudForm">
+            <div id="mensajeError" class="notification is-danger" style="display:none;"></div>
+
             <div class="field position-relative">
               <label class="label-gradient">Remitente (Seleccionar Perfil)</label>
               <div class="control has-icons-left has-icons-right">
@@ -78,10 +80,13 @@
                   </select>
                 </div>
               </div>
-            </div>
+            </div> 
 
             <div class="field">
-              <button type="submit" class="button is-link is-fullwidth is-rounded">Enviar</button>
+              <button type="submit" class="button is-link is-fullwidth is-rounded">
+                <span class="icon"><i class="fas fa-paper-plane"></i></span>
+                <span>Enviar</span>
+              </button>
             </div>
           </form>
 
