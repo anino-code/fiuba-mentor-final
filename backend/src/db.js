@@ -161,6 +161,37 @@ export async function getOneReview(id_review) {
   };
 }
 
+export async function getReviewsUser(id_user) {
+  const result = await pool.query('SELECT u.id_user AS user_id, u.nombre AS user_nombre, u.apellido AS user_apellido, u.carrera AS user_carrera, u.email AS user_email, u.foto_user AS user_foto, r.*, pr.id_user AS puntuador_id, pr.nombre AS puntuador_nombre, pr.apellido AS puntuador_apellido, pr.carrera AS puntuador_carrera, pr.email AS puntuador_email, pr.foto_user AS puntuador_foto_user, COALESCE(SUM(r.aura) OVER (PARTITION BY u.id_user), 0) AS aura_total FROM users u LEFT JOIN reviews r ON r.id_puntuado = u.id_user Left JOIN users pr ON r.id_puntuador = pr.id_user WHERE u.id_user = $1 ORDER BY r.fecha_creado DESC', [id_user]);
+  if (result.rowCount === 0) {
+    return undefined;
+  }
+  const r = result.rows;
+  return {
+    id_user: r[0].user_id,
+    nombre: r[0].user_nombre,
+    apellido: r[0].user_apellido,
+    carrera: r[0].user_carrera,
+    email: r[0].user_email,
+    foto_user: r[0].user_foto,
+    aura_total: r[0].aura_total,
+    reviews: r.map(review => ({
+      id_review: review.id_review,
+      aura: review.aura,
+      descripcion: review.descripcion,
+      fecha_creado: review.fecha_creado,
+      puntuador: {
+        id_user: review.puntuador_id,
+        nombre: review.puntuador_nombre,
+        apellido: review.puntuador_apellido,
+        carrera: review.puntuador_carrera,
+        email: review.puntuador_email,
+        foto_user: review.puntuador_foto_user
+      }
+    }))
+  };
+}
+
 export async function createReview(id_puntuado, id_puntuador, aura, descripcion) {
   const result = await pool.query('INSERT INTO  reviews(id_puntuado, id_puntuador, aura, descripcion) VALUES ($1, $2, $3, $4) RETURNING *', [id_puntuado, id_puntuador, aura, descripcion]);
   console.log("result", result.rows[0]);

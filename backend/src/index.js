@@ -240,7 +240,7 @@ app.get("/api/reviews/:id_review", async (req, res) => {
 });
 
 //GET. /REVIEWS/<USER>
-app.get("/api/reviews/:id_user", async (req, res) => {
+app.get("/api/reviewsUser/:id_user", async (req, res) => {
     try {
     const idUser = Number(req.params.id_user);
     if (!Number.isInteger(idUser)) {
@@ -252,7 +252,7 @@ app.get("/api/reviews/:id_user", async (req, res) => {
     }
     res.status(200).json(user);
   } catch (error) {
-    console.error("Error en GET /api/reviews/id_user/:", error);
+    console.error("Error en GET /api/reviewsUser/id_user/:", error);
     res.status(500).json({ error: "DB reviews error" });
   }
 });
