@@ -30,6 +30,6 @@ create table reviews (
 /*Crear user*/
 insert into users (nombre, apellido, carrera, email) values ('esteban', 'ordoñez', 'ing informatica', 'eordonez@fi.uba.ar'),
 /*Crear form*/
-insert into forms (id_user, materia, tema, descripcion, tipo) values (7, 'introCamejo', 'el backend', 'mil vueltas', 'mentor')
+insert into forms (id_user, materia, tema, descripcion, tipo) values (1, 'introCamejo', 'el backend', 'mil vueltas', 'mentor')
 /*Crear review*/
-insert into reviews (id_puntuado, id_puntuador, aura, descripcion) values (1, 8, 10, 'gran tipazo')
+insert into reviews (id_puntuado, id_puntuador, aura, descripcion) values (1, 1, 10, 'gran tipazo')
