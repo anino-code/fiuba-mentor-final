@@ -6,7 +6,7 @@ async function cargarCard() {
     try{
     cardContainer.innerHTML = '<p>Cargando datos del servidor simulado...</p>';
 
-    const response = await fetch('../js/data/perfil.json');
+    const response = await fetch('http://localhost:3000/api/reviews');
 
     if(!response.ok){
         throw new Error('No se pudo conectar con el servidor');
