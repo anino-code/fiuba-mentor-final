@@ -51,34 +51,34 @@
         <div class="popup-content" id="popupContent">
             <h2 class="tituloPopup">Crear Review</h2>
             <form id="formCrearReview">
+                <div id="mensajeError" class="notification is-danger" style="display:none;"></div>
+                    <div class="field position-relative">
+                  <label class="label-gradient">Remitente (Seleccionar Perfil)</label>
+                  <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" id="input-buscador-remitente"
+                           placeholder="Escribe para buscar (ej: Juan, Tomas...)" autocomplete="off">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-user"></i>
+                    </span>
+                    <span class="icon is-small is-right" id="icono-loading" style="display: none;">
+                      <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                  </div>
+                  <div id="lista-sugerencias" class="dropdown-content custom-dropdown-list"></div>
+                  <input type="hidden" id="input-remitente-id" name="remitente_id">
+                </div>
+                
                 <div class="field">
-                    <label class="label" for="Nombre">Nombre:</label>
+                    <label class="label" for="Aura">Aura:</label>
                     <div class="control">
-                        <input class="input" type="text" id="Nombre" placeholder="Nombre" name="Nombre" required>
+                        <input class="input" type="number" id="Aura" placeholder="Aura" name="Aura" required>
                     </div>
                 </div>
+
                 <div class="field">
-                    <label class="label" for="Apellido">Apellido:</label>
+                    <label class="label" for="Descripcion">Descripcion:</label>
                     <div class="control">
-                        <input class="input" type="text" id="Apellido" placeholder="Apellido" name="Apellido" required>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label" for="Carrera">Carrera:</label>
-                    <div class="control">
-                        <input class="input" type="text" id="Carrera" placeholder="Carrera" name="Carrera" required>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label" for="Email">Email:</label>
-                    <div class="control">
-                        <input class="input" type="email" id="Email" placeholder="Email" name="Email" required>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label" for="Foto">Foto de Perfil:</label>
-                    <div class="control">
-                        <input class="input" type="url" id="Foto" placeholder="URL de la Foto" name="Foto" required>
+                        <input class="input" type="text" id="Descripcion" placeholder="Descripcion" name="Descripcion" required>
                     </div>
                 </div>
             </form>
@@ -86,6 +86,14 @@
                 <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearReview()">
                     Cancelar
                 </button>
+                
+                <div class="field">
+                    <button type="submit" class="button is-link is-fullwidth is-rounded">
+                      <span class="icon"><i class="fas fa-paper-plane"></i></span>
+                      <span>Crear</span>
+                    </button>
+                </div>
+
                 <button class="button botonPopup is-link is-normal" type="submit" id="botonCrear"
                     form="formCrearReview">
                     Crear
