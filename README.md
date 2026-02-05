@@ -26,9 +26,9 @@ El diferencial del proyecto es su sistema de **Reputacion (Aura)**:
 | Nombre y Apellido | Legajo | Rol Principal |
 |-------------------|--------|---------------|
 | **Nicolas Gaitan** | 113347 | Dev front
-| **Tomas Correa** | 113878 | Dev front
+| **Tomas Correa** | 113878 | Dev front- back
 | **Esteban Ordoñez** | 112981 | Dev front- back-Db 
-| **Arleys Camaño** | 114432 | Dev front- back
+| **Arleys Camaño** | 114432 | Dev front
 
 
 
@@ -44,7 +44,7 @@ El proyecto utiliza una arquitectura moderna y escalable:
     * Node.js.
     * Express.js (API REST).
 * **Base de Datos:**
-    * PostgreSQL 15.
+    * PostgreSQL 17.
 * **Infraestructura:**
     * Docker & Docker Compose.
 * **Control de Versiones:**
@@ -55,9 +55,9 @@ El proyecto utiliza una arquitectura moderna y escalable:
 
 El sistema cuenta con **3 entidades principales** diseñadas para cubrir el ciclo completo de aprendizaje:
 
-1.  **Estudiantes:** Usuarios del sistema con sus datos académicos y puntaje de *Aura*.
-2.  **Publicaciones:** Ofertas ("Enseño") o Demandas ("Busco") de materias específicas.
-4.  **Reseñas:** Calificación final de la experiencia. Esta entidad cierra el ciclo y dispara la actualización de los puntos de *Aura*.
+1.  **Usurs:** Usuarios del sistema con sus datos académicos y puntaje de *Aura*.
+2.  **Solicitudes:** Ofertas ("Enseño") o Demandas ("Busco") de materias específicas.
+4.  **Reviews:** Calificación final de la experiencia. Esta entidad cierra el ciclo y dispara la actualización de los puntos de *Aura*.
 
 ##  Instrucciones de Instalación
 
@@ -83,7 +83,7 @@ Siga estos pasos para levantar el entorno de desarrollo localmente.
 3.  **Acceder a la aplicación:**
     * **Frontend:** http://localhost:8080 (o abrir `frontend/index.html` según configuración).
     * **API Backend:** http://localhost:3000.
-    * **Base de Datos:** Puerto 5432 (Usuario: `admin` / Pass: `adminpassword`).
+    * **Base de Datos:** Puerto 5432 (Usuario: `postgres` / Pass: `postgres`).
 
 
 ##  Flujo de Trabajo (Git Workflow)
@@ -99,3 +99,4 @@ Para el desarrollo se utiliza una estrategia de ramas basada en funcionalidades 
 ##  Capturas de Pantalla
 
 > Proyecto realizado para la materia **Introducción al Desarrollo de Software** - FIUBA, 2025.
+
