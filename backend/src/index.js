@@ -6,12 +6,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Ruta de prueba
+
 app.get("/api", (req, res) => {
   res.json({ status: "OK" });
 });
 
-//GET. /USUARIOS
+
 app.get("/api/users", async (req, res) => {
   try {
     const users = await getAllUsers();
@@ -22,7 +22,7 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
-//GET. /USUARIOS/<NOMBRE>
+
 app.get("/api/users/:id_user", async (req, res) => {
   try {
     const idUser = Number(req.params.id_user);
@@ -40,13 +40,7 @@ app.get("/api/users/:id_user", async (req, res) => {
   }
 });
 
-//POST. /USUARIOS
-/*
-curl --header "Content-Type: application/json" \
-  --request POST \
-  --data '{"nombre":"esteban","apellido":"ordoñez","carrera":"ing informatica","email":"eordonez@fi.uba.ar","foto_user":""}' \
-  http://localhost:3000/api/users
-*/
+
 app.post("/api/users", async (req, res) => {
   try {
     if (req.body === undefined) {
@@ -83,10 +77,7 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-//DELETE. /USUARIOS/<NOMBRE>
-/*
-curl --request DELETE http://localhost:3000/api/users/:id_user
-*/
+
 app.delete("/api/users/:id_user", async (req, res) => {
   try {
     const idUser = Number(req.params.id_user);
@@ -104,7 +95,7 @@ app.delete("/api/users/:id_user", async (req, res) => {
   }
 });
 
-//PUT. /USUARIOS/<NOMBRE>
+
 app.put("/api/users/:id_user", async (req, res) => {
   try {
     const idUser = Number(req.params.id_user);
@@ -148,7 +139,7 @@ app.put("/api/users/:id_user", async (req, res) => {
   }
 });
 
-//GET. /FORMULARIOS
+
 app.get("/api/forms", async (req, res) => {
   try {
     const forms = await getAllForms();
@@ -159,7 +150,7 @@ app.get("/api/forms", async (req, res) => {
   }
 });
 
-//GET. /FORMULARIOS/<NOMBRE>
+
 app.get("/api/forms/:id_form", async (req, res) => {
   try {
     const idForm = Number(req.params.id_form);
@@ -177,13 +168,7 @@ app.get("/api/forms/:id_form", async (req, res) => {
   }
 });
 
-//POST. /FORMULARIOS
-/*
-curl --header "Content-Type: application/json" \
-  --request POST \
-  --data '{"id_user":7,"materia":"Intro","tema":"el back","descripcion":"hard","tipo":"mentor","foto_form":""}' \
-  http://localhost:3000/api/forms
-*/
+
 app.post("/api/forms", async (req, res) => {
   try {
     if (req.body === undefined) {
@@ -224,7 +209,7 @@ app.post("/api/forms", async (req, res) => {
   }
 });
 
-//DELETE. /FORMULARIOS/<NOMBRE>
+
 app.delete("/api/forms/:id_form", async (req, res) => {
   try {
     const idForm = Number(req.params.id_form);
@@ -242,7 +227,7 @@ app.delete("/api/forms/:id_form", async (req, res) => {
   }
 });
 
-//PUT. /FORMULARIOS/<NOMBRE>
+
 app.put("/api/forms/:id_form", async (req, res) => {
   try {
     const idForm = Number(req.params.id_form);
@@ -290,7 +275,7 @@ app.put("/api/forms/:id_form", async (req, res) => {
   }
 });
 
-//GET. /REVIEWS
+
 app.get("/api/reviews", async (req, res) => {
   try {
     const reviews = await getAllReviews();
@@ -301,7 +286,7 @@ app.get("/api/reviews", async (req, res) => {
   }
 });
 
-//GET. /REVIEWS/<NOMBRE>
+
 app.get("/api/reviews/:id_review", async (req, res) => {
     try {
     const idReview = Number(req.params.id_review);
@@ -319,7 +304,7 @@ app.get("/api/reviews/:id_review", async (req, res) => {
   }
 });
 
-//GET. /REVIEWS/<USER>
+
 app.get("/api/reviewsUser/:id_user", async (req, res) => {
     try {
     const idUser = Number(req.params.id_user);
@@ -337,13 +322,7 @@ app.get("/api/reviewsUser/:id_user", async (req, res) => {
   }
 });
 
-//POST. /REVIEWS
-/*
-curl --header "Content-Type: application/json" \
-  --request POST \
-  --data '{"id_puntuado":1,"id_puntuador":9,"aura":10,"descripcion":"descripcion"}' \
-  http://localhost:3000/api/reviews
-*/
+
 app.post("/api/reviews", async (req, res) => {
   try {
     if (req.body === undefined) {
@@ -382,7 +361,7 @@ app.post("/api/reviews", async (req, res) => {
   }
 });
 
-//DELETE. /REVIEWS/<NOMBRE>
+
 app.delete("/api/reviews/:id_review", async (req, res) => {
   try {
     const idReview = Number(req.params.id_review);
@@ -400,7 +379,7 @@ app.delete("/api/reviews/:id_review", async (req, res) => {
   }
 });
 
-//PUT. /REVIEWS/<NOMBRE>
+
 app.put("/api/reviews/:id_review", async (req, res) => {
   try {
     const idReview = Number(req.params.id_review);

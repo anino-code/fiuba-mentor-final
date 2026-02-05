@@ -8,59 +8,56 @@
     <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/9/93/Logo-fiuba.gif">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/reviews.css">
+    <link rel="stylesheet" href="../../css/main.css"> 
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
     <nav class="navbar is-spaced navbar-fiu" role="navigation" aria-label="main navigation">
-  <div class="container">
+        <div class="container">
     
-    <div class="navbar-brand">
-      <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="index.html">
-        FIUBA Mentor
-      </a>
+            <div class="navbar-brand">
+                    <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="../../index.html">
+                        FIUBA Mentor
+                    </a>
 
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuPrincipal">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuPrincipal">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
 
-    <div id="navbarMenuPrincipal" class="navbar-menu">
-      
-      <div class="navbar-start">
-        <a href="index.html" class="navbar-item has-text-weight-medium">Inicio</a>
-        <a href="../formulario/formulario.html" class="navbar-item has-text-weight-medium">Solicitud</a>
-        <a href="perfil.html" class="navbar-item has-text-weight-medium">Perfil</a>
-        <a href="reviews.html" class="navbar-item has-text-weight-medium">Reviews</a>
-      </div>
+            <div id="navbarMenuPrincipal" class="navbar-menu">
 
-      <div class="navbar-end">
-        <div class="navbar-item">
-            <a href="perfil.html" class="button btn-perfil is-link is-rounded has-text-white einstein-btn is-fullwidth-mobile">
-              Crear Perfil
-            </a>
+            <div class="navbar-start">
+                    <a href="../../index.html" class="navbar-item has-text-weight-medium">Inicio</a>
+                    <a href="../formulario/index.html" class="navbar-item has-text-weight-medium">Solicitud</a>
+                    <a href="../perfil/index.html" class="navbar-item has-text-weight-medium">Perfil</a>
+                    <a href="../reviews/index.html" class="navbar-item has-text-weight-medium">Reviews</a>
+            </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <a 
+                            class="button is-link is-rounded has-text-white einstein-btn is-fullwidth-mobile"
+                            onclick="abrirPopupCrearReview()">
+                                Crear Review
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      
-    </div>
-  </div>
-</nav>
+    </nav>
+
+    <main class="main-content">
     <section class="section">
         <div class="container">
             <div class="masonry-wrapper" id="grid-tarjetas-review">
             </div>
         </div>
     </section>
-    <footer>
-        <div class="footer-inicio">
-            <p class="texto-footer">
-                <strong>FIUBA Mentor</strong> copywriting 2026.
-            </p>
-        </div>
-    </footer>
+    
     <div class="popup-overlay" id="popupOverlayCrearReview">
         <div class="popup-content" id="popupContent">
             <h2 class="tituloPopup">Crear Review</h2>
@@ -124,6 +121,14 @@
             </form>
         </div>
     </div>
-    <script src="../js/reviews.js"></script>
+    </main>
+    <footer>
+        <div class="footer-inicio">
+            <p class="texto-footer">
+                <strong>FIUBA Mentor</strong> copywriting 2026.
+            </p>
+        </div>
+    </footer>
+    <script src="./script.js"></script>
 </body>
 </html>

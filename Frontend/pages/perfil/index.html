@@ -8,15 +8,15 @@
         <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/9/93/Logo-fiuba.gif">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/perfil.css">
+        <link rel="stylesheet" href="../../css/main.css"> 
+        <link rel="stylesheet" href="./style.css">
     </head>
     <body>
         <nav class="navbar is-spaced navbar-fiu" role="navigation" aria-label="main navigation">
         <div class="container">
     
             <div class="navbar-brand">
-                    <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="index.html">
+                    <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="../../index.html">
                         FIUBA Mentor
                     </a>
 
@@ -30,16 +30,18 @@
             <div id="navbarMenuPrincipal" class="navbar-menu">
 
             <div class="navbar-start">
-                <a href="index.html" class="navbar-item has-text-weight-medium">Inicio</a>
-                <a href="../formulario/formulario.html" class="navbar-item has-text-weight-medium">Solicitud</a>
-                <a href="perfil.html" class="navbar-item has-text-weight-medium">Perfil</a>
-                <a href="reviews.html" class="navbar-item has-text-weight-medium">Reviews</a>
+                <a href="../../index.html" class="navbar-item has-text-weight-medium">Inicio</a>
+                <a href="../formulario/index.html"class="navbar-item has-text-weight-medium">Solicitud</a>
+                <a href="../perfil/index.html" class="navbar-item has-text-weight-medium">Perfil</a>
+                <a href="../reviews/index.html" class="navbar-item has-text-weight-medium">Reviews</a>
             </div>
 
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        <a href="perfil.html" class="button btn-perfil is-link is-rounded has-text-white einstein-btn is-fullwidth-mobile">
-                            Crear Perfil
+                        <a 
+                            class="button btn-perfil is-link is-rounded has-text-white einstein-btn is-fullwidth-mobile"
+                            onclick="abrirPopupCrearPerfil()">
+                                Crear Perfil
                         </a>
                     </div>
                 </div>
@@ -107,6 +109,7 @@
             </div>
         </div>
 
-        <script src="../js/perfil.js"></script>
+        
+        <script src="./script.js"></script>
     </body>
 </html>

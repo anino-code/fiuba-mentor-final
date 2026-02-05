@@ -4,9 +4,9 @@ const cardContainer = document.getElementById('grid-tarjetas');
 async function cargarCard() {
 
     try{
-    cardContainer.innerHTML = '<p>Cargando datos del servidor simulado...</p>';
+    cardContainer.innerHTML = '<p>Cargando datos del servidor ...</p>';
 
-    const response = await fetch('http://localhost:3000/api/forms');
+    const response = await fetch('http://localhost:3000/api/forms?t=' + Date.now());
 
     if(!response.ok){
         throw new Error('No se pudo conectar con el servidor');
@@ -200,6 +200,10 @@ function renderizarCards(publicaciones){
 
     publicaciones.forEach(pub => {
 
+        if (!pub.usuario || !pub.usuario.id_user) {
+            return; 
+        }
+
     const usuario = pub.usuario || { nombre: 'Anonimo', id_user: 0, aura: 0 };
     
     const imagenPortada = pub.foto_form || 
@@ -260,29 +264,25 @@ function renderizarCards(publicaciones){
 
 cargarCard();
 
-/* Pega esto en js/main.js */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Busca todos los elementos con la clase "navbar-burger"
-  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-  // Si encuentra alguno...
-  if ($navbarBurgers.length > 0) {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-    // A cada uno le agrega el evento "click"
+
+    if ($navbarBurgers.length > 0) {
+
     $navbarBurgers.forEach( el => {
-      el.addEventListener('click', () => {
+        el.addEventListener('click', () => {
 
-        // Obtiene el ID del menú objetivo (data-target="navbarMenuPrincipal")
         const target = el.dataset.target;
         const $target = document.getElementById(target);
 
-        // Alterna la clase "is-active" en el botón y en el menú
         el.classList.toggle('is-active');
         $target.classList.toggle('is-active');
 
-      });
+        });
     });
-  }
+    }
 });
