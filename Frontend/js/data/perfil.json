@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "nombre": "María",
+    "apellido": "González",
+    "carrera": "Ingeniería Industrial",
+    "email": "mariagonzalez@gmail.com",
+    "fotoPerfil": "https://randomuser.me/api/portraits/women/44.jpg",
+    "aura": "40"
+  },
+  {
+    "id": 2,
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "carrera": "Ingeniería en Petróleo",
+    "email": "juanperez@gmail.com",
+    "fotoPerfil": "https://randomuser.me/api/portraits/men/32.jpg",
+    "aura": "30"
+  },
+  {
+    "id": 3,
+    "nombre": "Carlos",
+    "apellido": "Torres",
+    "carrera": "Ingeniería Mecánica",
+    "email": "carlostorres@gmail.com",
+    "fotoPerfil": "https://randomuser.me/api/portraits/men/85.jpg",
+    "aura": "10"
+  },
+  {
+    "id": 4,
+    "nombre": "Sofía",
+    "apellido": "López",
+    "carrera": "Ingeniería Informática",
+    "email": "sofialopez@gmail.com",
+    "fotoPerfil": "https://randomuser.me/api/portraits/women/65.jpg",
+    "aura": "50"
+  },
+  {
+    "id": 5,
+    "nombre": "Pedro",
+    "apellido": "Alvarez",
+    "carrera": "Ingeniería Química",
+    "email": "pedroalvarez@gmail.com",
+    "fotoPerfil": "https://randomuser.me/api/portraits/men/11.jpg",
+    "aura": "20"
+  }
+]
