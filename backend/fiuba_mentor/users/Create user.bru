@@ -1,0 +1,25 @@
+meta {
+  name: Create user
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/users
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nombre": "es",
+    "apellido": "ordoñezordoñez",
+    "carrera": "el ing inforordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezmaticel ing inforordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezmaticael ing inforordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezmaticael ing inforordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezmaticael ing inforordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezmaticael ing inforordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezmaticael ing inforordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezmaticael ing inforordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezordoñezmaticaa",
+    "email": "eordonez@fi.uba.ar"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

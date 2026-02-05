@@ -1,0 +1,25 @@
+meta {
+  name: Update user
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3000/api/users/7
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nombre": "raul",
+    "apellido": "ordo",
+    "carrera": "el ing",
+    "email": "eorz@fi.uba.ar"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

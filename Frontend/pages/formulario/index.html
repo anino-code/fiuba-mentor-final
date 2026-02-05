@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Solicitud</title>
+  <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/9/93/Logo-fiuba.gif">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../css/main.css"> 
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav class="navbar is-spaced navbar-fiu" role="navigation" aria-label="main navigation">
+        <div class="container">
+    
+            <div class="navbar-brand">
+                    <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="index.html">
+                        FIUBA Mentor
+                    </a>
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuPrincipal">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+            <div id="navbarMenuPrincipal" class="navbar-menu">
+
+            <div class="navbar-start">
+                <a href="../../index.html" class="navbar-item has-text-weight-medium">Inicio</a>
+                <a href="./index.html" class="navbar-item has-text-weight-medium">Solicitud</a>
+                <a href="../perfil/index.html" class="navbar-item has-text-weight-medium">Perfil</a>
+                <a href="../reviews/index.html" class="navbar-item has-text-weight-medium">Reviews</a>
+            </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <a href="../perfil/index.html" class="button btn-perfil is-link is-rounded has-text-white einstein-btn is-fullwidth-mobile">
+                            Crear Perfil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+  <section class="section">
+    <div class="container columns">
+      <div class="column is-half">
+        <div class="card-form">
+          <h1 class="titulo-form">Formulario de Solicitud</h1>
+          <form id="solicitudForm">
+            <div id="mensajeError" class="notification is-danger" style="display:none;"></div>
+
+            <div class="field position-relative">
+              <label class="label-gradient">Remitente (Seleccionar Perfil)</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="text" id="input-buscador-remitente"
+                       placeholder="Escribe para buscar (ej: Juan, Tomas...)" autocomplete="off">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+                <span class="icon is-small is-right" id="icono-loading" style="display: none;">
+                  <i class="fas fa-spinner fa-spin"></i>
+                </span>
+              </div>
+              <div id="lista-sugerencias" class="dropdown-content custom-dropdown-list"></div>
+              <input type="hidden" id="input-remitente-id" name="remitente_id">
+            </div>
+
+            <div class="field">
+              <label for="materia" class="label-gradient">Nombre de la materia</label>
+              <input class="input" type="text" id="materia" name="materia" required>
+            </div>
+
+            <div class="field">
+              <label for="tema" class="label-gradient">Tema</label>
+              <input class="input" type="text" id="tema" name="tema" required>
+            </div>
+
+            <div class="field">
+              <label for="descripcion" class="label-gradient">Descripción</label>
+              <textarea class="textarea" id="descripcion" name="descripcion" required></textarea>
+            </div>
+
+            <div class="field">
+              <label for="tipo_post" class="label-gradient">Tipo de post</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="tipo_post" name="tipo_post" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="mentor">Mentor</option>
+                    <option value="solicitante">Solicitante</option>
+                  </select>
+                </div>
+              </div>
+            </div> 
+
+            <div class="field">
+              <button type="submit" class="button is-link is-fullwidth is-rounded">
+                <span class="icon"><i class="fas fa-paper-plane"></i></span>
+                <span>Enviar</span>
+              </button>
+            </div>
+          </form>
+
+          <div id="mensajeExito">¡Solicitud enviada correctamente!</div>
+        </div>
+      </div>
+
+      <div class="column is-half has-text-centered">
+        <img src="https://cms.fi.uba.ar/uploads/large_Galeria_PC_06_931d95ba80.jpg" 
+             alt="Imagen ilustrativa"
+             class="imagen-lateral">
+      </div>
+    </div>
+  </section>
+
+  <footer>
+        <div class="footer-inicio">
+            <p class="texto-footer">
+                <strong>FIUBA Mentor</strong> copywriting 2026.
+            </p>
+        </div>
+    </footer>
+
+<script src="../../js/main.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>
+

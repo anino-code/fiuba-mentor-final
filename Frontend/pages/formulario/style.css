@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 2rem;
+  padding-top: 2rem;
 }
 
 .card-form {
@@ -20,9 +20,9 @@
 
 .titulo-form {
   text-align: center;
-  font-size: 1.6em;
+  font-size: 2.2em;
   font-weight: bold;
-  color: #363636;
+  color: #3273dc;
   margin-bottom: 1rem;
 }
 
@@ -33,7 +33,7 @@
   display: block;
 }
 
-input, textarea {
+input, textarea, select {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
@@ -44,7 +44,7 @@ input, textarea {
   font-size: 1rem;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
   border-color: #3273dc;
   background-color: #ffffff;
   box-shadow: 0 0 5px rgba(50,115,220,0.3);
@@ -67,6 +67,10 @@ input:focus, textarea:focus {
   background: #2759a5;
 }
 
+#mensajeError {
+  margin-bottom: 1rem;
+}
+
 #mensajeExito {
   margin-top: 15px;
   padding: 12px;
@@ -76,36 +80,53 @@ input:focus, textarea:focus {
   color: #155724;
   border: 1px solid #c3e6cb;
   display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-.position-relative { 
-  position: relative; 
+#mensajeExito.show {
+  display: block;
+  opacity: 1;
 }
 
-.custom-dropdown-list {
-  position: absolute;
-  top: 100%; 
-  left: 0; 
-  right: 0;
-  z-index: 20;
-  border: 1px solid #ddd;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  max-height: 200px;
-  overflow-y: auto;
-  background: #fff;
-  display: none;
-  border-radius: 8px;
+.navbar-fiu {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.imagen-lateral {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagen-lateral:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.45);
 }
 
 .custom-dropdown-item {
-  display: block;
-  padding: 0.5rem 1rem;
-  color: #363636;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
   cursor: pointer;
-  transition: background 0.2s;
+  display: block;
 }
 
 .custom-dropdown-item:hover {
   background-color: #f5f5f5;
-  color: #3273dc;
 }
+
+.sugerencia-nombre {
+  font-weight: bold;
+  color: #363636;
+  font-size: 1rem;
+}
+
+.sugerencia-email {
+  font-size: 0.85rem;
+  color: #7a7a7a;
+}
+

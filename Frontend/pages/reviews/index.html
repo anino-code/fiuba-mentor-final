@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIUBA Mentor</title>
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/9/93/Logo-fiuba.gif">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main.css"> 
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <nav class="navbar is-spaced navbar-fiu" role="navigation" aria-label="main navigation">
+        <div class="container">
+    
+            <div class="navbar-brand">
+                    <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="../../index.html">
+                        FIUBA Mentor
+                    </a>
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuPrincipal">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+            <div id="navbarMenuPrincipal" class="navbar-menu">
+
+            <div class="navbar-start">
+                    <a href="../../index.html" class="navbar-item has-text-weight-medium">Inicio</a>
+                    <a href="../formulario/index.html" class="navbar-item has-text-weight-medium">Solicitud</a>
+                    <a href="../perfil/index.html" class="navbar-item has-text-weight-medium">Perfil</a>
+                    <a href="../reviews/index.html" class="navbar-item has-text-weight-medium">Reviews</a>
+            </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <a 
+                            class="button is-link is-rounded has-text-white einstein-btn is-fullwidth-mobile"
+                            onclick="abrirPopupCrearReview()">
+                                Crear Review
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+    <section class="section">
+        <div class="container">
+            <div class="masonry-wrapper" id="grid-tarjetas-review">
+            </div>
+        </div>
+    </section>
+    
+    <div class="popup-overlay" id="popupOverlayCrearReview">
+        <div class="popup-content" id="popupContent">
+            <h2 class="tituloPopup">Crear Review</h2>
+            <form id="formCrearReview">
+                <div id="mensajeError" class="notification is-danger" style="display:none;"></div>
+                <div class="field position-relative">
+                  <label class="label-gradient">Puntuado (Seleccionar Perfil)</label>
+                  <div class="dropdown is-fullwidth" id="dropdown-puntuado">
+                    <div class="dropdown-trigger">
+                      <div class="control has-icons-left">
+                        <input class="input" type="text" id="input-buscador-puntuado" placeholder="Escribe para buscar (ej: Juan, Tomas...)" autocomplete="off">
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                        </span>
+                      </div>
+                    </div>
+                  <div class="dropdown-menu"><div id="lista-sugerencias-puntuado" class="dropdown-content custom-dropdown-list"></div>
+                  </div>
+                </div>
+                <input type="hidden" id="input-oculto-puntuado">
+                </div>
+                <div class="field position-relative">
+                  <label class="label-gradient">Puntuador (Seleccionar Perfil)</label>
+                  <div class="dropdown is-fullwidth" id="dropdown-puntuador">
+                    <div class="dropdown-trigger">
+                      <div class="control has-icons-left">
+                        <input class="input" type="text" id="input-buscador-puntuador" placeholder="Escribe para buscar (ej: Juan, Tomas...)" autocomplete="off">
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                        </span>
+                      </div>
+                    </div>
+                  <div class="dropdown-menu"><div id="lista-sugerencias-puntuador" class="dropdown-content custom-dropdown-list"></div>
+                  </div>
+                </div>
+                <input type="hidden" id="input-oculto-puntuador">
+                </div>
+                <div class="field">
+                    <label class="label" for="Aura">Aura:</label>
+                    <div class="control">
+                        <input class="input" type="number" id="Aura" placeholder="Aura" name="aura" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="Descripcion">Descripcion:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="Descripcion" placeholder="Descripcion" name="descripcion" required>
+                    </div>
+                </div>
+                <div class="botones-popup">
+                    <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearReview()">
+                        Cancelar
+                    </button>
+                    <div class="field">
+                        <button type="submit" class="button is-link is-fullwidth is-rounded">
+                          <span class="icon"><i class="fas fa-paper-plane"></i></span>
+                          <span>Crear</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </main>
+    <footer>
+        <div class="footer-inicio">
+            <p class="texto-footer">
+                <strong>FIUBA Mentor</strong> copywriting 2026.
+            </p>
+        </div>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>

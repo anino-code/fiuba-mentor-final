@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIUBA Mentor</title>
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/9/93/Logo-fiuba.gif">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+    <body>
+        <nav class="navbar is-spaced navbar-fiu" role="navigation" aria-label="main navigation">
+        <div class="container">
+    
+            <div class="navbar-brand">
+                    <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="index.html">
+                        FIUBA Mentor
+                    </a>
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuPrincipal">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+            <div id="navbarMenuPrincipal" class="navbar-menu">
+
+            <div class="navbar-start">
+                <a href="./index.html" class="navbar-item has-text-weight-medium">Inicio</a>
+                <a href="./pages/formulario/index.html" class="navbar-item has-text-weight-medium">Solicitud</a>
+                <a href="./pages/perfil/index.html" class="navbar-item has-text-weight-medium">Perfil</a>
+                <a href="./pages/reviews/index.html" class="navbar-item has-text-weight-medium">Reviews</a>
+            </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <a href="./pages/perfil/index.html" class="button btn-perfil is-link is-rounded has-text-white einstein-btn is-fullwidth-mobile">
+                            Crear Perfil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-vcentered">
+                <div class="column is-5">
+                    <p class="has-text-info has-text-weight-bold mb-2 is-size-7 is-uppercase">Educación Colaborativa</p>
+                    <h1 class="title is-size-1 has-text-weight-bold has-text-grey-darker">
+                        Donde el conocimiento se comparte.
+                    </h1>
+                    <p class="subtitle is-size-5 has-text-grey mt-4 subtitulo-sec" >
+                        Encontrá mentores en la FIUBA, resolvé tus dudas y ganá reputación ayudando a otros compañeros. Crea tu perfil para hacer tu solicitud o postular tu mentoria.
+                    </p>
+                    <button class="button is-link is-medium is-rounded mt-4 px-6">
+                        <a class="btn-post" href="pages/formulario/index.html">Crear Post</a>
+                    </button>
+                </div>
+                <div class="column is-7">
+                    <figure class="image is-2by1 imagen-port">
+                        <img src="https://www.uba.ar/storage/VHmQvvhSdMb9fxh3k5e4At0XS2BAnOdx7n1PcYkJ.jpg" alt="Hero Image">
+                    </figure>
+                </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="masonry-wrapper" id="grid-tarjetas">
+            </div>
+        </div>
+    </section>
+
+    <div id="modal-contacto" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Información de Contacto</p>
+            <button class="delete" aria-label="close" id="btn-cerrar-modal"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="content">
+                <h3 class="title is-4" id="modal-nombre">Cargando...</h3>
+                    <p class="subtitle is-6 has-text-grey" id="modal-carrera">...</p>
+        
+            <div class="notification is-light mt-4">
+                    <p><strong>Email:</strong> <a href="#" id="modal-email">...</a></p>
+            </div>
+        
+                    <p class="is-size-7 mt-4">
+                        ¡Escríbele un correo para coordinar la mentoría!
+                    </p>
+            </div>
+        </section>
+            <footer class="modal-card-foot">
+                <button class="button is-link " id="btn-cancelar-modal">Cerrar</button>
+            </footer>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-inicio">
+            <p class="texto-footer">
+                <strong>FIUBA Mentor</strong> copywriting 2026.
+            </p>
+        </div>
+    </footer>
+
+    <script src="../js/data/data.json"></script>
+    <script src="./js/main.js"></script>
+    </body>
+</html>

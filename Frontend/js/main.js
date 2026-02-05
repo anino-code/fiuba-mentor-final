@@ -4,9 +4,9 @@ const cardContainer = document.getElementById('grid-tarjetas');
 async function cargarCard() {
 
     try{
-    cardContainer.innerHTML = '<p>Cargando datos del servidor simulado...</p>';
+    cardContainer.innerHTML = '<p>Cargando datos del servidor ...</p>';
 
-    const response = await fetch('../js/data/data.json');
+    const response = await fetch('http://localhost:3000/api/forms?t=' + Date.now());
 
     if(!response.ok){
         throw new Error('No se pudo conectar con el servidor');
@@ -26,86 +26,171 @@ async function cargarCard() {
 
 cardContainer.addEventListener('click', (e) => {
 
-    const btnAura = e.target.closest('.btn-aura');
+const btnAura = e.target.closest('.btn-aura');
     if (btnAura) {
-        const id = btnAura.dataset.id;
-        manejarAura(id, btnAura);
+        
+        const idUsuario = btnAura.dataset.userid; 
+        
+        
+        manejarAura(idUsuario, btnAura);
     }
 
         
     
-    const btnContactar = e.target.closest('.btn-contactar');
-    if (btnContactar) {
-        const id = btnContactar.dataset.id;
-        manejarContacto(id);
+const btnContactar = e.target.closest('.btn-contactar');
+if (btnContactar) {
+    const idUsuario = btnContactar.dataset.userid; 
+    if (idUsuario) {
+        manejarContacto(idUsuario);
     }
+}
 
     
 });
 
-async function manejarContacto(id) {
+
+const modal = document.getElementById('modal-contacto');
+const modalNombre = document.getElementById('modal-nombre');
+const modalCarrera = document.getElementById('modal-carrera');
+const modalEmail = document.getElementById('modal-email');
+
+
+async function manejarContacto(idUsuario) {
+    console.log(` Conectando con Backend para buscar ID: ${idUsuario}...`);
+
     try {
-        console.log(` Conectando con base de datos para buscar ID: ${id}...`);
-
-        const response = await fetch('../js/data/data.json'); 
         
-        if (!response.ok) throw new Error("No se pudo leer el archivo de datos");
+        if(modal) modal.classList.add('is-active');
+        if(modalNombre) modalNombre.textContent = "Buscando mentor...";
+        if(modalEmail) modalEmail.textContent = "...";
 
-        const listaMentores = await response.json();
+        const response = await fetch(`http://localhost:3000/api/users/${idUsuario}`);
 
-        const contacto = listaMentores.find(item => item.id === Number(id));
-
-        if (!contacto) {
-            throw new Error(`No se encontró información para el ID ${id}`);
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Error al obtener datos");
         }
 
-        const mensaje = `
-        CONTACTO RECIBIDO DE DATA.JSON:
-        -------------------------------
-        Mentor: ${contacto.mentor}
-        Materia: ${contacto.materia}
-        Email: ${contacto.email || "No especificado"}
         
-        `;
+        const usuario = await response.json();
 
-        alert(mensaje);
+        
+        if(modalNombre) modalNombre.textContent = `${usuario.nombre} ${usuario.apellido}`;
+        if(modalCarrera) modalCarrera.textContent = usuario.carrera || "Carrera no especificada";
+        
+        if(modalEmail) {
+            modalEmail.textContent = usuario.email;
+            modalEmail.href = `mailto:${usuario.email}`;
+        }
 
     } catch (error) {
-        console.error("Error de lógica:", error);
-        alert("Hubo un error al intentar contactar al mentor.");
+        console.error("Error de conexión:", error);
+        if(modalNombre) modalNombre.textContent = "Error";
+        if(modalCarrera) modalCarrera.textContent = "No se pudo cargar la información.";
+        alert("Hubo un problema: " + error.message);
+        cerrarModal();
     }
 }
 
-async function manejarAura(id, boton) {
+
+function cerrarModal() {
+    if(modal) modal.classList.remove('is-active');
+}
+
+document.getElementById('btn-cerrar-modal')?.addEventListener('click', cerrarModal);
+document.getElementById('btn-cancelar-modal')?.addEventListener('click', cerrarModal);
+document.querySelector('.modal-background')?.addEventListener('click', cerrarModal);
+
+async function manejarAura(idUsuario, boton) {
     
+    if (!idUsuario) return console.error("Error: No hay ID de usuario");
+
+
     boton.classList.add('is-loading');
-    boton.disabled = true;
+    
+    
+    const textoOriginal = boton.innerText;
 
     try {
-        
-        await new Promise(r => setTimeout(r, 800)); 
-        
-        
-        const tagAura = document.getElementById(`aura-tag-${id}`);
-        
-        let valorActual = parseInt(tagAura.innerText.split('+')[1]);
-        let nuevoValor = valorActual + 10;
+        console.log(` Sumando aura al usuario ${idUsuario}...`);
 
+        const response = await fetch('http://localhost:3000/api/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id_puntuado: Number(idUsuario), 
+                id_puntuador: 1,                
+                aura: 10,
+                descripcion: "¡Aura desde la web!"
+            })
+        });
 
-        tagAura.innerText = `Aura +${nuevoValor}`;
-        tagAura.classList.remove('is-light'); 
-        tagAura.classList.add('is-warning');
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.error || "Error en servidor");
+        }
+
+        
+        
+        let valorNumerico = parseInt(textoOriginal.replace(/\D/g, '')) || 0;
+        let nuevoValor = valorNumerico + 10;
+
+        boton.innerText = `Aura +${nuevoValor}`;
+        boton.classList.remove('is-light');
+        boton.classList.add('is-warning'); 
 
     } catch (error) {
-        console.error("Error al dar aura", error);
+        console.error("Fallo el aura:", error);
+        alert(error.message); 
+        boton.innerText = textoOriginal; 
     } finally {
-        
         boton.classList.remove('is-loading');
-        boton.disabled = false;
     }
 }
 
+const CATEGORIAS_IMAGENES = [
+    {
+        
+        palabrasClave: ['Fundamentos de programación','introcamejo', 'punteros', 'memoria', 'malloc', 'segfault', 'linux', 'bash', 'terminal'],
+        url: 'https://fi.ort.edu.uy/innovaportal/file/127831/1/lenguajes-de-programacion.jpg'
+    },
+    {
+        
+        palabrasClave: ['el backend', 'bd', 'sql', 'base de datos', 'postgres', 'node', 'express', 'api', 'servidor'],
+        url: 'https://images.unsplash.com/photo-1667372393119-c85c020799dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+    },
+    {
+        
+        palabrasClave: ['front', 'css', 'html', 'diseño', 'flexbox', 'grid', 'javascript'],
+        url: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=60'
+    },
+    {
+        
+        palabrasClave: ['Gradientes', 'algo', 'algoritmos', 'matematica', 'calculo', 'algebra', 'grafos', 'logica','Analisis Matematico 2'],
+        url: 'https://cms.fi.uba.ar/uploads/large_Galeria_PC_05_08c39ef5dd.jpg'
+    }
+];
 
+const IMAGEN_DEFAULT = 'https://www.uba.ar/storage/VHmQvvhSdMb9fxh3k5e4At0XS2BAnOdx7n1PcYkJ.jpg';
+
+function obtenerImagenPorTexto(textoUsuario) {
+    
+    if (!textoUsuario) return null; 
+
+    
+    const textoLimpio = textoUsuario.toLowerCase(); 
+
+    for (const categoria of CATEGORIAS_IMAGENES) {
+        const coincide = categoria.palabrasClave.some(palabra => textoLimpio.includes(palabra));
+        
+        if (coincide) {
+            return categoria.url; 
+        }
+    }
+
+    return null; 
+}
 
 
 function renderizarCards(publicaciones){
@@ -115,24 +200,39 @@ function renderizarCards(publicaciones){
 
     publicaciones.forEach(pub => {
 
+        if (!pub.usuario || !pub.usuario.id_user) {
+            return; 
+        }
+
+    const usuario = pub.usuario || { nombre: 'Anonimo', id_user: 0, aura: 0 };
+    
+    const imagenPortada = pub.foto_form || 
+                        obtenerImagenPorTexto(pub.materia) || 
+                        obtenerImagenPorTexto(pub.tema) || 
+                        obtenerImagenPorTexto(pub.descripcion) || 
+                        IMAGEN_DEFAULT;
+    
             htmlAcomulado += `
                 <div class="masonry-item">
                     <div class="card">
                         <div class="card-image">
                             <figure class="image is-4by3">
-                                <img src="${pub.img}" alt="Imagen clase" style="object-fit: cover;">
+                                <img src="${imagenPortada}" alt="${pub.tema}" style="object-fit: cover;">
                             </figure>
                         </div>
                         
                         <div class="card-content">
                             <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase mb-1">${pub.materia}</p>
-                            <p class="title is-5 has-text-weight-bold mb-2">${pub.titulo}</p>
+                            <p class="title is-5 has-text-weight-bold mb-2">${pub.tema}</p>
                             <p class="content is-size-6 has-text-grey mb-4">
-                                ${pub.desc}
+                                ${pub.descripcion}
                             </p>
                             
                         <div class="buttons are-small mt-3">
-                            <button class="button is-link is-outlined btn-contactar " data-id="${pub.id}">
+                            <button 
+                                class="button is-link btn-contactar" 
+                                data-id="${pub.id_form}"
+                                data-userid="${usuario.id_user}">
                                 Contactar
                             </button>
                             
@@ -141,18 +241,16 @@ function renderizarCards(publicaciones){
                             <div class="media is-vcentered border-top pt-3 footer-card">
                                 <div class="media-left">
                                     <figure class="image is-32x32">
-                                        <img class="author-avatar" src="${pub.avatar}" alt="Avatar">
+                                        <img class="author-avatar" src="${pub.usuario.foto_user}" alt="Avatar">
                                     </figure>
                                 </div>
                                 <div class="media-content">
-                                    <p class="is-size-7 has-text-weight-semibold has-text-dark">${pub.mentor}</p>
+                                    <p class="is-size-7 has-text-weight-semibold has-text-dark">${pub.usuario.nombre} ${pub.usuario.apellido}</p>
                                 </div>
                                 <div class="media-right">
                                     <span 
                                         class="tag is-light is-rounded is-small aura-interactiva btn-aura" 
-                                        data-id="${pub.id}"
-                                        id="aura-tag-${pub.id}">
-                                        Aura +${pub.aura || 10}
+                                        data-userid="${usuario.id_user}"  id="aura-tag-${pub.id_form}">    Aura +${usuario.aura || 10}
                                     </span>
                                 </div>
                             </div>
@@ -165,3 +263,26 @@ function renderizarCards(publicaciones){
 }
 
 cargarCard();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+
+    if ($navbarBurgers.length > 0) {
+
+    $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+        });
+    });
+    }
+});

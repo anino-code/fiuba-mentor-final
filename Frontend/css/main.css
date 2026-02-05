@@ -19,9 +19,7 @@
     }
 .btn-post{
         color: #eee;
-    }
-
-    
+    }  
 .aura-interactiva {
     cursor: pointer;            
     user-select: none;          
@@ -82,3 +80,39 @@
         @media (max-width: 1024px) { .masonry-wrapper { column-count: 3; } }
         @media (max-width: 768px) { .masonry-wrapper { column-count: 2; } }
         @media (max-width: 480px) { .masonry-wrapper { column-count: 1; } }
+
+@media screen and (max-width: 1023px) {
+    
+    .navbar-menu {
+        background-color: white;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        padding: 1rem;
+        margin-top: 10px;
+        border-radius: 8px; 
+    }
+
+    .is-fullwidth-mobile {
+        display: flex !important;
+        width: 100% !important;     
+        justify-content: center;    
+        margin-top: 10px;
+    }
+
+    .navbar-item {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    
+    
+    .navbar-start {
+        flex-grow: 1;            
+        justify-content: center; 
+        margin-right: auto;     
+    }
+
+    .navbar-brand {
+        margin-right: 20px;
+    }
+}

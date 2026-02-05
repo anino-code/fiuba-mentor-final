@@ -1,0 +1,54 @@
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    z-index: 1001;
+}
+.tituloPopup {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.botones-popup {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+.botonPopup {
+    border-radius: 50px;
+    box-sizing: border-box;
+    width: 100px;
+}
+#botonCrear {
+    padding: 0 30px;
+}
+.input {
+    caret-color: blue;
+}
+.image {
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 128px;
+    height: 128px;
+    overflow: hidden;
+}
+.author-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
