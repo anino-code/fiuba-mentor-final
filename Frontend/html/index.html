@@ -13,21 +13,37 @@
     <body>
         <nav class="navbar is-spaced navbar-fiu" role="navigation" aria-label="main navigation">
         <div class="container">
+    
             <div class="navbar-brand">
-                <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="index.html">
-                    FIUBA Mentor
-                </a>
+                    <a class="navbar-item is-size-4 has-text-weight-bold has-text-grey-dark" href="index.html">
+                        FIUBA Mentor
+                    </a>
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuPrincipal">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+            <div id="navbarMenuPrincipal" class="navbar-menu">
+
+            <div class="navbar-start">
+                <a href="index.html" class="navbar-item has-text-weight-medium">Inicio</a>
+                <a href="../formulario/formulario.html" class="navbar-item has-text-weight-medium">Solicitud</a>
+                <a href="perfil.html" class="navbar-item has-text-weight-medium">Perfil</a>
+                <a href="reviews.html" class="navbar-item has-text-weight-medium">Reviews</a>
             </div>
-            <div class="navbar-menu">
-                <div class="navbar-start navbar-bis" >
-                    <a  href="index.html" class="navbar-item has-text-weight-medium">Inicio</a>
-                    <a  href="../formulario/formulario.html" class="navbar-item has-text-weight-medium">Solicitud</a>
-                    <a href="perfil.html" class="navbar-item has-text-weight-medium">Perfil</a>
-                    <a href="reviews.html" class="navbar-item has-text-weight-medium">Reviews</a>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <a href="perfil.html" class="button btn-perfil is-link is-rounded has-text-white einstein-btn is-fullwidth-mobile">
+                            Crear Perfil
+                        </a>
+                    </div>
                 </div>
             </div>
-            
-                <a href="perfil.html" class="button btn-perfil is-link is-rounded mt-4 px-6 has-text-white einstein-btn" >Crear Perfil</a>
+        </div>
     </nav>
 
     <section class="section">

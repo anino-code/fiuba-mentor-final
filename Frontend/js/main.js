@@ -259,3 +259,30 @@ function renderizarCards(publicaciones){
 }
 
 cargarCard();
+
+/* Pega esto en js/main.js */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Busca todos los elementos con la clase "navbar-burger"
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Si encuentra alguno...
+  if ($navbarBurgers.length > 0) {
+
+    // A cada uno le agrega el evento "click"
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+
+        // Obtiene el ID del menú objetivo (data-target="navbarMenuPrincipal")
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Alterna la clase "is-active" en el botón y en el menú
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+});
