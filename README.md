@@ -98,5 +98,20 @@ Para el desarrollo se utiliza una estrategia de ramas basada en funcionalidades 
 
 ##  Capturas de Pantalla
 
-> Proyecto realizado para la materia **Introducción al Desarrollo de Software** - FIUBA, 2025.
+### Inicio
 
+![Inicio](Screenshots/Inicio.png)
+
+### Solicitud
+
+![Solicitud](Screenshots/Solicitud.png)
+
+### Perfiles
+
+![Perfiles](Screenshots/Perfiles.png)
+
+### Reviews 
+
+![Reviews](Screenshots/Reviews.png)
+
+> Proyecto realizado para la materia **Introducción al Desarrollo de Software** - FIUBA, 2025.
