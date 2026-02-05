@@ -113,7 +113,7 @@ async function manejarAura(idUsuario, boton) {
     const textoOriginal = boton.innerText;
 
     try {
-        console.log(`✨ Sumando aura al usuario ${idUsuario}...`);
+        console.log(` Sumando aura al usuario ${idUsuario}...`);
 
         const response = await fetch('http://localhost:3000/api/reviews', {
             method: 'POST',

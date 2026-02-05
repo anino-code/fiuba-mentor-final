@@ -25,8 +25,8 @@ El diferencial del proyecto es su sistema de **Reputacion (Aura)**:
 
 | Nombre y Apellido | Legajo | Rol Principal |
 |-------------------|--------|---------------|
-| **Nicolas Gaitan** | 113347 | Dev front- back
-| **Tomas Correa** | 113878 | Dev front- back- Db
+| **Nicolas Gaitan** | 113347 | Dev front
+| **Tomas Correa** | 113878 | Dev front
 | **Esteban Ordoñez** | 112981 | Dev front- back-Db 
 | **Arleys Camaño** | 114432 | Dev front- back
 

@@ -51,7 +51,7 @@ function renderizarPerfiles(perfiles){
 
                         <div class="card-content has-text-centered">
 
-                            <figure class="image is-inline-block mb-3">
+                            <figure class="image is-inline-block mb-4">
                                 <img class="author-avatar"
                                     src="${perfil.foto_user}"
                                     alt="Foto de ${perfil.nombre} ${perfil.apellido}">
