@@ -50,49 +50,62 @@
             <h2 class="tituloPopup">Crear Review</h2>
             <form id="formCrearReview">
                 <div id="mensajeError" class="notification is-danger" style="display:none;"></div>
-                    <div class="field position-relative">
-                  <label class="label-gradient">Remitente (Seleccionar Perfil)</label>
-                  <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" id="input-buscador-remitente"
-                           placeholder="Escribe para buscar (ej: Juan, Tomas...)" autocomplete="off">
-                    <span class="icon is-small is-left">
-                      <i class="fas fa-user"></i>
-                    </span>
-                    <span class="icon is-small is-right" id="icono-loading" style="display: none;">
-                      <i class="fas fa-spinner fa-spin"></i>
-                    </span>
+                <div class="field position-relative">
+                  <label class="label-gradient">Puntuado (Seleccionar Perfil)</label>
+                  <div class="dropdown is-fullwidth" id="dropdown-puntuado">
+                    <div class="dropdown-trigger">
+                      <div class="control has-icons-left">
+                        <input class="input" type="text" id="input-buscador-puntuado" placeholder="Escribe para buscar (ej: Juan, Tomas...)" autocomplete="off">
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                        </span>
+                      </div>
+                    </div>
+                  <div class="dropdown-menu"><div id="lista-sugerencias-puntuado" class="dropdown-content custom-dropdown-list"></div>
                   </div>
-                  <div id="lista-sugerencias" class="dropdown-content custom-dropdown-list"></div>
-                  <input type="hidden" id="input-remitente-id" name="remitente_id">
+                </div>
+                <input type="hidden" id="input-oculto-puntuado">
+                </div>
+                <div class="field position-relative">
+                  <label class="label-gradient">Puntuador (Seleccionar Perfil)</label>
+                  <div class="dropdown is-fullwidth" id="dropdown-puntuador">
+                    <div class="dropdown-trigger">
+                      <div class="control has-icons-left">
+                        <input class="input" type="text" id="input-buscador-puntuador" placeholder="Escribe para buscar (ej: Juan, Tomas...)" autocomplete="off">
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                        </span>
+                      </div>
+                    </div>
+                  <div class="dropdown-menu"><div id="lista-sugerencias-puntuador" class="dropdown-content custom-dropdown-list"></div>
+                  </div>
+                </div>
+                <input type="hidden" id="input-oculto-puntuador">
                 </div>
                 <div class="field">
                     <label class="label" for="Aura">Aura:</label>
                     <div class="control">
-                        <input class="input" type="number" id="Aura" placeholder="Aura" name="Aura" required>
+                        <input class="input" type="number" id="Aura" placeholder="Aura" name="aura" required>
                     </div>
                 </div>
                 <div class="field">
                     <label class="label" for="Descripcion">Descripcion:</label>
                     <div class="control">
-                        <input class="input" type="text" id="Descripcion" placeholder="Descripcion" name="Descripcion" required>
+                        <input class="input" type="text" id="Descripcion" placeholder="Descripcion" name="descripcion" required>
+                    </div>
+                </div>
+                <div class="botones-popup">
+                    <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearReview()">
+                        Cancelar
+                    </button>
+                    <div class="field">
+                        <button type="submit" class="button is-link is-fullwidth is-rounded">
+                          <span class="icon"><i class="fas fa-paper-plane"></i></span>
+                          <span>Crear</span>
+                        </button>
                     </div>
                 </div>
             </form>
-            <div class="botones-popup">
-                <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearReview()">
-                    Cancelar
-                </button>
-                <div class="field">
-                    <button type="submit" class="button is-link is-fullwidth is-rounded">
-                      <span class="icon"><i class="fas fa-paper-plane"></i></span>
-                      <span>Crear</span>
-                    </button>
-                </div>
-                <button class="button botonPopup is-link is-normal" type="submit" id="botonCrear"
-                    form="formCrearReview">
-                    Crear
-                </button>
-            </div>
         </div>
     </div>
     <script src="../js/reviews.js"></script>
