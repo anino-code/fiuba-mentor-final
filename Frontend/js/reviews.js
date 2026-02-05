@@ -46,6 +46,12 @@ function renderizarReviews(reviews){
             <div class="masonry-item" data-id="${review.id_review}">
                 <div class="card">
                     <div class="card-content has-text-centered">
+                    <div class="media-content">
+                            <figure class="image is-32x32 is-inline-block">
+                                <img class="author-avatar" src="${review.puntuado.foto_user}" alt="Avatar">
+                            </figure>
+                        </div>
+                      <h2 class="is-size-5 has-text-weight-bold mb-3">${review.puntuado.nombre} ${review.puntuado.apellido}</h2>
                         <p class="content is-size-6 has-text-black mb-4">
                             ${review.descripcion}
                         </p>
