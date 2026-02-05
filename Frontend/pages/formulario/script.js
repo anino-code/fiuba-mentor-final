@@ -111,9 +111,9 @@ function renderizarSugerencias(lista) {
   lista.forEach(usuario => {
     html += `
       <a class="custom-dropdown-item" 
-          onclick="seleccionarUsuario('${usuario.id_user}', '${usuario.nombre}')">
-          <div class="sugerencia-nombre">${usuario.nombre}</div>
-          <div class="sugerencia-email">${usuario.email}</div>
+         onclick="seleccionarUsuario('${usuario.id_user}', '${usuario.nombre}')">
+         <div class="sugerencia-nombre">${usuario.nombre}</div>
+         <div class="sugerencia-email">${usuario.email}</div>
       </a>
     `;
   });
