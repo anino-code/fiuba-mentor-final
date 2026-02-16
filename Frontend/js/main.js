@@ -212,7 +212,7 @@ function renderizarCards(publicaciones){
                         obtenerImagenPorTexto(pub.descripcion) || 
                         IMAGEN_DEFAULT;
     
-            htmlAcomulado += `
+        htmlAcomulado += `
                 <div class="masonry-item">
                     <div class="card">
                         <div class="card-image">
@@ -224,30 +224,30 @@ function renderizarCards(publicaciones){
                         <div class="card-content">
                             <div class="is-flex is-justify-content-space-between is-align-items-center mb-1">
         
-        <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase">
-            ${pub.materia}
-        </p>
+                            <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase">
+                                ${pub.materia}
+                            </p>
 
-        <div class="buttons are-small is-marginless">
+                        <div class="buttons are-small is-marginless">
             
-            <button class="button is-small is-white has-text-info p-1 btn-editar" 
-                    title="Editar Publicación"
-                    data-id="${pub.id_form}">
-                <span class="icon">
-                    <i class="fas fa-pen-nib fa-lg"></i>
-                </span>
-            </button>
+                            <button class="button is-small is-white has-text-info p-1 btn-editar" 
+                                title="Editar Publicación"
+                                data-id="${pub.id_form}">
+                                <span class="icon">
+                                    <i class="fas fa-pen-nib fa-lg"></i>
+                                </span>
+                            </button>
 
-            <button class="button is-small is-white has-text-danger p-1 btn-eliminar" 
-                    title="Eliminar Publicación"
-                    data-id="${pub.id_form}">
-                <span class="icon is-small">
-                    <i class="fas fa-trash"></i>
-                </span>
-            </button>
-        </div>
+                            <button class="button is-small is-white has-text-danger p-1 btn-eliminar" 
+                                title="Eliminar Publicación"
+                                data-id="${pub.id_form}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </button>
+                        </div>
 
-    </div>
+                        </div>
                             <p class="title is-5 has-text-weight-bold mb-2">${pub.tema}</p>
                             <p class="content is-size-6 has-text-grey mb-4">
                                 ${pub.descripcion}
@@ -263,7 +263,7 @@ function renderizarCards(publicaciones){
                             
                         </div>
 
-                            <div class="media is-vcentered border-top pt-3 footer-card">
+                        <div class="media is-vcentered border-top pt-3 footer-card">
                                 <div class="media-left">
                                     <figure class="image is-32x32">
                                         <img class="author-avatar" src="${pub.usuario.foto_user}" alt="Avatar">
