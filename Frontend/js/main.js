@@ -1,4 +1,7 @@
 const cardContainer = document.getElementById('grid-tarjetas');
+let idParaEliminar = null; 
+let elementoParaEliminar = null; 
+const modalEliminar = document.getElementById('modal-eliminar');
 
 
 async function cargarCard() {
@@ -44,6 +47,14 @@ if (btnContactar) {
         manejarContacto(idUsuario);
     }
 }
+
+const btnEliminar = e.target.closest('.btn-eliminar');
+    if (btnEliminar) {
+        const idPublicacion = btnEliminar.dataset.id;
+
+        pedirConfirmacion(idPublicacion, btnEliminar);
+    }
+
 
     
 });
@@ -148,6 +159,75 @@ async function manejarAura(idUsuario, boton) {
         boton.classList.remove('is-loading');
     }
 }
+
+async function eliminarPublicacion(id, botonDOM) {
+    
+
+    try {
+        
+        botonDOM.classList.add('is-loading');
+
+        
+        const response = await fetch(`http://localhost:3000/api/forms/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            console.log(`Publicación ${id} eliminada con éxito.`);
+
+            const cartaCompleta = botonDOM.closest('.masonry-item');
+            
+            if (cartaCompleta) {
+                
+                cartaCompleta.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                cartaCompleta.style.opacity = "0";
+                cartaCompleta.style.transform = "scale(0.9)";
+
+                setTimeout(() => {
+                    cartaCompleta.remove();
+                }, 500);
+            }
+        } else {
+            const errorData = await response.json();
+            alert(`Error al eliminar: ${errorData.error || response.statusText}`);
+            botonDOM.classList.remove('is-loading');
+        }
+
+    } catch (error) {
+        console.error("Error de red:", error);
+        alert("No se pudo conectar con el servidor.");
+        botonDOM.classList.remove('is-loading');
+    }
+}
+
+
+function pedirConfirmacion(id, elementoHTML) {
+    
+    idParaEliminar = id;
+    elementoParaEliminar = elementoHTML;
+
+    modalEliminar.classList.add('is-active');
+}
+
+
+function cerrarModalEliminar() {
+    modalEliminar.classList.remove('is-active');
+    idParaEliminar = null;
+    elementoParaEliminar = null;
+}
+
+document.getElementById('btn-cancelar-eliminar').addEventListener('click', cerrarModalEliminar);
+document.getElementById('btn-cerrar-x-eliminar').addEventListener('click', cerrarModalEliminar);
+document.querySelector('#modal-eliminar .modal-background').addEventListener('click', cerrarModalEliminar);
+
+document.getElementById('btn-confirmar-eliminar').addEventListener('click', async () => {
+    
+    if (idParaEliminar && elementoParaEliminar) {
+        modalEliminar.classList.remove('is-active');
+
+        await eliminarPublicacion(idParaEliminar, elementoParaEliminar);
+    }
+});
 
 const CATEGORIAS_IMAGENES = [
     {
