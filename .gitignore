@@ -1,8 +1,4 @@
 .volumes/
 node_modules/
 .env
-<<<<<<< HEAD
 .DS_Store
-=======
-.DS_Store
->>>>>>> 724f26e80741f94134c8bd164f11d6ef2d657080
