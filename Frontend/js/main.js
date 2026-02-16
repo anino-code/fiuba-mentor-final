@@ -29,6 +29,8 @@ async function cargarCard() {
 
 cardContainer.addEventListener('click', (e) => {
 
+    console.log("Hiciste clic en:", e.target);
+
 const btnAura = e.target.closest('.btn-aura');
     if (btnAura) {
         
@@ -55,6 +57,12 @@ const btnEliminar = e.target.closest('.btn-eliminar');
         pedirConfirmacion(idPublicacion, btnEliminar);
     }
 
+const btnEditar = e.target.closest('.btn-editar');
+    if (btnEditar) {
+        const idPublicacion = btnEditar.dataset.id;
+        
+        abrirModalEditar(idPublicacion);
+    }
 
     
 });
@@ -228,6 +236,97 @@ document.getElementById('btn-confirmar-eliminar').addEventListener('click', asyn
         await eliminarPublicacion(idParaEliminar, elementoParaEliminar);
     }
 });
+
+
+const modalEditar = document.getElementById('modal-editar');
+const btnGuardarEditar = document.getElementById('btn-guardar-editar');
+
+async function abrirModalEditar(idForm) {
+    console.log("Abriendo editor para ID:", idForm);
+    
+    if (!modalEditar) {
+        console.error("Error: No encuentro el modal con id='modal-editar' en el HTML.");
+        alert("Falta el HTML del modal de edición.");
+        return;
+    }
+
+    try {
+        modalEditar.classList.add('is-active');
+        
+        const inputMateria = document.getElementById('edit-materia');
+        if(inputMateria) inputMateria.value = "Cargando...";
+
+        const response = await fetch(`http://localhost:3000/api/forms/${idForm}`);
+        
+        if (!response.ok) throw new Error("Error al traer datos");
+        
+        const data = await response.json();
+
+        document.getElementById('edit-materia').value = data.materia;
+        document.getElementById('edit-tema').value = data.tema;
+        document.getElementById('edit-descripcion').value = data.descripcion;
+        
+        document.getElementById('edit-id-form').value = data.id_form;
+        document.getElementById('edit-id-user').value = data.usuario.id_user;
+        document.getElementById('edit-tipo').value = data.tipo;
+        document.getElementById('edit-foto-form').value = data.foto_form || "";
+
+    } catch (error) {
+        console.error(error);
+        alert("Error al cargar datos del post.");
+        cerrarModalEditar();
+    }
+}
+
+function cerrarModalEditar() {
+    if(modalEditar) modalEditar.classList.remove('is-active');
+    const form = document.getElementById('form-editar');
+    if(form) form.reset();
+}
+
+
+document.getElementById('btn-cerrar-x-editar')?.addEventListener('click', cerrarModalEditar);
+document.getElementById('btn-cancelar-editar')?.addEventListener('click', cerrarModalEditar);
+
+
+if (btnGuardarEditar) {
+    btnGuardarEditar.addEventListener('click', async () => {
+        const idForm = document.getElementById('edit-id-form').value;
+        
+        const datosActualizados = {
+            id_user: parseInt(document.getElementById('edit-id-user').value),
+            materia: document.getElementById('edit-materia').value,
+            tema: document.getElementById('edit-tema').value,
+            descripcion: document.getElementById('edit-descripcion').value,
+            tipo: document.getElementById('edit-tipo').value,
+            foto_form: document.getElementById('edit-foto-form').value
+        };
+
+        try {
+            btnGuardarEditar.classList.add('is-loading');
+
+            const response = await fetch(`http://localhost:3000/api/forms/${idForm}`, {
+                method: 'PUT', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosActualizados)
+            });
+
+            if (response.ok) {
+                console.log("Editado correctamente");
+                cerrarModalEditar();
+                cargarCard(); 
+            } else {
+                const errorData = await response.json();
+                alert(`Error: ${errorData.error}`);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Error de conexión");
+        } finally {
+            btnGuardarEditar.classList.remove('is-loading');
+        }
+    });
+}
 
 const CATEGORIAS_IMAGENES = [
     {
