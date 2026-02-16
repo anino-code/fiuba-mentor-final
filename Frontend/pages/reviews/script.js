@@ -38,20 +38,19 @@ async function cargarCard() {
 
 cargarCard();
 
-function renderizarReviews(reviews){
+function renderizarReviews(reviews) {
     cardContainer.innerHTML = ' ';
-    let htmlAcomulado ='';
     reviews.forEach(review => {
         const cardHTML = `
             <div class="masonry-item" data-id="${review.id_review}">
                 <div class="card">
                     <div class="card-content has-text-centered">
-                    <div class="media-content">
+                        <div class="media-content">
                             <figure class="image is-32x32 is-inline-block">
                                 <img class="author-avatar" src="${review.puntuado.foto_user}" alt="Avatar">
                             </figure>
                         </div>
-                      <h2 class="is-size-5 has-text-weight-bold mb-3">${review.puntuado.nombre} ${review.puntuado.apellido}</h2>
+                        <h2 class="is-size-5 has-text-weight-bold mb-3">${review.puntuado.nombre} ${review.puntuado.apellido}</h2>
                         <p class="content is-size-6 has-text-black mb-4">
                             ${review.descripcion}
                         </p>
@@ -68,14 +67,95 @@ function renderizarReviews(reviews){
                         </div>
                     </div>
                     <footer class="card-footer">
-                        <a class="card-footer-item button is-white is-small" onclick="confirmacionEliminarReview(${review.id_review}, this)">Eliminar review</a>
+                        <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarReview(${review.id_review})">Editar</a>
+                        <a class="card-footer-item button is-white is-small" onclick="confirmacionEliminarReview(${review.id_review}, this)">Eliminar</a>
                     </footer>
+                </div>
+
+                <div class="popup-overlay" id="popupOverlayModificarReview${review.id_review}">
+                    <div class="popup-content">
+                        <h2 class="tituloPopup">Modificar Review</h2>
+                        <form id="formModificarReview${review.id_review}" onsubmit="event.preventDefault(); modificarReview(${review.id_review});">
+                            <div class="field">
+                                <label class="label">Descripción:</label>
+                                <div class="control">
+                                    <textarea class="textarea" name="descripcion" required>${review.descripcion}</textarea>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Aura:</label>
+                                <div class="control">
+                                    <input class="input" type="number" name="aura" value="${review.aura}" required>
+                                </div>
+                            </div>
+                            <input type="hidden" name="id_puntuado" value="${review.puntuado.id_user}">
+                            <input type="hidden" name="id_puntuador" value="${review.puntuador.id_user}">
+                        </form>
+                        <div class="botones-popup mt-4">
+                            <button class="button is-link is-light" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button>
+                            <button class="button is-link" type="submit" form="formModificarReview${review.id_review}">Guardar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
         cardContainer.innerHTML += cardHTML;
     });
 }
+
+
+function abrirPopupModificarReview(id) {
+    const popup = document.getElementById('popupOverlayModificarReview' + id);
+    if (popup) popup.style.display = 'flex';
+}
+
+function cerrarPopupModificarReview(id) {
+    const popup = document.getElementById('popupOverlayModificarReview' + id);
+    if (popup) popup.style.display = 'none';
+}
+
+async function modificarReview(id) {
+    const formModificar = document.getElementById(`formModificarReview${id}`);
+    if (!formModificar) return;
+
+    const descripcion = formModificar.descripcion.value.trim();
+    const aura = Number(formModificar.aura.value);
+    const id_puntuado = Number(formModificar.id_puntuado.value);
+    const id_puntuador = Number(formModificar.id_puntuador.value);
+
+    if (!descripcion || Number.isNaN(aura)) {
+        alert("Campos inválidos");
+        return;
+    }
+
+    const datos = {
+        id_puntuado,
+        id_puntuador,
+        descripcion,
+        aura
+    };
+
+    try {
+        const respuesta = await fetch(`http://localhost:3000/api/reviews/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok) {
+            throw new Error(resultado.error || "Error en servidor");
+        }
+        
+        cerrarPopupModificarReview(id);
+        cargarCard();
+
+    } catch (error) {
+        alert(error.message || "Error al modificar la review");
+    }
+}
+
 
 function cerrarPopupCrearReview() {
     const popup = document.getElementById('popupOverlayCrearReview');
@@ -177,12 +257,6 @@ function mostrarError(msg) {
   mensajeExito.classList.remove("show");
 }
 
-function mostrarExito(msg) {
-  mensajeExito.textContent = msg;
-  mensajeExito.classList.add("show");
-  mensajeError.style.display = "none";
-}
-
 function renderizarSugerencias(listaUsuarios, contenedor, input, inputOculto) {
   if (!contenedor) {
     console.error("Contenedor de sugerencias no encontrado");
@@ -217,17 +291,8 @@ function renderizarSugerencias(listaUsuarios, contenedor, input, inputOculto) {
   contenedor.closest(".dropdown").classList.add("is-active");
 }
 
-manejarBuscador(
-  inputBuscadorPuntuado,
-  listaSugerenciasPuntuado,
-  inputOcultoPuntuado
-);
-
-manejarBuscador(
-  inputBuscadorPuntuador,
-  listaSugerenciasPuntuador,
-  inputOcultoPuntuador
-);
+manejarBuscador(inputBuscadorPuntuado, listaSugerenciasPuntuado, inputOcultoPuntuado);
+manejarBuscador(inputBuscadorPuntuador, listaSugerenciasPuntuador, inputOcultoPuntuador);
 
 function confirmacionEliminarReview(id_review, boton) {
     const confirmar = confirm("¿Estás seguro de que deseas eliminar este review?");
@@ -239,7 +304,6 @@ function confirmacionEliminarReview(id_review, boton) {
 async function eliminarReview(id_review, boton) {
     if (!id_review) return console.error("Error: No hay ID de Review");
     try {
-        console.log(`Eliminando review ${id_review}...`);
         const response = await fetch(`http://localhost:3000/api/reviews/${id_review}`, {
             method: 'DELETE'
         });
@@ -247,12 +311,7 @@ async function eliminarReview(id_review, boton) {
             const data = await response.json();
             throw new Error(data.error || "Error en servidor");
         }
-        const masonryItem = boton.closest(".masonry-item");
-        if (masonryItem) {
-            masonryItem.remove();
-        }
-        const review = await response.json();
-        console.log("Review eliminada:", review);
+        cargarCard();
     } catch (error) {
         console.error("Fallo eliminar review:", error);
         alert(error.message); 
@@ -260,19 +319,14 @@ async function eliminarReview(id_review, boton) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
   if ($navbarBurgers.length > 0) {
-
     $navbarBurgers.forEach( el => {
       el.addEventListener('click', () => {
-
         const target = el.dataset.target;
         const $target = document.getElementById(target);
         el.classList.toggle('is-active');
         $target.classList.toggle('is-active');
-
       });
     });
   }
