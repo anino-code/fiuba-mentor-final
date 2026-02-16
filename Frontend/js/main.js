@@ -4,7 +4,7 @@ const cardContainer = document.getElementById('grid-tarjetas');
 async function cargarCard() {
 
     try{
-    cardContainer.innerHTML = '<p>Cargando datos del servidor ...</p>';
+
 
     const response = await fetch('http://localhost:3000/api/forms?t=' + Date.now());
 
@@ -12,7 +12,7 @@ async function cargarCard() {
         throw new Error('No se pudo conectar con el servidor');
     }
     const datos = await response.json();
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     renderizarCards(datos);
 
@@ -222,7 +222,32 @@ function renderizarCards(publicaciones){
                         </div>
                         
                         <div class="card-content">
-                            <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase mb-1">${pub.materia}</p>
+                            <div class="is-flex is-justify-content-space-between is-align-items-center mb-1">
+        
+        <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase">
+            ${pub.materia}
+        </p>
+
+        <div class="buttons are-small is-marginless">
+            
+            <button class="button is-small is-white has-text-info p-1 btn-editar" 
+                    title="Editar Publicación"
+                    data-id="${pub.id_form}">
+                <span class="icon">
+                    <i class="fas fa-pen-nib fa-lg"></i>
+                </span>
+            </button>
+
+            <button class="button is-small is-white has-text-danger p-1 btn-eliminar" 
+                    title="Eliminar Publicación"
+                    data-id="${pub.id_form}">
+                <span class="icon is-small">
+                    <i class="fas fa-trash"></i>
+                </span>
+            </button>
+        </div>
+
+    </div>
                             <p class="title is-5 has-text-weight-bold mb-2">${pub.tema}</p>
                             <p class="content is-size-6 has-text-grey mb-4">
                                 ${pub.descripcion}

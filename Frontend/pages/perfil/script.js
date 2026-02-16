@@ -29,7 +29,7 @@ async function cargarCard() {
         throw new Error('No se pudo conectar con el servidor');
     }
     const datos = await response.json();
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     renderizarPerfiles(datos);
 
