@@ -125,6 +125,44 @@
         </div>
     </div>
     </main>
+    
+    <div id="modal-eliminar" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-background-white" style="border-bottom: 1px solid #f0f0f0;">
+                <p class="modal-card-title has-text-link has-text-weight-bold">
+                    Confirmar acción
+                </p>
+                <button class="delete" aria-label="close" id="btn-cerrar-x-eliminar"></button>
+            </header>
+
+            <section class="modal-card-body has-text-centered">
+                <span class="icon is-large has-text-link mb-2">
+                    <i class="fas fa-question-circle fa-3x"></i>
+                </span>
+                    <p class="is-size-5 has-text-dark has-text-weight-medium mt-3">
+                        ¿Quieres eliminar este review?
+                    </p>
+                    <p class="is-size-6 has-text-grey-light mt-2">
+                        Esta acción no se puede deshacer y perderás toda el Aura asociada.
+                    </p>
+            </section>
+
+            <footer class="modal-card-foot is-justify-content-center has-background-white" style="border-top: none;">
+                <button class="button is-rounded" id="btn-cancelar-eliminar">
+                    Cancelar
+                </button>
+
+                <button class="button is-link is-rounded has-shadow" id="btn-confirmar-eliminar">
+                    <span class="icon is-small">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                    <span>Sí, eliminar</span>
+                </button>
+
+            </footer>
+        </div>
+    </div>
     <footer>
         <div class="footer-inicio">
             <p class="texto-footer">

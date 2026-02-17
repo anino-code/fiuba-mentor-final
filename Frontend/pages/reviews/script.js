@@ -10,6 +10,7 @@ const listaSugerenciasPuntuado = document.getElementById("lista-sugerencias-punt
 const listaSugerenciasPuntuador = document.getElementById("lista-sugerencias-puntuador");
 const mensajeError = document.getElementById("mensajeError");
 const mensajeExito = document.getElementById("mensajeExito");
+const modalEliminar = document.getElementById('modal-eliminar');
 
 function contieneLetra(texto) {
   return /[a-zA-Z]/.test(texto);
@@ -37,6 +38,62 @@ async function cargarCard() {
 }
 
 cargarCard();
+
+cardContainer.addEventListener('click', (e) => {
+
+  console.log("Hiciste clic en:", e.target);
+
+  const btnEliminar = e.target.closest('.btn-eliminar');
+    if (btnEliminar) {
+        const idReview = btnEliminar.dataset.id;
+
+        pedirConfirmacion(idReview, btnEliminar);
+    }    
+});
+
+function pedirConfirmacion(id, elementoHTML) {
+    
+    idParaEliminar = id;
+    elementoParaEliminar = elementoHTML;
+
+    modalEliminar.classList.add('is-active');
+}
+
+function cerrarModalEliminar() {
+    modalEliminar.classList.remove('is-active');
+    idParaEliminar = null;
+    elementoParaEliminar = null;
+}
+
+document.getElementById('btn-cancelar-eliminar').addEventListener('click', cerrarModalEliminar);
+document.getElementById('btn-cerrar-x-eliminar').addEventListener('click', cerrarModalEliminar);
+document.querySelector('#modal-eliminar .modal-background').addEventListener('click', cerrarModalEliminar);
+
+document.getElementById('btn-confirmar-eliminar').addEventListener('click', async () => {
+    
+    if (idParaEliminar && elementoParaEliminar) {
+        modalEliminar.classList.remove('is-active');
+
+        await eliminarReview(idParaEliminar, elementoParaEliminar);
+    }
+});
+
+async function eliminarReview(id_review, boton) {
+    if (!id_review) return console.error("Error: No hay ID de Review");
+    try {
+        const response = await fetch(`http://localhost:3000/api/reviews/${id_review}`, {
+            method: 'DELETE'
+        });
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.error || "Error en servidor");
+        }
+        cargarCard();
+    } catch (error) {
+        console.error("Fallo eliminar review:", error);
+        alert(error.message); 
+    }
+}
 
 function renderizarReviews(reviews) {
     cardContainer.innerHTML = ' ';
@@ -68,7 +125,13 @@ function renderizarReviews(reviews) {
                     </div>
                     <footer class="card-footer">
                         <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarReview(${review.id_review})">Editar Review</a>
-                        <a class="card-footer-item button is-white is-small" onclick="confirmacionEliminarReview(${review.id_review}, this)">Eliminar Review</a>
+                        <a class="card-footer-item button is-small is-white has-text-danger p-1 btn-eliminar"
+                                data-id="${review.id_review}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                <span>Eliminar Review</span>
+                        </a>
                     </footer>
                 </div>
 
@@ -304,23 +367,6 @@ function confirmacionEliminarReview(id_review, boton) {
     const confirmar = confirm("¿Estás seguro de que deseas eliminar este review?");
     if (confirmar) {
         eliminarReview(id_review, boton);
-    }
-}
-
-async function eliminarReview(id_review, boton) {
-    if (!id_review) return console.error("Error: No hay ID de Review");
-    try {
-        const response = await fetch(`http://localhost:3000/api/reviews/${id_review}`, {
-            method: 'DELETE'
-        });
-        if (!response.ok) {
-            const data = await response.json();
-            throw new Error(data.error || "Error en servidor");
-        }
-        cargarCard();
-    } catch (error) {
-        console.error("Fallo eliminar review:", error);
-        alert(error.message); 
     }
 }
 
