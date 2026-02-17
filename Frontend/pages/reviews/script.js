@@ -140,36 +140,40 @@ function renderizarReviews(reviews) {
                     </footer>
                 </div>
 
-                <div class="popup-overlay" id="popupOverlayModificarReview${review.id_review}">
-                    <div class="popup-content">
+                <div class="modal" id="popupOverlayModificarReview${review.id_review}">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
                         <header class="modal-card-head has-background-white border-bottom">
                             <p class="modal-card-title has-text-link has-text-weight-bold">Editar Review</p>
                             <button class="delete" aria-label="close" onclick="cerrarPopupModificarReview(${review.id_review})"></button>
                         </header>
-                        <form id="formModificarReview${review.id_review}" onsubmit="event.preventDefault(); modificarReview(${review.id_review});">
-                            <div class="field">
-                                <label class="label">Descripción:</label>
-                                <div class="control">
-                                    <textarea class="textarea" name="descripcion" required>${review.descripcion}</textarea>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">Aura:</label>
-                                <div class="control">
-                                    <input class="input" type="number" name="aura" value="${review.aura}" required>
-                                </div>
-                            </div>
-                            <input type="hidden" name="id_puntuado" value="${review.puntuado.id_user}">
-                            <input type="hidden" name="id_puntuador" value="${review.puntuador.id_user}">
-                        </form>
-                        <div class="botones-popup modal-card-foot has-background-white is-justify-content-flex-end">
-                            <button class="button is-rounded" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button>
-                            <button class="button is-link is-rounded" type="submit" form="formModificarReview${review.id_review}">
-                              <span class="icon is-small"><i class="fas fa-save"></i></span>
-                              <span>Guardar Cambios</span>
-                            </button>
-                        </div>
+                        <section class="modal-card-body">
+                          <form id="formModificarReview${review.id_review}" onsubmit="event.preventDefault(); modificarReview(${review.id_review});">
+                              <div class="field">
+                                  <label class="label">Descripción:</label>
+                                  <div class="control">
+                                      <textarea class="textarea" name="descripcion" required>${review.descripcion}</textarea>
+                                  </div>
+                              </div>
+                              <div class="field">
+                                  <label class="label">Aura:</label>
+                                  <div class="control">
+                                      <input class="input" type="number" name="aura" value="${review.aura}" required>
+                                  </div>
+                              </div>
+                              <input type="hidden" name="id_puntuado" value="${review.puntuado.id_user}">
+                              <input type="hidden" name="id_puntuador" value="${review.puntuador.id_user}">
+                          </form>
+                        </section>
+                        <footer class="modal-card-foot has-background-white is-justify-content-flex-end">
+                          <button class="button is-rounded" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button>
+                              <button class="button is-link is-rounded" type="submit" form="formModificarReview${review.id_review}">
+                                <span class="icon is-small"><i class="fas fa-save"></i></span>
+                                <span>Guardar Cambios</span>
+                              </button>
+                        </footer>
                     </div>
+                  </div>
                 </div>
             </div>
         `;

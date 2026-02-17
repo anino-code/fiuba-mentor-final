@@ -152,45 +152,48 @@ function renderizarPerfiles(perfiles){
 
                     </div>
                     
-                    <div class="popup-overlay" id="popupOverlayModificarPerfil${perfil.id_user}">
-                        <div class="popup-content" id="popupContent">
+                    <div class="modal" id="popupOverlayModificarPerfil${perfil.id_user}">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
                             <header class="modal-card-head has-background-white border-bottom">
                                 <p class="modal-card-title has-text-link has-text-weight-bold">Editar Perfil</p>
                                 <button class="delete" aria-label="close" onclick="cerrarPopupModificarPerfil(${perfil.id_user})"></button>
                             </header>
-                            <form id="formModificarPerfil${perfil.id_user}" onsubmit="event.preventDefault(); modificarPerfil(${perfil.id_user});">
-                                <div class="field">
-                                    <label class="label" for="Nombre">Nombre:</label>
-                                    <div class="control">
-                                        <input class="input" type="text" id="Nombre-${perfil.id_user}" value="${perfil.nombre}" name="Nombre" required>
+                            <section class="modal-card-body">
+                                <form id="formModificarPerfil${perfil.id_user}" onsubmit="event.preventDefault(); modificarPerfil(${perfil.id_user});">
+                                    <div class="field">
+                                        <label class="label" for="Nombre">Nombre:</label>
+                                        <div class="control">
+                                            <input class="input" type="text" id="Nombre-${perfil.id_user}" value="${perfil.nombre}" name="Nombre" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="Apellido">Apellido:</label>
-                                    <div class="control">
-                                        <input class="input" type="text" id="Apellido-${perfil.id_user}" value="${perfil.apellido}" name="Apellido" required>
+                                    <div class="field">
+                                        <label class="label" for="Apellido">Apellido:</label>
+                                        <div class="control">
+                                            <input class="input" type="text" id="Apellido-${perfil.id_user}" value="${perfil.apellido}" name="Apellido" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="Carrera">Carrera:</label>
-                                    <div class="control">
-                                        <input class="input" type="text" id="Carrera-${perfil.id_user}" value="${perfil.carrera}" name="Carrera" required>
+                                    <div class="field">
+                                        <label class="label" for="Carrera">Carrera:</label>
+                                        <div class="control">
+                                            <input class="input" type="text" id="Carrera-${perfil.id_user}" value="${perfil.carrera}" name="Carrera" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="Email">Email:</label>
-                                    <div class="control">
-                                        <input class="input" type="email" id="Email-${perfil.id_user}" value="${perfil.email}" name="Email" required>
+                                    <div class="field">
+                                        <label class="label" for="Email">Email:</label>
+                                        <div class="control">
+                                            <input class="input" type="email" id="Email-${perfil.id_user}" value="${perfil.email}" name="Email" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="Foto">Foto de Perfil:</label>
-                                    <div class="control">
-                                        <input class="input" type="url" id="Foto-${perfil.id_user}" value="${perfil.foto_user}" name="Foto">
+                                    <div class="field">
+                                        <label class="label" for="Foto">Foto de Perfil:</label>
+                                        <div class="control">
+                                            <input class="input" type="url" id="Foto-${perfil.id_user}" value="${perfil.foto_user}" name="Foto">
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                            <div class="botones-popup modal-card-foot has-background-white is-justify-content-flex-end">
+                                </form>
+                            </section>
+                            <footer class="modal-card-foot has-background-white is-justify-content-flex-end">
                                 <button class="button is-rounded" onclick="cerrarPopupModificarPerfil(${perfil.id_user})">
                                     Cancelar
                                 </button>
@@ -198,7 +201,7 @@ function renderizarPerfiles(perfiles){
                                     <span class="icon is-small"><i class="fas fa-save"></i></span>
                                     <span>Guardar Cambios</span>
                                 </button>
-                            </div>
+                            </footer>
                         </div>
                     </div>
 
