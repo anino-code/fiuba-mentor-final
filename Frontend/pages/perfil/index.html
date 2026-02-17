@@ -63,99 +63,52 @@
             </div>
         </footer>
 
-        <div class="modal" id="popupOverlayCrearPerfil">
-            <div class="modal-background"></div>
-            <div class="modal-card">
-                <header class="modal-card-head has-background-white border-bottom">
-                    <p class="modal-card-title has-text-link has-text-weight-bold has-text-centered">Crear Perfil</p>
-                    <button class="delete" aria-label="close" onclick="cerrarPopupCrearPerfil()"></button>
-                </header>
-                <section class="modal-card-body">
-                    <form id="formCrearPerfil">
-                        <div class="field">
-                            <label class="label" for="Nombre">Nombre:</label>
-                            <div class="control">
-                                <input class="input" type="text" id="Nombre" placeholder="Nombre" name="Nombre" required>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="Apellido">Apellido:</label>
-                            <div class="control">
-                                <input class="input" type="text" id="Apellido" placeholder="Apellido" name="Apellido" required>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="Carrera">Carrera:</label>
-                            <div class="control">
-                                <input class="input" type="text" id="Carrera" placeholder="Carrera" name="Carrera" required>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="Email">Email:</label>
-                            <div class="control">
-                                <input class="input" type="email" id="Email" placeholder="Email" name="Email" required>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="Foto">Foto de Perfil:</label>
-                            <div class="control">
-                                <input class="input" type="url" id="Foto" placeholder="URL de la Foto" name="Foto" required>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="botones-popup">
-                        <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearPerfil()">
-                            Cancelar
-                        </button>
-                        <div class="field">
-                            <button class="button botonPopup is-link is-normal is-fullwidth is-rounded" type="submit" id="botonCrear" form="formCrearPerfil">
-                                <span class="icon"><i class="fas fa-paper-plane"></i></span>
-                                <span>Crear</span>
-                            </button>
+        <div class="popup-overlay" id="popupOverlayCrearPerfil">
+            <div class="popup-content" id="popupContent">
+                <h2 class="tituloPopup">Crear Perfil</h2>
+                <form id="formCrearPerfil">
+                    <div class="field">
+                        <label class="label" for="Nombre">Nombre:</label>
+                        <div class="control">
+                            <input class="input" type="text" id="Nombre" placeholder="Nombre" name="Nombre" required>
                         </div>
                     </div>
-                </section>
-                <footer class="modal-card-foot has-background-white"></footer>
+                    <div class="field">
+                        <label class="label" for="Apellido">Apellido:</label>
+                        <div class="control">
+                            <input class="input" type="text" id="Apellido" placeholder="Apellido" name="Apellido" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="Carrera">Carrera:</label>
+                        <div class="control">
+                            <input class="input" type="text" id="Carrera" placeholder="Carrera" name="Carrera" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="Email">Email:</label>
+                        <div class="control">
+                            <input class="input" type="email" id="Email" placeholder="Email" name="Email" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="Foto">Foto de Perfil:</label>
+                        <div class="control">
+                            <input class="input" type="url" id="Foto" placeholder="URL de la Foto" name="Foto" required>
+                        </div>
+                    </div>
+                </form>
+                <div class="botones-popup">
+                    <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearPerfil()">
+                        Cancelar
+                    </button>
+                    <button class="button botonPopup is-link is-normal" type="submit" id="botonCrear" form="formCrearPerfil">
+                        Crear
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div id="modal-eliminar" class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head has-background-white" style="border-bottom: 1px solid #f0f0f0;">
-                <p class="modal-card-title has-text-link has-text-weight-bold">
-                    Confirmar acción
-                </p>
-                <button class="delete" aria-label="close" id="btn-cerrar-x-eliminar"></button>
-            </header>
-
-            <section class="modal-card-body has-text-centered">
-                <span class="icon is-large has-text-link mb-2">
-                    <i class="fas fa-question-circle fa-3x"></i>
-                </span>
-                    <p class="is-size-5 has-text-dark has-text-weight-medium mt-3">
-                        ¿Quieres eliminar este perfil?
-                    </p>
-                    <p class="is-size-6 has-text-grey-light mt-2">
-                        Esta acción no se puede deshacer y perderás las solicitudes y reviews asociados.
-                    </p>
-            </section>
-
-            <footer class="modal-card-foot is-justify-content-center has-background-white" style="border-top: none;">
-                <button class="button is-rounded" id="btn-cancelar-eliminar">
-                    Cancelar
-                </button>
-
-                <button class="button is-link is-rounded has-shadow" id="btn-confirmar-eliminar">
-                    <span class="icon is-small">
-                        <i class="fas fa-trash-alt"></i>
-                    </span>
-                    <span>Sí, eliminar</span>
-                </button>
-
-            </footer>
-        </div>
-    </div>
         
         <script src="./script.js"></script>
     </body>
