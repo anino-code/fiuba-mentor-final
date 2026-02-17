@@ -31,14 +31,7 @@ cardContainer.addEventListener('click', (e) => {
 
     console.log("Hiciste clic en:", e.target);
 
-const btnAura = e.target.closest('.btn-aura');
-    if (btnAura) {
-        
-        const idUsuario = btnAura.dataset.userid; 
-        
-        
-        manejarAura(idUsuario, btnAura);
-    }
+
 
         
     
@@ -256,21 +249,18 @@ async function abrirModalEditar(idForm) {
         const inputMateria = document.getElementById('edit-materia');
         if(inputMateria) inputMateria.value = "Cargando...";
 
-        // ---------------------------------------------------------
-        // INCISIÓN 1: TRAER USUARIOS Y LLENAR EL SELECT
-        // (Esto va ANTES del fetch del formulario)
-        // ---------------------------------------------------------
-        const selectUsuario = document.getElementById('edit-usuario-select'); // Asegúrate que este ID exista en tu HTML
+
+        const selectUsuario = document.getElementById('edit-usuario-select'); 
         
-        // Limpiamos opciones viejas y ponemos un "Cargando..."
+        
         selectUsuario.innerHTML = '<option disabled selected>Cargando lista...</option>';
 
-        // Pedimos todos los usuarios a la API
+        
         const responseUsers = await fetch('http://localhost:3000/api/users');
         const usuarios = await responseUsers.json();
 
-        // Llenamos el select
-        selectUsuario.innerHTML = ''; // Limpiamos el "Cargando..."
+        
+        selectUsuario.innerHTML = ''; 
         usuarios.forEach(user => {
             const option = document.createElement('option');
             option.value = user.id_user; 
@@ -431,10 +421,10 @@ function renderizarCards(publicaciones){
         let colorTag = 'is-link'; 
         let iconoTag = 'fa-chalkboard-teacher'; 
 
-        if (pub.tipo === 'solicitante') {
+        if (pub.tipo === 'Solicitante') {
             colorTag = 'is-warning is-light'; 
             iconoTag = 'fa-hand-paper';
-        } else if (pub.tipo === 'mentor') {
+        } else if (pub.tipo === 'Mentor') {
             colorTag = 'is-primary is-light'; 
             iconoTag = 'fa-graduation-cap';
         }
