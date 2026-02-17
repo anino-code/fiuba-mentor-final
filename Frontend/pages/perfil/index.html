@@ -63,55 +63,59 @@
             </div>
         </footer>
 
-        <div class="popup-overlay" id="popupOverlayCrearPerfil">
-            <div class="popup-content" id="popupContent">
+        <div class="modal" id="popupOverlayCrearPerfil">
+            <div class="modal-background"></div>
+            <div class="modal-card">
                 <header class="modal-card-head has-background-white border-bottom">
                     <p class="modal-card-title has-text-link has-text-weight-bold has-text-centered">Crear Perfil</p>
                     <button class="delete" aria-label="close" onclick="cerrarPopupCrearPerfil()"></button>
                 </header>
-                <form id="formCrearPerfil">
-                    <div class="field">
-                        <label class="label" for="Nombre">Nombre:</label>
-                        <div class="control">
-                            <input class="input" type="text" id="Nombre" placeholder="Nombre" name="Nombre" required>
+                <section class="modal-card-body">
+                    <form id="formCrearPerfil">
+                        <div class="field">
+                            <label class="label" for="Nombre">Nombre:</label>
+                            <div class="control">
+                                <input class="input" type="text" id="Nombre" placeholder="Nombre" name="Nombre" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="Apellido">Apellido:</label>
-                        <div class="control">
-                            <input class="input" type="text" id="Apellido" placeholder="Apellido" name="Apellido" required>
+                        <div class="field">
+                            <label class="label" for="Apellido">Apellido:</label>
+                            <div class="control">
+                                <input class="input" type="text" id="Apellido" placeholder="Apellido" name="Apellido" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="Carrera">Carrera:</label>
-                        <div class="control">
-                            <input class="input" type="text" id="Carrera" placeholder="Carrera" name="Carrera" required>
+                        <div class="field">
+                            <label class="label" for="Carrera">Carrera:</label>
+                            <div class="control">
+                                <input class="input" type="text" id="Carrera" placeholder="Carrera" name="Carrera" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="Email">Email:</label>
-                        <div class="control">
-                            <input class="input" type="email" id="Email" placeholder="Email" name="Email" required>
+                        <div class="field">
+                            <label class="label" for="Email">Email:</label>
+                            <div class="control">
+                                <input class="input" type="email" id="Email" placeholder="Email" name="Email" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="Foto">Foto de Perfil:</label>
-                        <div class="control">
-                            <input class="input" type="url" id="Foto" placeholder="URL de la Foto" name="Foto" required>
+                        <div class="field">
+                            <label class="label" for="Foto">Foto de Perfil:</label>
+                            <div class="control">
+                                <input class="input" type="url" id="Foto" placeholder="URL de la Foto" name="Foto" required>
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <div class="botones-popup">
-                    <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearPerfil()">
-                        Cancelar
-                    </button>
-                    <div class="field">
-                        <button class="button botonPopup is-link is-normal is-fullwidth is-rounded" type="submit" id="botonCrear" form="formCrearPerfil">
-                            <span class="icon"><i class="fas fa-paper-plane"></i></span>
-                            <span>Crear</span>
+                    </form>
+                    <div class="botones-popup">
+                        <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearPerfil()">
+                            Cancelar
                         </button>
+                        <div class="field">
+                            <button class="button botonPopup is-link is-normal is-fullwidth is-rounded" type="submit" id="botonCrear" form="formCrearPerfil">
+                                <span class="icon"><i class="fas fa-paper-plane"></i></span>
+                                <span>Crear</span>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </section>
+                <footer class="modal-card-foot has-background-white"></footer>
             </div>
         </div>
 
