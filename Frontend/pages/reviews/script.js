@@ -363,13 +363,6 @@ function renderizarSugerencias(listaUsuarios, contenedor, input, inputOculto) {
 manejarBuscador(inputBuscadorPuntuado, listaSugerenciasPuntuado, inputOcultoPuntuado);
 manejarBuscador(inputBuscadorPuntuador, listaSugerenciasPuntuador, inputOcultoPuntuador);
 
-function confirmacionEliminarReview(id_review, boton) {
-    const confirmar = confirm("¿Estás seguro de que deseas eliminar este review?");
-    if (confirmar) {
-        eliminarReview(id_review, boton);
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
   if ($navbarBurgers.length > 0) {
