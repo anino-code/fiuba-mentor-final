@@ -60,7 +60,10 @@
     
     <div class="popup-overlay" id="popupOverlayCrearReview">
         <div class="popup-content" id="popupContent">
-            <h2 class="tituloPopup">Crear Review</h2>
+            <header class="modal-card-head has-background-white border-bottom">
+                <p class="modal-card-title has-text-link has-text-weight-bold has-text-centered">Crear Review</p>
+                <button class="delete" aria-label="close" onclick="cerrarPopupCrearReview()"></button>
+            </header>
             <form id="formCrearReview">
                 <div id="mensajeError" class="notification is-danger" style="display:none;"></div>
                 <div class="field position-relative">
@@ -107,17 +110,6 @@
                         <input class="input" type="text" id="Descripcion" placeholder="Descripcion" name="descripcion" required>
                     </div>
                 </div>
-                <!--<div class="botones-popup">
-                    <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearReview()">
-                        Cancelar
-                    </button>
-                    <div class="field">
-                        <button type="submit" class="button botonPopup is-link is-normal is-fullwidth is-rounded">
-                          <span class="icon"><i class="fas fa-paper-plane"></i></span>
-                          <span>Crear</span>
-                        </button>
-                    </div>
-                </div>-->
             </form>
             <div class="botones-popup">
                 <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearReview()">

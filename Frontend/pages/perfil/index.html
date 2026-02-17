@@ -65,7 +65,10 @@
 
         <div class="popup-overlay" id="popupOverlayCrearPerfil">
             <div class="popup-content" id="popupContent">
-                <h2 class="tituloPopup">Crear Perfil</h2>
+                <header class="modal-card-head has-background-white border-bottom">
+                    <p class="modal-card-title has-text-link has-text-weight-bold has-text-centered">Crear Perfil</p>
+                    <button class="delete" aria-label="close" onclick="cerrarPopupCrearPerfil()"></button>
+                </header>
                 <form id="formCrearPerfil">
                     <div class="field">
                         <label class="label" for="Nombre">Nombre:</label>
