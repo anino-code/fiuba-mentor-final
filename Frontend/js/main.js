@@ -421,10 +421,10 @@ function renderizarCards(publicaciones){
         let colorTag = 'is-link'; 
         let iconoTag = 'fa-chalkboard-teacher'; 
 
-        if (pub.tipo === 'Solicitante') {
+        if (pub.tipo === 'solicitante') {
             colorTag = 'is-warning is-light'; 
             iconoTag = 'fa-hand-paper';
-        } else if (pub.tipo === 'Mentor') {
+        } else if (pub.tipo === 'mentor') {
             colorTag = 'is-primary is-light'; 
             iconoTag = 'fa-graduation-cap';
         }
