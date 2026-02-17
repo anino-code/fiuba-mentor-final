@@ -74,7 +74,10 @@ function renderizarReviews(reviews) {
 
                 <div class="popup-overlay" id="popupOverlayModificarReview${review.id_review}">
                     <div class="popup-content">
-                        <h2 class="tituloPopup">Editar Review</h2>
+                        <header class="modal-card-head has-background-white border-bottom">
+                            <p class="modal-card-title has-text-link has-text-weight-bold">Editar Review</p>
+                            <button class="delete" aria-label="close" onclick="cerrarPopupModificarReview(${review.id_review})"></button>
+                        </header>
                         <form id="formModificarReview${review.id_review}" onsubmit="event.preventDefault(); modificarReview(${review.id_review});">
                             <div class="field">
                                 <label class="label">Descripción:</label>

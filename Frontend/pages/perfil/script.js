@@ -78,7 +78,10 @@ function renderizarPerfiles(perfiles){
                     
                     <div class="popup-overlay" id="popupOverlayModificarPerfil${perfil.id_user}">
                         <div class="popup-content" id="popupContent">
-                            <h2 class="tituloPopup">Editar Perfil</h2>
+                            <header class="modal-card-head has-background-white border-bottom">
+                                <p class="modal-card-title has-text-link has-text-weight-bold">Editar Perfil</p>
+                                <button class="delete" aria-label="close" onclick="cerrarPopupModificarPerfil(${perfil.id_user})"></button>
+                            </header>
                             <form id="formModificarPerfil${perfil.id_user}" onsubmit="event.preventDefault(); modificarPerfil(${perfil.id_user});">
                                 <div class="field">
                                     <label class="label" for="Nombre">Nombre:</label>
