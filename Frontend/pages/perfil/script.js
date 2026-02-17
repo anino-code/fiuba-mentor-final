@@ -134,7 +134,13 @@ function renderizarPerfiles(perfiles){
                         </div>
 
                         <footer class="card-footer">
-                            <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarPerfil(${perfil.id_user})">Editar Perfil</a>
+                            <a class="card-footer-item button is-white is-small has-text-info" onclick="abrirPopupModificarPerfil(${perfil.id_user})">
+                                <span class="icon">
+                                    <i class="fas fa-pen-nib fa-lg"></i>
+                                </span>  
+                                <span>Editar Perfil</span>
+                            </a>
+                            </a>
                             <a class="card-footer-item button is-small is-white has-text-danger p-1 btn-eliminar"
                                 data-id="${perfil.id_user}">
                                 <span class="icon is-small">

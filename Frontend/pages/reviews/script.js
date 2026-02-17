@@ -124,7 +124,12 @@ function renderizarReviews(reviews) {
                         </div>
                     </div>
                     <footer class="card-footer">
-                        <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarReview(${review.id_review})">Editar Review</a>
+                        <a class="card-footer-item button is-white is-small has-text-info" onclick="abrirPopupModificarReview(${review.id_review})">
+                          <span class="icon">
+                                    <i class="fas fa-pen-nib fa-lg"></i>
+                                </span>  
+                          <span>Editar Review</span>
+                        </a>
                         <a class="card-footer-item button is-small is-white has-text-danger p-1 btn-eliminar"
                                 data-id="${review.id_review}">
                                 <span class="icon is-small">
