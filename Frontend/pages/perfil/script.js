@@ -111,12 +111,13 @@ function renderizarPerfiles(perfiles){
                                     </div>
                                 </div>
                             </form>
-                            <div class="botones-popup">
-                                <button class="button botonPopup is-link is-normal" onclick="cerrarPopupModificarPerfil(${perfil.id_user})">
+                            <div class="botones-popup modal-card-foot has-background-white is-justify-content-flex-end">
+                                <button class="button is-rounded" onclick="cerrarPopupModificarPerfil(${perfil.id_user})">
                                     Cancelar
                                 </button>
-                                <button class="button botonPopup is-link is-normal" type="submit" id="botonModificar" form="formModificarPerfil${perfil.id_user}">
-                                    Modificar
+                                <button class="button is-link is-rounded" type="submit" id="botonModificar" form="formModificarPerfil${perfil.id_user}">
+                                    <span class="icon is-small"><i class="fas fa-save"></i></span>
+                                    <span>Guardar Cambios</span>
                                 </button>
                             </div>
                         </div>

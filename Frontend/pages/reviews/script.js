@@ -91,9 +91,12 @@ function renderizarReviews(reviews) {
                             <input type="hidden" name="id_puntuado" value="${review.puntuado.id_user}">
                             <input type="hidden" name="id_puntuador" value="${review.puntuador.id_user}">
                         </form>
-                        <div class="botones-popup mt-4">
-                            <button class="button is-link is-light" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button>
-                            <button class="button is-link" type="submit" form="formModificarReview${review.id_review}">Guardar</button>
+                        <div class="botones-popup modal-card-foot has-background-white is-justify-content-flex-end">
+                            <button class="button is-rounded" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button>
+                            <button class="button is-link is-rounded" type="submit" form="formModificarReview${review.id_review}">
+                              <span class="icon is-small"><i class="fas fa-save"></i></span>
+                              <span>Guardar Cambios</span>
+                            </button>
                         </div>
                     </div>
                 </div>
