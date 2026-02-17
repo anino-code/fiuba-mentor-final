@@ -1,10 +1,13 @@
 const cardContainer = document.getElementById('grid-tarjetas');
+let idParaEliminar = null; 
+let elementoParaEliminar = null; 
+const modalEliminar = document.getElementById('modal-eliminar');
 
 
 async function cargarCard() {
 
     try{
-    cardContainer.innerHTML = '<p>Cargando datos del servidor ...</p>';
+
 
     const response = await fetch('http://localhost:3000/api/forms?t=' + Date.now());
 
@@ -12,7 +15,7 @@ async function cargarCard() {
         throw new Error('No se pudo conectar con el servidor');
     }
     const datos = await response.json();
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     renderizarCards(datos);
 
@@ -25,6 +28,8 @@ async function cargarCard() {
 
 
 cardContainer.addEventListener('click', (e) => {
+
+    console.log("Hiciste clic en:", e.target);
 
 const btnAura = e.target.closest('.btn-aura');
     if (btnAura) {
@@ -44,6 +49,20 @@ if (btnContactar) {
         manejarContacto(idUsuario);
     }
 }
+
+const btnEliminar = e.target.closest('.btn-eliminar');
+    if (btnEliminar) {
+        const idPublicacion = btnEliminar.dataset.id;
+
+        pedirConfirmacion(idPublicacion, btnEliminar);
+    }
+
+const btnEditar = e.target.closest('.btn-editar');
+    if (btnEditar) {
+        const idPublicacion = btnEditar.dataset.id;
+        
+        abrirModalEditar(idPublicacion);
+    }
 
     
 });
@@ -149,6 +168,166 @@ async function manejarAura(idUsuario, boton) {
     }
 }
 
+async function eliminarPublicacion(id, botonDOM) {
+    
+
+    try {
+        
+        botonDOM.classList.add('is-loading');
+
+        
+        const response = await fetch(`http://localhost:3000/api/forms/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            console.log(`Publicación ${id} eliminada con éxito.`);
+
+            const cartaCompleta = botonDOM.closest('.masonry-item');
+            
+            if (cartaCompleta) {
+                
+                cartaCompleta.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                cartaCompleta.style.opacity = "0";
+                cartaCompleta.style.transform = "scale(0.9)";
+
+                setTimeout(() => {
+                    cartaCompleta.remove();
+                }, 500);
+            }
+        } else {
+            const errorData = await response.json();
+            alert(`Error al eliminar: ${errorData.error || response.statusText}`);
+            botonDOM.classList.remove('is-loading');
+        }
+
+    } catch (error) {
+        console.error("Error de red:", error);
+        alert("No se pudo conectar con el servidor.");
+        botonDOM.classList.remove('is-loading');
+    }
+}
+
+
+function pedirConfirmacion(id, elementoHTML) {
+    
+    idParaEliminar = id;
+    elementoParaEliminar = elementoHTML;
+
+    modalEliminar.classList.add('is-active');
+}
+
+
+function cerrarModalEliminar() {
+    modalEliminar.classList.remove('is-active');
+    idParaEliminar = null;
+    elementoParaEliminar = null;
+}
+
+document.getElementById('btn-cancelar-eliminar').addEventListener('click', cerrarModalEliminar);
+document.getElementById('btn-cerrar-x-eliminar').addEventListener('click', cerrarModalEliminar);
+document.querySelector('#modal-eliminar .modal-background').addEventListener('click', cerrarModalEliminar);
+
+document.getElementById('btn-confirmar-eliminar').addEventListener('click', async () => {
+    
+    if (idParaEliminar && elementoParaEliminar) {
+        modalEliminar.classList.remove('is-active');
+
+        await eliminarPublicacion(idParaEliminar, elementoParaEliminar);
+    }
+});
+
+
+const modalEditar = document.getElementById('modal-editar');
+const btnGuardarEditar = document.getElementById('btn-guardar-editar');
+
+async function abrirModalEditar(idForm) {
+    console.log("Abriendo editor para ID:", idForm);
+    
+    if (!modalEditar) {
+        console.error("Error: No encuentro el modal con id='modal-editar' en el HTML.");
+        alert("Falta el HTML del modal de edición.");
+        return;
+    }
+
+    try {
+        modalEditar.classList.add('is-active');
+        
+        const inputMateria = document.getElementById('edit-materia');
+        if(inputMateria) inputMateria.value = "Cargando...";
+
+        const response = await fetch(`http://localhost:3000/api/forms/${idForm}`);
+        
+        if (!response.ok) throw new Error("Error al traer datos");
+        
+        const data = await response.json();
+
+        document.getElementById('edit-materia').value = data.materia;
+        document.getElementById('edit-tema').value = data.tema;
+        document.getElementById('edit-descripcion').value = data.descripcion;
+        
+        document.getElementById('edit-id-form').value = data.id_form;
+        document.getElementById('edit-id-user').value = data.usuario.id_user;
+        document.getElementById('edit-tipo').value = data.tipo;
+        document.getElementById('edit-foto-form').value = data.foto_form || "";
+
+    } catch (error) {
+        console.error(error);
+        alert("Error al cargar datos del post.");
+        cerrarModalEditar();
+    }
+}
+
+function cerrarModalEditar() {
+    if(modalEditar) modalEditar.classList.remove('is-active');
+    const form = document.getElementById('form-editar');
+    if(form) form.reset();
+}
+
+
+document.getElementById('btn-cerrar-x-editar')?.addEventListener('click', cerrarModalEditar);
+document.getElementById('btn-cancelar-editar')?.addEventListener('click', cerrarModalEditar);
+
+
+if (btnGuardarEditar) {
+    btnGuardarEditar.addEventListener('click', async () => {
+        const idForm = document.getElementById('edit-id-form').value;
+        
+        const datosActualizados = {
+            id_user: parseInt(document.getElementById('edit-id-user').value),
+            materia: document.getElementById('edit-materia').value,
+            tema: document.getElementById('edit-tema').value,
+            descripcion: document.getElementById('edit-descripcion').value,
+            tipo: document.getElementById('edit-tipo').value,
+            foto_form: document.getElementById('edit-foto-form').value
+        };
+
+        try {
+            btnGuardarEditar.classList.add('is-loading');
+
+            const response = await fetch(`http://localhost:3000/api/forms/${idForm}`, {
+                method: 'PUT', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosActualizados)
+            });
+
+            if (response.ok) {
+                console.log("Editado correctamente");
+                cerrarModalEditar();
+                cargarCard(); 
+            } else {
+                const errorData = await response.json();
+                alert(`Error: ${errorData.error}`);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Error de conexión");
+        } finally {
+            btnGuardarEditar.classList.remove('is-loading');
+        }
+    });
+}
+
 const CATEGORIAS_IMAGENES = [
     {
         
@@ -212,7 +391,7 @@ function renderizarCards(publicaciones){
                         obtenerImagenPorTexto(pub.descripcion) || 
                         IMAGEN_DEFAULT;
     
-            htmlAcomulado += `
+        htmlAcomulado += `
                 <div class="masonry-item">
                     <div class="card">
                         <div class="card-image">
@@ -222,7 +401,32 @@ function renderizarCards(publicaciones){
                         </div>
                         
                         <div class="card-content">
-                            <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase mb-1">${pub.materia}</p>
+                            <div class="is-flex is-justify-content-space-between is-align-items-center mb-1">
+        
+                            <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase">
+                                ${pub.materia}
+                            </p>
+
+                        <div class="buttons are-small is-marginless">
+            
+                            <button class="button is-small is-white has-text-info p-1 btn-editar" 
+                                title="Editar Publicación"
+                                data-id="${pub.id_form}">
+                                <span class="icon">
+                                    <i class="fas fa-pen-nib fa-lg"></i>
+                                </span>
+                            </button>
+
+                            <button class="button is-small is-white has-text-danger p-1 btn-eliminar" 
+                                title="Eliminar Publicación"
+                                data-id="${pub.id_form}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </button>
+                        </div>
+
+                        </div>
                             <p class="title is-5 has-text-weight-bold mb-2">${pub.tema}</p>
                             <p class="content is-size-6 has-text-grey mb-4">
                                 ${pub.descripcion}
@@ -238,7 +442,7 @@ function renderizarCards(publicaciones){
                             
                         </div>
 
-                            <div class="media is-vcentered border-top pt-3 footer-card">
+                        <div class="media is-vcentered border-top pt-3 footer-card">
                                 <div class="media-left">
                                     <figure class="image is-32x32">
                                         <img class="author-avatar" src="${pub.usuario.foto_user}" alt="Avatar">

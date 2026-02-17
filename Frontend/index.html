@@ -103,6 +103,93 @@
         </div>
     </div>
 
+    <div id="modal-eliminar" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-background-white" style="border-bottom: 1px solid #f0f0f0;">
+                <p class="modal-card-title has-text-link has-text-weight-bold">
+                    Confirmar acción
+                </p>
+                <button class="delete" aria-label="close" id="btn-cerrar-x-eliminar"></button>
+            </header>
+
+            <section class="modal-card-body has-text-centered">
+                <span class="icon is-large has-text-link mb-2">
+                    <i class="fas fa-question-circle fa-3x"></i>
+                </span>
+                    <p class="is-size-5 has-text-dark has-text-weight-medium mt-3">
+                        ¿Quieres eliminar esta publicación?
+                    </p>
+                    <p class="is-size-6 has-text-grey-light mt-2">
+                        Esta acción no se puede deshacer y perderás toda el Aura asociada.
+                    </p>
+            </section>
+
+            <footer class="modal-card-foot is-justify-content-center has-background-white" style="border-top: none;">
+                <button class="button is-rounded" id="btn-cancelar-eliminar">
+                    Cancelar
+                </button>
+
+                <button class="button is-link is-rounded has-shadow" id="btn-confirmar-eliminar">
+                    <span class="icon is-small">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                    <span>Sí, eliminar</span>
+                </button>
+
+            </footer>
+        </div>
+</div>
+
+
+<div id="modal-editar" class="modal">
+    <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-background-white border-bottom">
+                <p class="modal-card-title has-text-link has-text-weight-bold">Editar Publicación</p>
+                <button class="delete" aria-label="close" id="btn-cerrar-x-editar"></button>
+            </header>
+    
+            <section class="modal-card-body">
+                <form id="form-editar">
+                    <input type="hidden" id="edit-id-form">
+                    <input type="hidden" id="edit-id-user">
+                    <input type="hidden" id="edit-tipo">
+                    <input type="hidden" id="edit-foto-form">
+
+                    <div class="field">
+                        <label class="label">Materia</label>
+                        <div class="control">
+                            <input class="input is-rounded" type="text" id="edit-materia" placeholder="Ej: Análisis Matemático II">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                            <label class="label">Tema / Título</label>
+                        <div class="control">
+                            <input class="input is-rounded" type="text" id="edit-tema" placeholder="Ej: Derivadas Parciales">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                            <label class="label">Descripción</label>
+                        <div class="control">
+                            <textarea class="textarea is-rounded" id="edit-descripcion" placeholder="Describe tu duda o aporte..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <footer class="modal-card-foot has-background-white is-justify-content-flex-end">
+                <button class="button is-rounded" id="btn-cancelar-editar">Cancelar</button>
+                <button class="button is-link is-rounded" id="btn-guardar-editar">
+                <span class="icon is-small"><i class="fas fa-save"></i></span>
+                <span>Guardar Cambios</span>
+                </button>
+            </footer>
+    </div>
+</div>
+
     <footer>
         <div class="footer-inicio">
             <p class="texto-footer">
