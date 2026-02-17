@@ -63,13 +63,14 @@ body {
 .botones-popup {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
     margin-top: 16px;
 }
 
 .botonPopup {
     border-radius: 50px;
     box-sizing: border-box;
-    width: 100px;
+    flex: 1;
 }
 
 .popup-content .textarea {

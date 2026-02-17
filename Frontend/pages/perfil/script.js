@@ -3,7 +3,7 @@ const cardContainer = document.getElementById('grid-tarjetas-perfil');
 let perfilesDisponibles = [];
 
 const form = document.getElementById('formCrearPerfil');
-const modalEliminar = document.getElementById('modal-eliminar');
+
 
 
 async function cargarUsuarios() {
@@ -40,70 +40,6 @@ async function cargarCard() {
     }
 }
 
-cardContainer.addEventListener('click', (e) => {
-
-  console.log("Hiciste clic en:", e.target);
-
-  const btnEliminar = e.target.closest('.btn-eliminar');
-    if (btnEliminar) {
-        const idUser = btnEliminar.dataset.id;
-
-        pedirConfirmacion(idUser, btnEliminar);
-    }    
-});
-
-function pedirConfirmacion(id, elementoHTML) {
-    
-    idParaEliminar = id;
-    elementoParaEliminar = elementoHTML;
-
-    modalEliminar.classList.add('is-active');
-}
-
-function cerrarModalEliminar() {
-    modalEliminar.classList.remove('is-active');
-    idParaEliminar = null;
-    elementoParaEliminar = null;
-}
-
-document.getElementById('btn-cancelar-eliminar').addEventListener('click', cerrarModalEliminar);
-document.getElementById('btn-cerrar-x-eliminar').addEventListener('click', cerrarModalEliminar);
-document.querySelector('#modal-eliminar .modal-background').addEventListener('click', cerrarModalEliminar);
-
-document.getElementById('btn-confirmar-eliminar').addEventListener('click', async () => {
-    
-    if (idParaEliminar && elementoParaEliminar) {
-        modalEliminar.classList.remove('is-active');
-
-        await eliminarPerfil(idParaEliminar, elementoParaEliminar);
-    }
-});
-
-async function eliminarPerfil(id, boton) {
-    if (!id) {
-        console.error("Error: No hay ID de Perfil");
-        return;
-    }
-    try {
-        console.log(`Eliminando perfil ${id}...`);
-
-        const respuesta = await fetch(`http://localhost:3000/api/users/${id}`, {
-            method: 'DELETE'
-        });
-        const resultado = await respuesta.json();
-
-        if (!respuesta.ok) {
-            throw new Error(resultado.error || "Error en servidor");
-        }
-
-        await cargarUsuarios();
-        await cargarCard();
-
-    } catch (error) {
-        console.error("Fallo eliminar perfil:", error);
-        alert(error.message); 
-    }
-}
 
 function renderizarPerfiles(perfiles){
     cardContainer.innerHTML = ' ';
@@ -134,74 +70,55 @@ function renderizarPerfiles(perfiles){
                         </div>
 
                         <footer class="card-footer">
-                            <a class="card-footer-item button is-white is-small has-text-info" onclick="abrirPopupModificarPerfil(${perfil.id_user})">
-                                <span class="icon">
-                                    <i class="fas fa-pen-nib fa-lg"></i>
-                                </span>  
-                                <span>Editar Perfil</span>
-                            </a>
-                            </a>
-                            <a class="card-footer-item button is-small is-white has-text-danger p-1 btn-eliminar"
-                                data-id="${perfil.id_user}">
-                                <span class="icon is-small">
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                                <span>Eliminar Perfil</span>
-                            </a>
+                            <a class="card-footer-item button is-white is-small" onclick="confirmacionEliminarPerfil(${perfil.id_user})">Eliminar Perfil</a>
+                            <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarPerfil(${perfil.id_user})">Modificar Perfil</a>
                         </footer>
 
                     </div>
                     
-                    <div class="modal" id="popupOverlayModificarPerfil${perfil.id_user}">
-                        <div class="modal-background"></div>
-                        <div class="modal-card">
-                            <header class="modal-card-head has-background-white border-bottom">
-                                <p class="modal-card-title has-text-link has-text-weight-bold">Editar Perfil</p>
-                                <button class="delete" aria-label="close" onclick="cerrarPopupModificarPerfil(${perfil.id_user})"></button>
-                            </header>
-                            <section class="modal-card-body">
-                                <form id="formModificarPerfil${perfil.id_user}" onsubmit="event.preventDefault(); modificarPerfil(${perfil.id_user});">
-                                    <div class="field">
-                                        <label class="label" for="Nombre">Nombre:</label>
-                                        <div class="control">
-                                            <input class="input" type="text" id="Nombre-${perfil.id_user}" value="${perfil.nombre}" name="Nombre" required>
-                                        </div>
+                    <div class="popup-overlay" id="popupOverlayModificarPerfil${perfil.id_user}">
+                        <div class="popup-content" id="popupContent">
+                            <h2 class="tituloPopup">Modificar Perfil</h2>
+                            <form id="formModificarPerfil${perfil.id_user}" onsubmit="event.preventDefault(); modificarPerfil(${perfil.id_user});">
+                                <div class="field">
+                                    <label class="label" for="Nombre">Nombre:</label>
+                                    <div class="control">
+                                        <input class="input" type="text" id="Nombre-${perfil.id_user}" value="${perfil.nombre}" name="Nombre" required>
                                     </div>
-                                    <div class="field">
-                                        <label class="label" for="Apellido">Apellido:</label>
-                                        <div class="control">
-                                            <input class="input" type="text" id="Apellido-${perfil.id_user}" value="${perfil.apellido}" name="Apellido" required>
-                                        </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label" for="Apellido">Apellido:</label>
+                                    <div class="control">
+                                        <input class="input" type="text" id="Apellido-${perfil.id_user}" value="${perfil.apellido}" name="Apellido" required>
                                     </div>
-                                    <div class="field">
-                                        <label class="label" for="Carrera">Carrera:</label>
-                                        <div class="control">
-                                            <input class="input" type="text" id="Carrera-${perfil.id_user}" value="${perfil.carrera}" name="Carrera" required>
-                                        </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label" for="Carrera">Carrera:</label>
+                                    <div class="control">
+                                        <input class="input" type="text" id="Carrera-${perfil.id_user}" value="${perfil.carrera}" name="Carrera" required>
                                     </div>
-                                    <div class="field">
-                                        <label class="label" for="Email">Email:</label>
-                                        <div class="control">
-                                            <input class="input" type="email" id="Email-${perfil.id_user}" value="${perfil.email}" name="Email" required>
-                                        </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label" for="Email">Email:</label>
+                                    <div class="control">
+                                        <input class="input" type="email" id="Email-${perfil.id_user}" value="${perfil.email}" name="Email" required>
                                     </div>
-                                    <div class="field">
-                                        <label class="label" for="Foto">Foto de Perfil:</label>
-                                        <div class="control">
-                                            <input class="input" type="url" id="Foto-${perfil.id_user}" value="${perfil.foto_user}" name="Foto">
-                                        </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label" for="Foto">Foto de Perfil:</label>
+                                    <div class="control">
+                                        <input class="input" type="url" id="Foto-${perfil.id_user}" value="${perfil.foto_user}" name="Foto">
                                     </div>
-                                </form>
-                            </section>
-                            <footer class="modal-card-foot has-background-white is-justify-content-flex-end">
-                                <button class="button is-rounded" onclick="cerrarPopupModificarPerfil(${perfil.id_user})">
+                                </div>
+                            </form>
+                            <div class="botones-popup">
+                                <button class="button botonPopup is-link is-normal" onclick="cerrarPopupModificarPerfil(${perfil.id_user})">
                                     Cancelar
                                 </button>
-                                <button class="button is-link is-rounded" type="submit" id="botonModificar" form="formModificarPerfil${perfil.id_user}">
-                                    <span class="icon is-small"><i class="fas fa-save"></i></span>
-                                    <span>Guardar Cambios</span>
+                                <button class="button botonPopup is-link is-normal" type="submit" id="botonModificar" form="formModificarPerfil${perfil.id_user}">
+                                    Modificar
                                 </button>
-                            </footer>
+                            </div>
                         </div>
                     </div>
 
@@ -292,6 +209,33 @@ async function modificarPerfil(id) {
     }
 }
 
+// Funcion para eliminar perfiles
+async function eliminarPerfil(id) {
+    if (!id) {
+        console.error("Error: No hay ID de Perfil");
+        return;
+    }
+    try {
+        console.log(`Eliminando perfil ${id}...`);
+
+        const respuesta = await fetch(`http://localhost:3000/api/users/${id}`, {
+            method: 'DELETE'
+        });
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok) {
+            throw new Error(resultado.error || "Error en servidor");
+        }
+
+        await cargarUsuarios();
+        await cargarCard();
+
+    } catch (error) {
+        console.error("Fallo eliminar perfil:", error);
+        alert(error.message); 
+    }
+}
+
 function abrirPopupCrearPerfil() {
     const popup = document.getElementById('popupOverlayCrearPerfil');
     if (popup) {
@@ -325,6 +269,13 @@ function cerrarPopupModificarPerfil(id) {
     }
     if (popup) {
         popup.style.display = 'none';
+    }
+}
+
+function confirmacionEliminarPerfil(id) {
+    const confirmar = confirm("¿Estás seguro de que deseas eliminar este perfil?");
+    if (confirmar) {
+        eliminarPerfil(id);
     }
 }
 
