@@ -67,8 +67,8 @@ function renderizarReviews(reviews) {
                         </div>
                     </div>
                     <footer class="card-footer">
-                        <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarReview(${review.id_review})">Editar</a>
-                        <a class="card-footer-item button is-white is-small" onclick="confirmacionEliminarReview(${review.id_review}, this)">Eliminar</a>
+                        <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarReview(${review.id_review})">Editar Review</a>
+                        <a class="card-footer-item button is-white is-small" onclick="confirmacionEliminarReview(${review.id_review}, this)">Eliminar Review</a>
                     </footer>
                 </div>
 

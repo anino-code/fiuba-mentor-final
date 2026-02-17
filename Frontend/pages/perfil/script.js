@@ -70,8 +70,8 @@ function renderizarPerfiles(perfiles){
                         </div>
 
                         <footer class="card-footer">
+                            <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarPerfil(${perfil.id_user})">Editar Perfil</a>
                             <a class="card-footer-item button is-white is-small" onclick="confirmacionEliminarPerfil(${perfil.id_user})">Eliminar Perfil</a>
-                            <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarPerfil(${perfil.id_user})">Modificar Perfil</a>
                         </footer>
 
                     </div>

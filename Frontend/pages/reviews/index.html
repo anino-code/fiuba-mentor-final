@@ -107,18 +107,29 @@
                         <input class="input" type="text" id="Descripcion" placeholder="Descripcion" name="descripcion" required>
                     </div>
                 </div>
-                <div class="botones-popup">
+                <!--<div class="botones-popup">
                     <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearReview()">
                         Cancelar
                     </button>
                     <div class="field">
-                        <button type="submit" class="button is-link is-fullwidth is-rounded">
+                        <button type="submit" class="button botonPopup is-link is-normal is-fullwidth is-rounded">
                           <span class="icon"><i class="fas fa-paper-plane"></i></span>
                           <span>Crear</span>
                         </button>
                     </div>
-                </div>
+                </div>-->
             </form>
+            <div class="botones-popup">
+                <button class="button botonPopup is-link is-normal" onclick="cerrarPopupCrearReview()">
+                    Cancelar
+                </button>
+                <div class="field">
+                    <button class="button botonPopup is-link is-normal is-fullwidth is-rounded" type="submit" id="botonCrear" form="formCrearReview">
+                        <span class="icon"><i class="fas fa-paper-plane"></i></span>
+                        <span>Crear</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     </main>
