@@ -27,7 +27,7 @@ El diferencial del proyecto es su sistema de **Reputacion (Aura)**:
 |-------------------|--------|---------------|
 | **Nicolas Gaitan** | 113347 | Dev front
 | **Tomas Correa** | 113878 | Dev front
-| **Esteban Ordoñez** | 112981 | Dev back-Db 
+| **Esteban Ordoñez** | 112981 | Dev - front back-Db 
 | **Arleys Camaño** | 114432 | Dev front 
 
 
