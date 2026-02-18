@@ -151,9 +151,9 @@ function renderizarReviews(reviews) {
                           <form id="formModificarReview${review.id_review}" onsubmit="event.preventDefault(); modificarReview(${review.id_review});">
                               
                               <div class="field">
-                                  <label class="label">Mentor (Puntuado):</label>
+                                  <label class="label">Puntuado (Seleccionar Perfil):</label>
                                   <div class="control dropdown is-fullwidth">
-                                      <input class="input input-busqueda-edit" type="text"
+                                      <input class="input input-busqueda-edit" type="text" placeholder="Escribe para buscar (ej: Juan, Tomas...)"
                                           id="input-edit-puntuado-${review.id_review}"
                                           value="${review.puntuado.nombre} ${review.puntuado.apellido}"
                                           data-type="puntuado" data-id="${review.id_review}" autocomplete="off">
@@ -163,9 +163,9 @@ function renderizarReviews(reviews) {
                               </div>
 
                               <div class="field">
-                                  <label class="label">Alumno (Puntuador):</label>
+                                  <label class="label">Puntuador (Seleccionar Perfil):</label>
                                   <div class="control dropdown is-fullwidth">
-                                      <input class="input input-busqueda-edit" type="text"
+                                      <input class="input input-busqueda-edit" type="text" placeholder="Escribe para buscar (ej: Juan, Tomas...)"
                                           id="input-edit-puntuador-${review.id_review}"
                                           value="${review.puntuador.nombre} ${review.puntuador.apellido}"
                                           data-type="puntuador" data-id="${review.id_review}" autocomplete="off">
@@ -186,9 +186,7 @@ function renderizarReviews(reviews) {
                                       <input class="input" type="number" name="aura" value="${review.aura}" required>
                                   </div>
                               </div>
-                              <input type="hidden" name="id_puntuado" value="${review.puntuado.id_user}">
-                              <input type="hidden" name="id_puntuador" value="${review.puntuador.id_user}">
-                          </form>
+                            </form>
                         </section>
                         <footer class="modal-card-foot has-background-white is-justify-content-flex-end">
                           <button class="button is-rounded" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button>
@@ -227,8 +225,13 @@ async function modificarReview(id) {
     const id_puntuado = Number(formModificar.id_puntuado.value);
     const id_puntuador = Number(formModificar.id_puntuador.value);
 
-    if (!descripcion || Number.isNaN(aura)) {
-        alert("Campos inválidos");
+    if (!id_puntuado || !id_puntuador || !descripcion) {
+      alert("Por favor completa todos los campos obligatorios.");
+      return;
+    }
+
+    if (aura<0 || Number.isNaN(aura)) {
+        alert("Aura debe ser un numero positivo");
         return;
     }
 
@@ -369,7 +372,7 @@ function renderizarSugerencias(listaUsuarios, contenedor, input, inputOculto) {
 
   if (listaUsuarios.length === 0) {
     contenedor.innerHTML =
-      `<div class="dropdown-item has-text-grey">No se encontraron resultados</div>`;
+      `<div class="dropdown-item has-text-grey">No hay resultados</div>`;
     contenedor.style.display = "block";
     return;
   }
