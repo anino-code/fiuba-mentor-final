@@ -97,47 +97,66 @@ async function eliminarReview(id_review, boton) {
 
 function renderizarReviews(reviews) {
     cardContainer.innerHTML = ' ';
+    
+    // Si no hay reviews, mostrar mensaje (opcional, pero buena práctica)
+    if (reviews.length === 0) {
+        cardContainer.innerHTML = '<p class="has-text-centered is-size-5 has-text-grey mt-6">No hay reviews aún.</p>';
+        return;
+    }
+
+    let htmlAcumulado = '';
+
     reviews.forEach(review => {
-        const cardHTML = `
+        htmlAcumulado += `
             <div class="masonry-item" data-id="${review.id_review}">
-                <div class="card">
-                    <div class="card-content has-text-centered">
-                        <div class="media-content">
-                            <figure class="image is-32x32 is-inline-block">
-                                <img class="author-avatar" src="${review.puntuado.foto_user}" alt="Avatar">
-                            </figure>
-                        </div>
-                        <h2 class="is-size-5 has-text-weight-bold mb-3">${review.puntuado.nombre} ${review.puntuado.apellido}</h2>
-                        <p class="content is-size-6 has-text-black mb-4">
-                            ${review.descripcion}
+                
+                <div class="card card-review-style">
+                    
+                    <div class="review-image-container">
+                        <img src="${review.puntuado.foto_user}" 
+                            alt="${review.puntuado.nombre}" 
+                            class="review-main-image">
+                    </div>
+
+                    <div class="review-content has-text-centered">
+                        
+                        <p class="title is-4 has-text-weight-bold mb-5" style="color: #1a202c;">
+                            ${review.puntuado.nombre} ${review.puntuado.apellido}
                         </p>
-                        <p class="is-size-7 mb-2">Aura: ${review.aura}</p>
-                    </div>
-                    <div class="media is-vcentered has-text-centered border-top pt-1 mb-2 footer-card">
-                        <div class="media-content">
-                            <figure class="image is-32x32 is-inline-block">
-                                <img class="author-avatar" src="${review.puntuador.foto_user}" alt="Avatar">
+
+                        <p class="subtitle is-6 mb-4 has-text-grey" style="font-weight: 500; font-style: italic;">
+                            "${review.descripcion}"
+                        </p>
+
+                        <div class="review-author-block mb-4">
+                            <figure class="image is-24x24 mr-2">
+                                <img class="is-rounded" src="${review.puntuador.foto_user}" alt="Avatar Puntuador">
                             </figure>
+                            <p class="is-size-7 has-text-grey">
+                                Por: <strong>${review.puntuador.nombre} ${review.puntuador.apellido}</strong>
+                            </p>
                         </div>
-                        <div class="media-content">
-                            <p class="is-size-6 has-text-weight-semibold mt-2 has-text-dark">${review.puntuador.nombre} ${review.puntuador.apellido}</p>
+
+                        <div class="review-stats mb-5">
+                            <div class="review-stat-item">
+                                <i class="fas fa-bolt has-text-warning"></i>
+                                <span><strong>${review.aura}</strong> Aura</span>
+                            </div>
                         </div>
+
+                        <div class="review-actions">
+                            
+                            <button class="button btn-review-action" onclick="abrirPopupModificarReview(${review.id_review})">
+                                <span>Editar</span>
+                                <i class="fas fa-pen ml-1"></i>
+                            </button>
+                            
+                            <button class="button btn-review-action is-delete btn-eliminar" data-id="${review.id_review}" title="Eliminar Review">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
+
                     </div>
-                    <footer class="card-footer">
-                        <a class="card-footer-item button is-white is-small has-text-info" onclick="abrirPopupModificarReview(${review.id_review})">
-                          <span class="icon">
-                                    <i class="fas fa-pen-nib fa-lg"></i>
-                                </span>  
-                          <span>Editar Review</span>
-                        </a>
-                        <a class="card-footer-item button is-small is-white has-text-danger p-1 btn-eliminar"
-                                data-id="${review.id_review}">
-                                <span class="icon is-small">
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                                <span>Eliminar Review</span>
-                        </a>
-                    </footer>
                 </div>
 
                 <div class="modal" id="popupOverlayModificarReview${review.id_review}">
@@ -153,7 +172,7 @@ function renderizarReviews(reviews) {
                               <div class="field">
                                   <label class="label">Puntuado (Seleccionar Perfil):</label>
                                   <div class="control dropdown is-fullwidth">
-                                      <input class="input input-busqueda-edit" type="text" placeholder="Escribe para buscar (ej: Juan, Tomas...)"
+                                      <input class="input input-busqueda-edit" type="text" placeholder="Buscar..."
                                           id="input-edit-puntuado-${review.id_review}"
                                           value="${review.puntuado.nombre} ${review.puntuado.apellido}"
                                           data-type="puntuado" data-id="${review.id_review}" autocomplete="off">
@@ -165,7 +184,7 @@ function renderizarReviews(reviews) {
                               <div class="field">
                                   <label class="label">Puntuador (Seleccionar Perfil):</label>
                                   <div class="control dropdown is-fullwidth">
-                                      <input class="input input-busqueda-edit" type="text" placeholder="Escribe para buscar (ej: Juan, Tomas...)"
+                                      <input class="input input-busqueda-edit" type="text" placeholder="Buscar..."
                                           id="input-edit-puntuador-${review.id_review}"
                                           value="${review.puntuador.nombre} ${review.puntuador.apellido}"
                                           data-type="puntuador" data-id="${review.id_review}" autocomplete="off">
@@ -186,22 +205,24 @@ function renderizarReviews(reviews) {
                                       <input class="input" type="number" name="aura" value="${review.aura}" required>
                                   </div>
                               </div>
+                              
+                              <div class="field is-grouped is-grouped-right mt-5">
+                                  <p class="control"><button class="button is-rounded" type="button" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button></p>
+                                  <p class="control"><button class="button is-link is-rounded" type="submit">Guardar</button></p>
+                              </div>
+
                             </form>
                         </section>
-                        <footer class="modal-card-foot has-background-white is-justify-content-flex-end">
-                          <button class="button is-rounded" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button>
-                              <button class="button is-link is-rounded" type="submit" form="formModificarReview${review.id_review}">
-                                <span class="icon is-small"><i class="fas fa-save"></i></span>
-                                <span>Guardar Cambios</span>
-                              </button>
-                        </footer>
                     </div>
-                  </div>
                 </div>
+
             </div>
-        `;
-        cardContainer.innerHTML += cardHTML;
+  
+            `;
     });
+    
+    cardContainer.innerHTML = htmlAcumulado;
+    // IMPORTANTE: Llamar a esta función al final para que los inputs de edición funcionen
     inicializarBuscadoresEdicion();
 }
 
