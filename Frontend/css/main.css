@@ -116,3 +116,41 @@
         margin-right: 20px;
     }
 }
+
+
+
+
+.card-recurso {
+    border-radius: 16px !important;       
+    border: none !important;              
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important; 
+    padding: 12px !important;             
+    background-color: white;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-recurso:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12) !important;
+}
+
+
+.card-recurso .card-image {
+    
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0; 
+}
+
+.card-recurso .card-image img {
+    object-fit: cover;
+    border-radius: 12px; 
+    width: 100%;
+    height: 100%;
+}
+
+
+.card-recurso .card-content {
+    padding: 20px 10px 10px 10px !important; 
+}
