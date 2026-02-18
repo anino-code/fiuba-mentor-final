@@ -102,7 +102,7 @@ Para el desarrollo se utiliza una estrategia de ramas basada en funcionalidades 
 
 ![Inicio](Screenshots/Inicio.png)
 
-![Inicio2](Screenshots/Inicio2.png)
+![inicio2](Screenshots/inicio2.png)
 
 ### Solicitud
 
