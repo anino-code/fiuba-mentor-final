@@ -1,17 +1,20 @@
 import express from "express";
 import cors from "cors";
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { pool, getAllUsers, getOneUser, createUser, deleteUser, updateUser, getAllForms, getOneForm, createForm, deleteForm, updateForm, getAllReviews, getOneReview, createReview, deleteReview, updateReview, getReviewsUser} from "./db.js";
 
 
-import path from 'path';
-import { fileURLToPath } from 'url';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.static(path.join(__dirname, '../public')));
+
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 app.use(cors());
 
