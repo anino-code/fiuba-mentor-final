@@ -31,14 +31,7 @@ cardContainer.addEventListener('click', (e) => {
 
     console.log("Hiciste clic en:", e.target);
 
-const btnAura = e.target.closest('.btn-aura');
-    if (btnAura) {
-        
-        const idUsuario = btnAura.dataset.userid; 
-        
-        
-        manejarAura(idUsuario, btnAura);
-    }
+
 
         
     
@@ -256,6 +249,25 @@ async function abrirModalEditar(idForm) {
         const inputMateria = document.getElementById('edit-materia');
         if(inputMateria) inputMateria.value = "Cargando...";
 
+
+        const selectUsuario = document.getElementById('edit-usuario-select'); 
+        
+        
+        selectUsuario.innerHTML = '<option disabled selected>Cargando lista...</option>';
+
+        
+        const responseUsers = await fetch('http://localhost:3000/api/users');
+        const usuarios = await responseUsers.json();
+
+        
+        selectUsuario.innerHTML = ''; 
+        usuarios.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.id_user; 
+            option.textContent = `${user.nombre} ${user.apellido}`;
+            selectUsuario.appendChild(option);
+        });
+
         const response = await fetch(`http://localhost:3000/api/forms/${idForm}`);
         
         if (!response.ok) throw new Error("Error al traer datos");
@@ -270,6 +282,8 @@ async function abrirModalEditar(idForm) {
         document.getElementById('edit-id-user').value = data.usuario.id_user;
         document.getElementById('edit-tipo').value = data.tipo;
         document.getElementById('edit-foto-form').value = data.foto_form || "";
+
+        selectUsuario.value = data.usuario.id_user;
 
     } catch (error) {
         console.error(error);
@@ -292,9 +306,12 @@ document.getElementById('btn-cancelar-editar')?.addEventListener('click', cerrar
 if (btnGuardarEditar) {
     btnGuardarEditar.addEventListener('click', async () => {
         const idForm = document.getElementById('edit-id-form').value;
+
+        const selectUsuario = document.getElementById('edit-usuario-select');
+
         
         const datosActualizados = {
-            id_user: parseInt(document.getElementById('edit-id-user').value),
+            id_user: parseInt(selectUsuario.value),
             materia: document.getElementById('edit-materia').value,
             tema: document.getElementById('edit-tema').value,
             descripcion: document.getElementById('edit-descripcion').value,
@@ -377,13 +394,42 @@ function renderizarCards(publicaciones){
 
     let htmlAcomulado ='';
 
+    const miId = parseInt(localStorage.getItem('idUsuarioActual')) || 0;
+
     publicaciones.forEach(pub => {
 
         if (!pub.usuario || !pub.usuario.id_user) {
             return; 
         }
 
-    const usuario = pub.usuario || { nombre: 'Anonimo', id_user: 0, aura: 0 };
+        const usuario = pub.usuario;
+        
+        
+        const esMiPost = (usuario.id_user === miId);
+
+        
+        const fechaObj = new Date(pub.fecha_creado);
+        const fechaFormateada = fechaObj.toLocaleDateString('es-AR', {
+            day: '2-digit', 
+            month: '2-digit', 
+            year: 'numeric',
+            hour: '2-digit', 
+            minute: '2-digit'
+        });
+
+        
+        let colorTag = 'is-link'; 
+        let iconoTag = 'fa-chalkboard-teacher'; 
+
+        if (pub.tipo === 'solicitante') {
+            colorTag = 'is-warning is-light'; 
+            iconoTag = 'fa-hand-paper';
+        } else if (pub.tipo === 'mentor') {
+            colorTag = 'is-primary is-light'; 
+            iconoTag = 'fa-graduation-cap';
+        }
+
+    
     
     const imagenPortada = pub.foto_form || 
                         obtenerImagenPorTexto(pub.materia) || 
@@ -401,11 +447,19 @@ function renderizarCards(publicaciones){
                         </div>
                         
                         <div class="card-content">
-                            <div class="is-flex is-justify-content-space-between is-align-items-center mb-1">
+                            <div class="is-flex is-justify-content-space-between is-align-items-center mb-2">
+
+                            <div style="max-width: 75%;">
+                                
+                                    <span class="tag ${colorTag} is-rounded is-small mb-2">
+                                        <span class="icon is-small mr-1"><i class="fas ${iconoTag}"></i></span>
+                                        ${pub.tipo}
+                                    </span>
         
-                            <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase">
-                                ${pub.materia}
-                            </p>
+                                    <p class="is-size-7 has-text-weight-bold has-text-info is-uppercase">
+                                        ${pub.materia}
+                                    </p>
+                            </div>
 
                         <div class="buttons are-small is-marginless">
             
@@ -430,6 +484,10 @@ function renderizarCards(publicaciones){
                             <p class="title is-5 has-text-weight-bold mb-2">${pub.tema}</p>
                             <p class="content is-size-6 has-text-grey mb-4">
                                 ${pub.descripcion}
+                            </p>
+
+                            <p class="is-size-7 has-text-grey-light mb-4 is-italic">
+                                <i class="far fa-clock mr-1"></i> ${fechaFormateada}
                             </p>
                             
                         <div class="buttons are-small mt-3">
