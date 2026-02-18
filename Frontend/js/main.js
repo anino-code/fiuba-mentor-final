@@ -348,13 +348,13 @@ if (btnGuardarEditar) {
 const CATEGORIAS_IMAGENES = [
     {
         
-        palabrasClave: ['Fundamentos de programación','introcamejo', 'punteros', 'memoria', 'malloc', 'segfault', 'linux', 'bash', 'terminal'],
+        palabrasClave: ['Intro al desarrollo de software','introcamejo', 'segfault', 'linux', 'bash', 'terminal'],
         url: 'https://fi.ort.edu.uy/innovaportal/file/127831/1/lenguajes-de-programacion.jpg'
     },
     {
         
         palabrasClave: ['el backend', 'bd', 'sql', 'base de datos', 'postgres', 'node', 'express', 'api', 'servidor'],
-        url: 'https://images.unsplash.com/photo-1667372393119-c85c020799dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+        url: 'https://img.datacentermarket.es/wp-content/uploads/2025/01/16110626/Bases-de-datos-como-Servicio-1.jpeg'
     },
     {
         
@@ -365,6 +365,12 @@ const CATEGORIAS_IMAGENES = [
         
         palabrasClave: ['Gradientes', 'algo', 'algoritmos', 'matematica', 'calculo', 'algebra', 'grafos', 'logica','Analisis Matematico 2'],
         url: 'https://cms.fi.uba.ar/uploads/large_Galeria_PC_05_08c39ef5dd.jpg'
+    },
+
+    {
+        
+        palabrasClave: ['Fundamentos de programación', 'punteros', 'memoria', 'malloc','mendez','variables','condicionales'],
+        url: 'https://img-c.udemycdn.com/course/480x270/4613656_af92_3.jpg?w=3840&q=75'
     }
 ];
 
@@ -421,10 +427,10 @@ function renderizarCards(publicaciones){
         let colorTag = 'is-link'; 
         let iconoTag = 'fa-chalkboard-teacher'; 
 
-        if (pub.tipo === 'solicitante') {
+        if (pub.tipo === 'Solicitante') {
             colorTag = 'is-warning is-light'; 
             iconoTag = 'fa-hand-paper';
-        } else if (pub.tipo === 'mentor') {
+        } else if (pub.tipo === 'Mentor') {
             colorTag = 'is-primary is-light'; 
             iconoTag = 'fa-graduation-cap';
         }
@@ -439,7 +445,7 @@ function renderizarCards(publicaciones){
     
         htmlAcomulado += `
                 <div class="masonry-item">
-                    <div class="card">
+                    <div class="card card-recurso">
                         <div class="card-image">
                             <figure class="image is-4by3">
                                 <img src="${imagenPortada}" alt="${pub.tema}" style="object-fit: cover;">
