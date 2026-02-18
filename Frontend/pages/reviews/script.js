@@ -10,6 +10,7 @@ const listaSugerenciasPuntuado = document.getElementById("lista-sugerencias-punt
 const listaSugerenciasPuntuador = document.getElementById("lista-sugerencias-puntuador");
 const mensajeError = document.getElementById("mensajeError");
 const mensajeExito = document.getElementById("mensajeExito");
+const modalEliminar = document.getElementById('modal-eliminar');
 
 function contieneLetra(texto) {
   return /[a-zA-Z]/.test(texto);
@@ -37,6 +38,62 @@ async function cargarCard() {
 }
 
 cargarCard();
+
+cardContainer.addEventListener('click', (e) => {
+
+  console.log("Hiciste clic en:", e.target);
+
+  const btnEliminar = e.target.closest('.btn-eliminar');
+    if (btnEliminar) {
+        const idReview = btnEliminar.dataset.id;
+
+        pedirConfirmacion(idReview, btnEliminar);
+    }    
+});
+
+function pedirConfirmacion(id, elementoHTML) {
+    
+    idParaEliminar = id;
+    elementoParaEliminar = elementoHTML;
+
+    modalEliminar.classList.add('is-active');
+}
+
+function cerrarModalEliminar() {
+    modalEliminar.classList.remove('is-active');
+    idParaEliminar = null;
+    elementoParaEliminar = null;
+}
+
+document.getElementById('btn-cancelar-eliminar').addEventListener('click', cerrarModalEliminar);
+document.getElementById('btn-cerrar-x-eliminar').addEventListener('click', cerrarModalEliminar);
+document.querySelector('#modal-eliminar .modal-background').addEventListener('click', cerrarModalEliminar);
+
+document.getElementById('btn-confirmar-eliminar').addEventListener('click', async () => {
+    
+    if (idParaEliminar && elementoParaEliminar) {
+        modalEliminar.classList.remove('is-active');
+
+        await eliminarReview(idParaEliminar, elementoParaEliminar);
+    }
+});
+
+async function eliminarReview(id_review, boton) {
+    if (!id_review) return console.error("Error: No hay ID de Review");
+    try {
+        const response = await fetch(`http://localhost:3000/api/reviews/${id_review}`, {
+            method: 'DELETE'
+        });
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.error || "Error en servidor");
+        }
+        cargarCard();
+    } catch (error) {
+        console.error("Fallo eliminar review:", error);
+        alert(error.message); 
+    }
+}
 
 function renderizarReviews(reviews) {
     cardContainer.innerHTML = ' ';
@@ -67,40 +124,85 @@ function renderizarReviews(reviews) {
                         </div>
                     </div>
                     <footer class="card-footer">
-                        <a class="card-footer-item button is-white is-small" onclick="abrirPopupModificarReview(${review.id_review})">Editar</a>
-                        <a class="card-footer-item button is-white is-small" onclick="confirmacionEliminarReview(${review.id_review}, this)">Eliminar</a>
+                        <a class="card-footer-item button is-white is-small has-text-info" onclick="abrirPopupModificarReview(${review.id_review})">
+                          <span class="icon">
+                                    <i class="fas fa-pen-nib fa-lg"></i>
+                                </span>  
+                          <span>Editar Review</span>
+                        </a>
+                        <a class="card-footer-item button is-small is-white has-text-danger p-1 btn-eliminar"
+                                data-id="${review.id_review}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                <span>Eliminar Review</span>
+                        </a>
                     </footer>
                 </div>
 
-                <div class="popup-overlay" id="popupOverlayModificarReview${review.id_review}">
-                    <div class="popup-content">
-                        <h2 class="tituloPopup">Modificar Review</h2>
-                        <form id="formModificarReview${review.id_review}" onsubmit="event.preventDefault(); modificarReview(${review.id_review});">
-                            <div class="field">
-                                <label class="label">Descripción:</label>
-                                <div class="control">
-                                    <textarea class="textarea" name="descripcion" required>${review.descripcion}</textarea>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">Aura:</label>
-                                <div class="control">
-                                    <input class="input" type="number" name="aura" value="${review.aura}" required>
-                                </div>
-                            </div>
-                            <input type="hidden" name="id_puntuado" value="${review.puntuado.id_user}">
-                            <input type="hidden" name="id_puntuador" value="${review.puntuador.id_user}">
-                        </form>
-                        <div class="botones-popup mt-4">
-                            <button class="button is-link is-light" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button>
-                            <button class="button is-link" type="submit" form="formModificarReview${review.id_review}">Guardar</button>
-                        </div>
+                <div class="modal" id="popupOverlayModificarReview${review.id_review}">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                        <header class="modal-card-head has-background-white border-bottom">
+                            <p class="modal-card-title has-text-link has-text-weight-bold">Editar Review</p>
+                            <button class="delete" aria-label="close" onclick="cerrarPopupModificarReview(${review.id_review})"></button>
+                        </header>
+                        <section class="modal-card-body">
+                          <form id="formModificarReview${review.id_review}" onsubmit="event.preventDefault(); modificarReview(${review.id_review});">
+                              
+                              <div class="field">
+                                  <label class="label">Puntuado (Seleccionar Perfil):</label>
+                                  <div class="control dropdown is-fullwidth">
+                                      <input class="input input-busqueda-edit" type="text" placeholder="Escribe para buscar (ej: Juan, Tomas...)"
+                                          id="input-edit-puntuado-${review.id_review}"
+                                          value="${review.puntuado.nombre} ${review.puntuado.apellido}"
+                                          data-type="puntuado" data-id="${review.id_review}" autocomplete="off">
+                                      <input type="hidden" name="id_puntuado" id="hidden-edit-puntuado-${review.id_review}" value="${review.puntuado.id_user}">
+                                      <div class="lista-sugerencias-edit" id="lista-edit-puntuado-${review.id_review}"></div>
+                                  </div>
+                              </div>
+
+                              <div class="field">
+                                  <label class="label">Puntuador (Seleccionar Perfil):</label>
+                                  <div class="control dropdown is-fullwidth">
+                                      <input class="input input-busqueda-edit" type="text" placeholder="Escribe para buscar (ej: Juan, Tomas...)"
+                                          id="input-edit-puntuador-${review.id_review}"
+                                          value="${review.puntuador.nombre} ${review.puntuador.apellido}"
+                                          data-type="puntuador" data-id="${review.id_review}" autocomplete="off">
+                                      <input type="hidden" name="id_puntuador" id="hidden-edit-puntuador-${review.id_review}" value="${review.puntuador.id_user}">
+                                      <div class="lista-sugerencias-edit" id="lista-edit-puntuador-${review.id_review}"></div>
+                                  </div>
+                              </div>
+
+                              <div class="field">
+                                  <label class="label">Descripción:</label>
+                                  <div class="control">
+                                      <textarea class="textarea" name="descripcion" required>${review.descripcion}</textarea>
+                                  </div>
+                              </div>
+                              <div class="field">
+                                  <label class="label">Aura:</label>
+                                  <div class="control">
+                                      <input class="input" type="number" name="aura" value="${review.aura}" required>
+                                  </div>
+                              </div>
+                            </form>
+                        </section>
+                        <footer class="modal-card-foot has-background-white is-justify-content-flex-end">
+                          <button class="button is-rounded" onclick="cerrarPopupModificarReview(${review.id_review})">Cancelar</button>
+                              <button class="button is-link is-rounded" type="submit" form="formModificarReview${review.id_review}">
+                                <span class="icon is-small"><i class="fas fa-save"></i></span>
+                                <span>Guardar Cambios</span>
+                              </button>
+                        </footer>
                     </div>
+                  </div>
                 </div>
             </div>
         `;
         cardContainer.innerHTML += cardHTML;
     });
+    inicializarBuscadoresEdicion();
 }
 
 
@@ -123,8 +225,13 @@ async function modificarReview(id) {
     const id_puntuado = Number(formModificar.id_puntuado.value);
     const id_puntuador = Number(formModificar.id_puntuador.value);
 
-    if (!descripcion || Number.isNaN(aura)) {
-        alert("Campos inválidos");
+    if (!id_puntuado || !id_puntuador || !descripcion) {
+      alert("Por favor completa todos los campos obligatorios.");
+      return;
+    }
+
+    if (aura<=0 || Number.isNaN(aura)) {
+        alert("Aura debe ser un numero positivo");
         return;
     }
 
@@ -265,7 +372,7 @@ function renderizarSugerencias(listaUsuarios, contenedor, input, inputOculto) {
 
   if (listaUsuarios.length === 0) {
     contenedor.innerHTML =
-      `<div class="dropdown-item has-text-grey">No se encontraron resultados</div>`;
+      `<div class="dropdown-item has-text-grey">No hay resultados</div>`;
     contenedor.style.display = "block";
     return;
   }
@@ -294,30 +401,6 @@ function renderizarSugerencias(listaUsuarios, contenedor, input, inputOculto) {
 manejarBuscador(inputBuscadorPuntuado, listaSugerenciasPuntuado, inputOcultoPuntuado);
 manejarBuscador(inputBuscadorPuntuador, listaSugerenciasPuntuador, inputOcultoPuntuador);
 
-function confirmacionEliminarReview(id_review, boton) {
-    const confirmar = confirm("¿Estás seguro de que deseas eliminar este review?");
-    if (confirmar) {
-        eliminarReview(id_review, boton);
-    }
-}
-
-async function eliminarReview(id_review, boton) {
-    if (!id_review) return console.error("Error: No hay ID de Review");
-    try {
-        const response = await fetch(`http://localhost:3000/api/reviews/${id_review}`, {
-            method: 'DELETE'
-        });
-        if (!response.ok) {
-            const data = await response.json();
-            throw new Error(data.error || "Error en servidor");
-        }
-        cargarCard();
-    } catch (error) {
-        console.error("Fallo eliminar review:", error);
-        alert(error.message); 
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
   if ($navbarBurgers.length > 0) {
@@ -331,3 +414,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+function inicializarBuscadoresEdicion() {
+  const inputsBusqueda = document.querySelectorAll('.input-busqueda-edit');
+
+  inputsBusqueda.forEach(input => {
+    input.addEventListener('input', () => {
+      const texto = input.value.toLowerCase().trim();
+      const reviewId = input.dataset.id;
+      const tipo = input.dataset.type;
+      const listaSugerencias = document.getElementById(`lista-edit-${tipo}-${reviewId}`);
+      const inputOculto = document.getElementById(`hidden-edit-${tipo}-${reviewId}`);
+
+      if (!texto) {
+        listaSugerencias.style.display = "none";
+        inputOculto.value = "";
+        return;
+      }
+
+      const coincidencias = usuariosDisponibles.filter(u =>
+        u.nombre.toLowerCase().includes(texto) || u.apellido.toLowerCase().includes(texto)
+      );
+
+      renderizarSugerenciasEdicion(coincidencias, listaSugerencias, input, inputOculto);
+    });
+  });
+}
+
+function renderizarSugerenciasEdicion(usuarios, contenedor, input, inputOculto) {
+  if (usuarios.length === 0) {
+    contenedor.innerHTML = `<div class="dropdown-item has-text-grey">No hay resultados</div>`;
+  } else {
+    contenedor.innerHTML = usuarios.map(u => `
+            <a class="custom-dropdown-item dropdown-item">
+                <div><strong>${u.nombre} ${u.apellido}</strong></div>
+                <div class="is-size-7">${u.email}</div>
+            </a>
+        `).join("");
+  }
+
+  contenedor.style.display = "block";
+  const parentDropdown = contenedor.closest('.dropdown');
+  parentDropdown.classList.add('is-active');
+
+  contenedor.querySelectorAll(".custom-dropdown-item").forEach((item, i) => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      input.value = `${usuarios[i].nombre} ${usuarios[i].apellido}`;
+      inputOculto.value = usuarios[i].id_user;
+      parentDropdown.classList.remove('is-active');
+      contenedor.style.display = "none";
+    });
+  });
+}
