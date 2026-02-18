@@ -104,7 +104,7 @@ Para el desarrollo se utiliza una estrategia de ramas basada en funcionalidades 
 
 ### Inicio
 
-![Inicio](Screenshots/Inicio2.png)
+![Inicio2](Screenshots/Inicio2.png)
 
 ### Solicitud
 
@@ -112,7 +112,7 @@ Para el desarrollo se utiliza una estrategia de ramas basada en funcionalidades 
 
 ### Perfiles
 
-![Perfiles](Screenshots/Perfil.png)
+![Perfil](Screenshots/Perfil.png)
 
 ### Reviews 
 
