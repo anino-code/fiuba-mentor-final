@@ -506,14 +506,14 @@ function renderizarCards(publicaciones){
                             
                         </div>
 
-                        <div class="media is-vcentered border-top pt-3 footer-card">
-                                <div class="media-left">
-                                    <figure class="image is-32x32">
-                                        <img class="author-avatar" src="${pub.usuario.foto_user}" alt="Avatar">
+                        <div class="is-flex is-align-items-center is-justify-content-space-between pt-3 border-top" style="border-top: 1px solid #f0f0f0;">
+                                <div class="is-flex is-align-items-center">
+                                    <figure class="image is-32x32 mr-2">
+                                        <img class="author-avatar" src="${pub.usuario.foto_user}" alt="Avatar" style="object-fit: cover; border-radius: 50%; width: 100%; height: 100%;">
                                     </figure>
                                 </div>
                                 <div class="media-content">
-                                    <p class="is-size-7 has-text-weight-semibold has-text-dark">${pub.usuario.nombre} ${pub.usuario.apellido}</p>
+                                    <p class="is-size-7 has-text-weight-semibold has-text-dark mb-0">${pub.usuario.nombre} ${pub.usuario.apellido}</p>
                                 </div>
                                 <div class="media-right">
                                     <span 
