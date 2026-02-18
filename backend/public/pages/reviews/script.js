@@ -18,7 +18,7 @@ function contieneLetra(texto) {
 
 async function cargarUsuarios() {
   try {
-    const respuesta = await fetch("http://localhost:3000/api/users");
+    const respuesta = await fetch("/api/users");
     usuariosDisponibles = await respuesta.json();
   } catch (error) {
     console.error("Error al cargar usuarios:", error);
@@ -28,7 +28,7 @@ cargarUsuarios();
 
 async function cargarCard() {
     try{
-    const response = await fetch('http://localhost:3000/api/reviews');
+    const response = await fetch('/api/reviews');
     const datos = await response.json();
     renderizarReviews(datos);
     } catch (error){
@@ -81,7 +81,7 @@ document.getElementById('btn-confirmar-eliminar').addEventListener('click', asyn
 async function eliminarReview(id_review, boton) {
     if (!id_review) return console.error("Error: No hay ID de Review");
     try {
-        const response = await fetch(`http://localhost:3000/api/reviews/${id_review}`, {
+        const response = await fetch(`/api/reviews/${id_review}`, {
             method: 'DELETE'
         });
         if (!response.ok) {
@@ -264,7 +264,7 @@ async function modificarReview(id) {
     };
 
     try {
-        const respuesta = await fetch(`http://localhost:3000/api/reviews/${id}`, {
+        const respuesta = await fetch(`/api/reviews/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(datos)
@@ -353,7 +353,7 @@ form.addEventListener('submit', async function(event) {
   };
 
   try {
-    const respuesta = await fetch('http://localhost:3000/api/reviews', {
+    const respuesta = await fetch('/api/reviews', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(datos)

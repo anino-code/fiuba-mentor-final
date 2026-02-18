@@ -9,7 +9,7 @@ async function cargarCard() {
     try{
 
 
-    const response = await fetch('http://localhost:3000/api/forms?t=' + Date.now());
+    const response = await fetch('/api/forms?t=' + Date.now());
 
     if(!response.ok){
         throw new Error('No se pudo conectar con el servidor');
@@ -76,7 +76,7 @@ async function manejarContacto(idUsuario) {
         if(modalNombre) modalNombre.textContent = "Buscando mentor...";
         if(modalEmail) modalEmail.textContent = "...";
 
-        const response = await fetch(`http://localhost:3000/api/users/${idUsuario}`);
+        const response = await fetch(`/api/users/${idUsuario}`);
 
         
         if (!response.ok) {
@@ -127,7 +127,7 @@ async function manejarAura(idUsuario, boton) {
     try {
         console.log(` Sumando aura al usuario ${idUsuario}...`);
 
-        const response = await fetch('http://localhost:3000/api/reviews', {
+        const response = await fetch('/api/reviews', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -169,7 +169,7 @@ async function eliminarPublicacion(id, botonDOM) {
         botonDOM.classList.add('is-loading');
 
         
-        const response = await fetch(`http://localhost:3000/api/forms/${id}`, {
+        const response = await fetch(`/api/forms/${id}`, {
             method: 'DELETE',
         });
 
@@ -256,7 +256,7 @@ async function abrirModalEditar(idForm) {
         selectUsuario.innerHTML = '<option disabled selected>Cargando lista...</option>';
 
         
-        const responseUsers = await fetch('http://localhost:3000/api/users');
+        const responseUsers = await fetch('/api/users');
         const usuarios = await responseUsers.json();
 
         
@@ -268,7 +268,7 @@ async function abrirModalEditar(idForm) {
             selectUsuario.appendChild(option);
         });
 
-        const response = await fetch(`http://localhost:3000/api/forms/${idForm}`);
+        const response = await fetch(`/api/forms/${idForm}`);
         
         if (!response.ok) throw new Error("Error al traer datos");
         
@@ -322,7 +322,7 @@ if (btnGuardarEditar) {
         try {
             btnGuardarEditar.classList.add('is-loading');
 
-            const response = await fetch(`http://localhost:3000/api/forms/${idForm}`, {
+            const response = await fetch(`/api/forms/${idForm}`, {
                 method: 'PUT', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datosActualizados)

@@ -14,7 +14,7 @@ function contieneLetra(texto) {
 // Cargar usuarios desde el backend
 async function cargarUsuarios() {
   try {
-    const respuesta = await fetch("http://localhost:3000/api/users");
+    const respuesta = await fetch("/api/users");
     usuariosDisponibles = await respuesta.json();
   } catch (error) {
     console.error("Error al cargar usuarios:", error);
@@ -50,7 +50,7 @@ form.addEventListener('submit', async function(event) {
   };
 
   try {
-    const respuesta = await fetch('http://localhost:3000/api/forms', {
+    const respuesta = await fetch('/api/forms', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(datos)
