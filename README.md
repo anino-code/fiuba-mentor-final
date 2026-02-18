@@ -26,9 +26,9 @@ El diferencial del proyecto es su sistema de **Reputacion (Aura)**:
 | Nombre y Apellido | Legajo | Rol Principal |
 |-------------------|--------|---------------|
 | **Nicolas Gaitan** | 113347 | Dev front
-| **Tomas Correa** | 113878 | Dev front- back
-| **Esteban Ordoñez** | 112981 | Dev front- back-Db 
-| **Arleys Camaño** | 114432 | Dev front
+| **Tomas Correa** | 113878 | Dev front
+| **Esteban Ordoñez** | 112981 | Dev front back-Db 
+| **Arleys Camaño** | 114432 | Dev front back-Db
 
 
 
@@ -81,7 +81,7 @@ Siga estos pasos para levantar el entorno de desarrollo localmente.
     *Esto descargará las imágenes de Postgres y Node, e inicializará la base de datos con el script `database/init.sql`.*
 
 3.  **Acceder a la aplicación:**
-    * **Frontend:** http://localhost:8080 (o abrir `frontend/index.html` según configuración).
+    * **Frontend:** http://localhost:8080 (o abrir `Frontend/index.html` según configuración).
     * **API Backend:** http://localhost:3000.
     * **Base de Datos:** Puerto 5432 (Usuario: `postgres` / Pass: `postgres`).
 
@@ -102,16 +102,18 @@ Para el desarrollo se utiliza una estrategia de ramas basada en funcionalidades 
 
 ![Inicio](Screenshots/Inicio.png)
 
+![inicio2](Screenshots/inicio2.png)
+
 ### Solicitud
 
 ![Solicitud](Screenshots/Solicitud.png)
 
 ### Perfiles
 
-![Perfiles](Screenshots/Perfiles.png)
+![Perfil](Screenshots/Perfil.png)
 
 ### Reviews 
 
 ![Reviews](Screenshots/Reviews.png)
 
-> Proyecto realizado para la materia **Introducción al Desarrollo de Software** - FIUBA, 2025.
+> Proyecto realizado para la materia **Introducción al Desarrollo de Software** - FIUBA, 2026.
