@@ -149,6 +149,31 @@ function renderizarReviews(reviews) {
                         </header>
                         <section class="modal-card-body">
                           <form id="formModificarReview${review.id_review}" onsubmit="event.preventDefault(); modificarReview(${review.id_review});">
+                              
+                              <div class="field">
+                                  <label class="label">Mentor (Puntuado):</label>
+                                  <div class="control dropdown is-fullwidth">
+                                      <input class="input input-busqueda-edit" type="text"
+                                          id="input-edit-puntuado-${review.id_review}"
+                                          value="${review.puntuado.nombre} ${review.puntuado.apellido}"
+                                          data-type="puntuado" data-id="${review.id_review}" autocomplete="off">
+                                      <input type="hidden" name="id_puntuado" id="hidden-edit-puntuado-${review.id_review}" value="${review.puntuado.id_user}">
+                                      <div class="lista-sugerencias-edit" id="lista-edit-puntuado-${review.id_review}"></div>
+                                  </div>
+                              </div>
+
+                              <div class="field">
+                                  <label class="label">Alumno (Puntuador):</label>
+                                  <div class="control dropdown is-fullwidth">
+                                      <input class="input input-busqueda-edit" type="text"
+                                          id="input-edit-puntuador-${review.id_review}"
+                                          value="${review.puntuador.nombre} ${review.puntuador.apellido}"
+                                          data-type="puntuador" data-id="${review.id_review}" autocomplete="off">
+                                      <input type="hidden" name="id_puntuador" id="hidden-edit-puntuador-${review.id_review}" value="${review.puntuador.id_user}">
+                                      <div class="lista-sugerencias-edit" id="lista-edit-puntuador-${review.id_review}"></div>
+                                  </div>
+                              </div>
+
                               <div class="field">
                                   <label class="label">Descripción:</label>
                                   <div class="control">
@@ -179,6 +204,7 @@ function renderizarReviews(reviews) {
         `;
         cardContainer.innerHTML += cardHTML;
     });
+    inicializarBuscadoresEdicion();
 }
 
 
@@ -385,3 +411,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+function inicializarBuscadoresEdicion() {
+  const inputsBusqueda = document.querySelectorAll('.input-busqueda-edit');
+
+  inputsBusqueda.forEach(input => {
+    input.addEventListener('input', () => {
+      const texto = input.value.toLowerCase().trim();
+      const reviewId = input.dataset.id;
+      const tipo = input.dataset.type;
+      const listaSugerencias = document.getElementById(`lista-edit-${tipo}-${reviewId}`);
+      const inputOculto = document.getElementById(`hidden-edit-${tipo}-${reviewId}`);
+
+      if (!texto) {
+        listaSugerencias.style.display = "none";
+        inputOculto.value = "";
+        return;
+      }
+
+      const coincidencias = usuariosDisponibles.filter(u =>
+        u.nombre.toLowerCase().includes(texto) || u.apellido.toLowerCase().includes(texto)
+      );
+
+      renderizarSugerenciasEdicion(coincidencias, listaSugerencias, input, inputOculto);
+    });
+  });
+}
+
+function renderizarSugerenciasEdicion(usuarios, contenedor, input, inputOculto) {
+  if (usuarios.length === 0) {
+    contenedor.innerHTML = `<div class="dropdown-item has-text-grey">No hay resultados</div>`;
+  } else {
+    contenedor.innerHTML = usuarios.map(u => `
+            <a class="custom-dropdown-item dropdown-item">
+                <div><strong>${u.nombre} ${u.apellido}</strong></div>
+                <div class="is-size-7">${u.email}</div>
+            </a>
+        `).join("");
+  }
+
+  contenedor.style.display = "block";
+  const parentDropdown = contenedor.closest('.dropdown');
+  parentDropdown.classList.add('is-active');
+
+  contenedor.querySelectorAll(".custom-dropdown-item").forEach((item, i) => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      input.value = `${usuarios[i].nombre} ${usuarios[i].apellido}`;
+      inputOculto.value = usuarios[i].id_user;
+      parentDropdown.classList.remove('is-active');
+      contenedor.style.display = "none";
+    });
+  });
+}
