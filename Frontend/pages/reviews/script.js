@@ -230,7 +230,7 @@ async function modificarReview(id) {
       return;
     }
 
-    if (aura<0 || Number.isNaN(aura)) {
+    if (aura<=0 || Number.isNaN(aura)) {
         alert("Aura debe ser un numero positivo");
         return;
     }
